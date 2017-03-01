@@ -77,8 +77,25 @@
       <p>
           <%= post.thread %>
       </p>
-  </div>
+  
+  <!-- Textbox and button for comment submission -->
+  <form action = "http://127.0.0.1:4000/new_show_post" method = "POST">
+    <textarea name="comment" rows="10" cols="50" placeholder="Comment"></textarea>
+    <br>
+    <a href = "show?id=<%= id %>"><input type = "submit" value = "Comment"></a>
+    <br>
+  </form>
+
+<!--   <p> <%= id %> </p>
+ -->
+  <% postcomment.forEach(function(comment, i) { %>
+      <p>
+      <%= comment %>
+      </p>
+  <% }); %>
+
 </div>
+
 
 <footer class="container-fluid text-center">
   <p>Footer Text</p>

@@ -47,7 +47,8 @@ router.post('/new_thread_post', urlencodedParser, function (req, res) {
 		"comment": ['']
 	});
 	//TODO: Write this new post into a json file containing all of the posts
-	res.render('pages/index', {posts: posts});
+	///res.render('pages/index', {posts: posts});
+	res.redirect('/');
 });
 
 
@@ -57,5 +58,6 @@ router.post('/new_show_post', urlencodedParser, function (req, res) {
 	selectedPost.comment.push(req.body.comment);
 	var selectedPostComment = selectedPost.comment;
 
-	res.render('pages/show', {post: selectedPost, id:id, postcomment:selectedPostComment});
+	//res.render('pages/show', {post: selectedPost, id:id, postcomment:selectedPostComment});
+	res.redirect('/show?id=' + id);
 });

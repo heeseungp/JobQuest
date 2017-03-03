@@ -1,0 +1,28 @@
+.threadContainer {
+  padding: 10px;
+  margin: 10px;
+  width: 440px;
+  border: 1px solid green;
+}
+
+.thread {
+  padding: 7px;
+  margin: 5px;
+  border: 1px black solid;
+  width: 400px;
+}
+
+.threadTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.content {
+  display: inline-block;
+}
+
+.counter {
+  width: 25px;
+  margin: 0;
+  display: inline-block;
+}

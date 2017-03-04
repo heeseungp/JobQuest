@@ -17,17 +17,27 @@ class App extends Component {
 
     return (
       <div>
-      <nav>
-        <div className="nav-wrapper blue-grey darken-4">
-          <a className="brand-logo center">
-            <img src={logo} className="App-logo" alt="logo" />
-          </a>
+        <ul id="dropdown1" className="dropdown-content">
+          <li><a href="#!">one</a></li>
+          <li><a href="#!">two</a></li>
+          <li><a href="#!">three</a></li>
+        </ul>
+        <nav>
+          <div className="nav-wrapper blue-grey darken-4">
+            <a className="brand-logo center">
+              <img src={logo} className="App-logo" alt="logo" />
+            </a>
+            <ul className="right hide-on-med-and-down">
+              <li><a className="dropdown-button" href="#!" data-activates="dropdown1">
+                <i className="material-icons right">more_vert</i></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div className="row">
+            <ThreadContainer data={threadData} />
+            <FutureEvents />
         </div>
-      </nav>
-      <div className="row">
-          <ThreadContainer data={threadData} />
-          <FutureEvents />
-      </div>
     </div>
     );
   }

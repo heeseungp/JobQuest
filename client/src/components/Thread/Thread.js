@@ -26,7 +26,7 @@ var ThreadContainer = React.createClass({
 var Thread = React.createClass({
   render: function(){
     return (
-      <div className="thread">
+      <div className="thread card-panel z-depth-4">
         <VoteCounter />
 
         <div className="content">

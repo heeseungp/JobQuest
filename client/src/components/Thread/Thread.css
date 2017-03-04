@@ -10,7 +10,7 @@
 .thread {
   padding: 7px;
   margin: 5px;
-  border: 1px black solid;
+  /*border: 1px black solid;*/
   width: 400px;
 }
 

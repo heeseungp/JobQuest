@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import ThreadContainer from '../Thread/Thread';
+import FutureEvents from '../Events/FutureEvents';
 import './App.css';
 
 class App extends Component {
@@ -15,15 +16,21 @@ class App extends Component {
     ];
 
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div>
+      <nav>
+        <div className="nav-wrapper blue-grey darken-4">
+          <a className="brand-logo center">
+            <img src={logo} className="App-logo" alt="logo" />
+          </a>
         </div>
-        <ThreadContainer data={threadData} />
+      </nav>
+      <div className="row">
+          <ThreadContainer data={threadData} />
+          <FutureEvents />
       </div>
+    </div>
     );
   }
 }
-
+// TODO: add Event containers
 export default App;

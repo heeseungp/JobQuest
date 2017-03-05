@@ -23,6 +23,11 @@
       background-color: #f1f1f1;
       height: 100%;
     }
+
+    .buttontxt {
+      font-weight: bold;
+      font-size: 20px;
+    }
     
     /* Set black background color, white text and some padding */
     footer {
@@ -56,7 +61,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="new_thread">New Thread</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="post_test">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -69,11 +74,42 @@
 <div class="container-fluid text-left">    
        <!-- Displays all of the threads and their date-->
        <h3>Threads</h3>
-            <% posts.forEach(function(posts, i) { %>
-            <p>
-            <a href = "show?id=<%= i %>"><h3><b><%= posts.title %></b></h3></a>
-            Created at <%= posts.created_at %>
-            </p>
+            <% 
+            // Sorts posts array in descending order based on vote count. If votes are equal, it sorts
+            // by date created in descending order.
+            posts.sort(function(a,b) {
+              return (parseInt(b.votecount) - parseInt(a.votecount)) || (b.created_at - a.created_at);
+            });
+            posts.forEach(function(post, i) { %>
+            <!-- Display button for upvoting a post -->
+            <div style="display: inline-block; padding: 0px 5px 0px 5px;">
+              <form action = "http://127.0.0.1:4000/vote_up_post?id=<%= i %>" method = "POST">
+                <input class="buttontxt" type="submit" value="&uarr;" />
+              </form>
+            </div>
+            
+            <!-- Display a post's current vote count -->
+            <div style="display: inline-block;">
+              <h3><%= post.votecount %></h3>
+            </div>
+            
+            <!-- Display button for downvoting a post -->
+            <div style="display: inline-block; padding: 0px 5px 0px 5px;">
+              <form action = "http://127.0.0.1:4000/vote_down_post?id=<%= i %>" method = "POST">
+                <input class="buttontxt" type="submit" value="&darr;" />
+              </form>
+            </div>
+
+            <!-- Display a clickable link of the post's title -->
+            <div style="display: inline-block;">
+              <a href = "show?id=<%= i %>"><h3><b><%= post.title %></b></h3></a>
+            </div>
+            
+            <!-- Display the post's timestamp -->
+            <div>
+            <i>Created at <%= post.created_at %></i>
+            </div>
+
             <% }); %>
   </div>
 

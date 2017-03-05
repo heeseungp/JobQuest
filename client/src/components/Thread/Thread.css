@@ -9,9 +9,10 @@
 }
 .thread {
   padding: 7px;
-  margin: 5px;
+  margin: 10px;
   /*border: 1px black solid;*/
   width: 400px;
+  text-align: center;
 }
 
 .threadTitle {

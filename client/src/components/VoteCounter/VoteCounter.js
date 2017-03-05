@@ -1,12 +1,16 @@
 
 import React, { Component } from 'react';
 
-class VoteCounter extends Component {
-  render() {
-    return (
-      <div></div>
-    );
-  }
+function VoteCounter(props){
+  return (
+    <div>
+      <div className="voteCount">{props.votes}</div>
+    </div>
+  );
 }
+
+VoteCounter.propTypes = {
+  votes: React.PropTypes.number.isRequired
+};
 
 export default VoteCounter;

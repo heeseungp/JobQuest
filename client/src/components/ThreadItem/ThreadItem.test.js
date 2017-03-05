@@ -6,6 +6,8 @@ import ThreadItem from './ThreadItem';
 import VoteCounter from '../VoteCounter/VoteCounter';
 import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
 
+// prop passed is threadData
+// it contains 4 things: votecount, title, author, comments and date posted
 
 describe('ThreadItem', () => {
   it('should render VoteCounter and ThreadItemContent', () => {
@@ -16,4 +18,3 @@ describe('ThreadItem', () => {
     ])).to.equal(true);
   });
 });
-

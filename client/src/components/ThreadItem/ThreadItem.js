@@ -16,6 +16,10 @@ class ThreadItem extends Component {
   }
 }
 
+ThreadItem.propTypes = {
+  threadData: React.PropTypes.object.isRequired
+};
+
 export default ThreadItem;
 
 /*var ThreadContainer = React.createClass({

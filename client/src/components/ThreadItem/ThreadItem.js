@@ -1,9 +1,24 @@
 
 // now create a lists of threads
-import React from 'react';
-import './Thread.css';
+import React, { Component } from 'react';
+import VoteCounter from '../VoteCounter/VoteCounter';
+import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
+// import './Thread.css';
 
-var ThreadContainer = React.createClass({
+class ThreadItem extends Component {
+  render() {
+    return (
+      <div>
+        <VoteCounter/>
+        <ThreadItemContent/>
+      </div>
+    );
+  }
+}
+
+export default ThreadItem;
+
+/*var ThreadContainer = React.createClass({
   render: function(){
     return (
       <div className="threadContainer">
@@ -20,9 +35,9 @@ var ThreadContainer = React.createClass({
       </div>
     );
   }
-});
+});*/
 
-var Thread = React.createClass({
+/*var Thread = React.createClass({
   render: function(){
     return (
       <div className="thread">
@@ -36,9 +51,9 @@ var Thread = React.createClass({
       </div>
     );
   }
-});
+});*/
 
-var VoteCounter = React.createClass({
+/*var VoteCounter = React.createClass({
   render: function(){
     return (
       <div className="counter">
@@ -48,6 +63,4 @@ var VoteCounter = React.createClass({
       </div>
     );
   }
-});
-
-export default ThreadContainer;
+});*/

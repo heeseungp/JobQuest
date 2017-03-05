@@ -8,14 +8,26 @@ var FutureEvents = React.createClass({
         <div className="card blue-grey darken-1 z-depth-4">
           <div className="card-content white-text">
             <span className="card-title">Upcoming Events</span>
-            <p>Mar 16: Hackathon at CUNY Hunter at 5pm</p>
-            <p>May 5th: Job Fair at NYU</p>
-            <p>May 6th: Job Fair at WeWorks NoMad</p>
+            {this.props.data.map(function(events){
+              return(
+                <Events data={events} />
+              );
+            })}
           </div>
           <div className="card-action">
             <a href="#">See Calendar</a>
           </div>
         </div>
+      </div>
+    );
+  }
+});
+var Events = React.createClass({
+  render:function() {
+    return(
+      <div className="content">
+        <div className="threadTitle"> <h6>{this.props.data.title}</h6> </div>
+        <div> {this.props.data.post.slice(0, 50)} </div>
       </div>
     );
   }

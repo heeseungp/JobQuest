@@ -14,6 +14,11 @@ class App extends Component {
       post: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.', upvotes: 15 }, { title: 'Study guide for interning at the Big 4',
       post: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.', upvotes: 15 }
     ];
+    var eventData = [
+      {title:'Mar 14th', post:'Job Fair at NYU'},
+      {title:'May 4th',  post:'Hackathon at CUNY Grad Center'},
+      {title:'June 21',  post:'Job Fair at WeWorks NoMad'}
+    ];
 
     return (
       <div>
@@ -36,7 +41,7 @@ class App extends Component {
         </nav>
         <div className="row">
             <ThreadContainer data={threadData} />
-            <FutureEvents />
+            <FutureEvents  data={eventData}/>
         </div>
     </div>
     );

@@ -12,6 +12,11 @@ class ThreadItem extends Component {
     this.state = {
       votes: this.props.data.votes
     };
+
+    // still dont get this binding nonsense
+    // supposedly binds the instance
+    this.upVote = this.upVote.bind(this);
+    this.downVote = this.downVote.bind(this);
   }
 
   upVote(){
@@ -25,7 +30,9 @@ class ThreadItem extends Component {
   render() {
     return (
       <div>
-        <VoteCounter/>
+        <VoteCounter upvote={this.upVote} 
+                     downvote={this.downVote}
+                     votes={this.state.votes}/>
         <ThreadItemContent/>
       </div>
     );

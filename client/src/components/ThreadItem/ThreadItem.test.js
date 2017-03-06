@@ -39,5 +39,23 @@ describe('ThreadItem', () => {
 
     expect(wrapper.state('votes')).to.eql(threadData.votes-1);
   });
-  
+
+  it('pass votes to VoteCounter', () => {
+    const threadData = {votes: 5};
+    const wrapper = shallow(<ThreadItem data={threadData}/>);
+    const voteCounter = wrapper.find(VoteCounter);
+
+    expect(voteCounter.prop('votes')).to.eql(threadData.votes);
+  });
+
+  it('passes upvote and downvote to VoteCounter', () => {
+    const wrapper = shallow(<ThreadItem data={{}}/>);
+    const voteCounter = wrapper.find(VoteCounter);
+    const upvote = wrapper.instance().upVote;
+    const downvote = wrapper.instance().downVote;
+
+    expect(voteCounter.prop('upvote')).to.eql(upvote);
+    expect(voteCounter.prop('downvote')).to.eql(downvote);
+  });
+
 });

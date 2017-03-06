@@ -6,6 +6,22 @@ import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
 // import './Thread.css';
 
 class ThreadItem extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      votes: this.props.data.votes
+    };
+  }
+
+  upVote(){
+    this.setState({votes: this.state.votes+1});
+  }
+
+  downVote(){
+    this.setState({votes: this.state.votes-1});
+  }
+
   render() {
     return (
       <div>
@@ -17,7 +33,7 @@ class ThreadItem extends Component {
 }
 
 ThreadItem.propTypes = {
-  threadData: React.PropTypes.object.isRequired
+  data: React.PropTypes.object.isRequired
 };
 
 export default ThreadItem;

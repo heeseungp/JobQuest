@@ -16,4 +16,26 @@ describe('VoteCounter', () => {
     const wrapper = shallow(<VoteCounter votes={threadData.votecount} />);
     expect(wrapper.find('.voteCount').text()).to.equal('4');
   });
+
+  // TODO
+  // repetitive tests, code smelllll
+  it('should call upvote when clicked', () => {
+    const upvoteSpy = spy();
+    const wrapper = shallow(<VoteCounter upvote={upvoteSpy}/>);
+    const upvoteButton = wrapper.find('.upvote');
+
+    upvoteButton.simulate('click');
+
+    expect(upvoteSpy.calledOnce).to.equal(true);
+  });
+
+  it('should call downvote when clicked', () => {
+    const downvoteSpy = spy();
+    const wrapper = shallow(<VoteCounter downvote={downvoteSpy}/>);
+    const downvoteButton = wrapper.find('.downvote');
+
+    downvoteButton.simulate('click');
+
+    expect(downvoteSpy.calledOnce).to.equal(true);
+  });
 });

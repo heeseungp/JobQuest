@@ -117,7 +117,8 @@
  <h4>Comments</h4>
   <% post.comment.forEach(function(comment, i) { %>
       <p>
-      <%= comment %>
+      <%= comment[0] %><br>
+      <i><%= comment[1] %></i>
       </p>
   <% }); %>
 

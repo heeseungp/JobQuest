@@ -4,7 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 // TODO: initialize posts with the data from the file
-var posts = [{"title":"Example title", "thread":"Example text", "votecount":3, "created_at":new Date(), "comment":['hi', 'hello']}];
+var posts = [{"title":"Example title", "thread":"Example text", "votecount":3, "created_at":new Date(), "comment":[['hi', new Date()], ['hello', new Date()]]}];
 
 // create our router object
 var router = express.Router();
@@ -56,7 +56,7 @@ router.post('/new_thread_post', urlencodedParser, function (req, res) {
 		"thread":req.body.thread,
 		"votecount":0,
 		"created_at":d,
-		"comment": ['']
+		"comment": []
 	});
 	//TODO: Write this new post into a json file containing all of the posts
 	///res.render('pages/index', {posts: posts});
@@ -68,7 +68,7 @@ router.post('/new_thread_post', urlencodedParser, function (req, res) {
 router.post('/new_show_post', urlencodedParser, function (req, res) {
 	var id = req.query.id;
 	if(checkNumRange(id, 0, posts.length - 1)) {
-		posts[id].comment.push(req.body.comment);
+		posts[id].comment.push([req.body.comment, new Date()]);
 		res.redirect('/show?id=' + id);
 	}
 	else {

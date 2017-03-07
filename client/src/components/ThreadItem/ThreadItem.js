@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import VoteCounter from '../VoteCounter/VoteCounter';
 import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
-// import './Thread.css';
+import './ThreadItem.css';
 
 class ThreadItem extends Component {
   constructor(props){
@@ -28,19 +28,22 @@ class ThreadItem extends Component {
   }
 
   render() {
+    // make date contain only MM/DD/YYYY
+    var partialDate = this.props.data.date.split(' ').slice(0, 4).join(' ');
+
     return (
-      <div>
+      <div className="threadItem">
         <VoteCounter upvote={this.upVote} 
                      downvote={this.downVote}
                      votes={this.state.votes}/>
         
-        <div className="content">
+        <div className="threadContent">
           <div className="title">{this.props.data.title}</div>
 
           <div className="details">
-            <div className="author">{this.props.data.author}</div>
-            <div className="numOfComments">{this.props.data.comments.length}</div>
-            <div className="date">{this.props.data.date}</div>
+            <span className="author">Author - {this.props.data.author}</span> |
+            <span className="numOfComments">{this.props.data.comments.length} comments</span> |
+            <span className="date">Posted {partialDate}</span>
           </div>
         </div>
       </div>

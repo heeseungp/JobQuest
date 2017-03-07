@@ -8,7 +8,7 @@ import './App.css';
 class App extends Component {
   render() {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+                      comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
     
     var eventData = [
       {title:'Mar 14th', post:'Job Fair at NYU'},

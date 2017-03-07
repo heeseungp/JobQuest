@@ -7,25 +7,24 @@
 .card-panel{
   text-align: center;
 }
-.thread {
-  padding: 7px;
-  margin: 10px;
-  /*border: 1px black solid;*/
-  width: 400px;
-  text-align: center;
+
+.threadItem {
+  padding: 5px;
+  /*border: 1px solid black;*/
 }
 
-.threadTitle {
+.threadContent {
+  padding: 3px;
+  /*border: 1px solid black;*/
+  display: inline-block;
+}
+
+.title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.content {
-  display: inline-block;
-}
-
-.counter {
-  width: 25px;
-  margin: 0;
-  display: inline-block;
+.details > span {
+  margin: 4px;
+  font-size: 15px;
 }

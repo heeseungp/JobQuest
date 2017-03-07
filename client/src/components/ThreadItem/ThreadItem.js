@@ -33,7 +33,16 @@ class ThreadItem extends Component {
         <VoteCounter upvote={this.upVote} 
                      downvote={this.downVote}
                      votes={this.state.votes}/>
-        <ThreadItemContent/>
+        
+        <div className="content">
+          <div className="title">{this.props.data.title}</div>
+
+          <div className="details">
+            <div className="author">{this.props.data.author}</div>
+            <div className="numOfComments">{this.props.data.comments.length}</div>
+            <div className="date">{this.props.data.date}</div>
+          </div>
+        </div>
       </div>
     );
   }

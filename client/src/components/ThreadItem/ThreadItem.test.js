@@ -12,13 +12,17 @@ import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
 // setup -> action -> assertion
 describe('ThreadItem', () => {
   
-  it('should render VoteCounter and ThreadItemContent', () => {
+  // TODO, find a set up method
+  // threadData is being passed at every test...
+
+  it('should render VoteCounter', () => {
     // if data prop is not passed, it fails
     // the constructor is trying to access an undef value
-    const wrapper = shallow(<ThreadItem data={{}}/>);
+    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
+                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+    const wrapper = shallow(<ThreadItem data={threadData}/>);
     expect(wrapper.containsAllMatchingElements([
       <VoteCounter/>,
-      <ThreadItemContent/>
     ])).to.equal(true);
   });
 
@@ -41,7 +45,8 @@ describe('ThreadItem', () => {
   });
 
   it('pass votes to VoteCounter', () => {
-    const threadData = {votes: 5};
+    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
+                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
     const wrapper = shallow(<ThreadItem data={threadData}/>);
     const voteCounter = wrapper.find(VoteCounter);
 
@@ -49,7 +54,9 @@ describe('ThreadItem', () => {
   });
 
   it('passes upvote and downvote to VoteCounter', () => {
-    const wrapper = shallow(<ThreadItem data={{}}/>);
+    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
+                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+    const wrapper = shallow(<ThreadItem data={threadData}/>);
     const voteCounter = wrapper.find(VoteCounter);
     const upvote = wrapper.instance().upVote;
     const downvote = wrapper.instance().downVote;
@@ -58,4 +65,14 @@ describe('ThreadItem', () => {
     expect(voteCounter.prop('downvote')).to.eql(downvote);
   });
 
+  it('contains title, author, # of comments and date', () => {
+    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
+                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+    const wrapper = shallow(<ThreadItem data={threadData}/>);
+
+    expect(wrapper.find('.title').text()).to.equal(threadData.title);
+    expect(wrapper.find('.author').text()).to.equal(threadData.author);
+    expect(wrapper.find('.numOfComments').text()).to.equal(threadData.comments.length + '');
+    expect(wrapper.find('.date').text()).to.equal(threadData.date);
+  });
 });

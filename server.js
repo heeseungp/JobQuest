@@ -1,17 +1,16 @@
 // require our dependencies
-var express = require('express');
-var app = express();
-var port = 4000;
+var express = require('express'),
+	app = express(),
+	port = 4000,
+  	mongoose = require('mongoose'),
+  	Post = require('./app/models'),
+	bodyParser = require('body-parser');
 
-//set the view engine to ejs
-app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-//route our app
-var router = require('./app/routes');
-app.use('/',router);
-
-//set static files (css and images, etc) location
-app.use(express.static(__dirname + '/public'));
+var routes = require('./app/routes');
+routes(app);
 
 // start the server
 var server = app.listen(port, function() {

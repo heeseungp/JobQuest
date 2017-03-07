@@ -4,12 +4,25 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 // TODO: initialize posts with the data from the file
-var posts = [{"title":"Example title", "thread":"Example text", "created_at":new Date(), "comment":['hi', 'hello']}];
+var posts = [{"title":"Example title", "thread":"Example text", "votecount":3, "created_at":new Date(), "comment":[['hi', new Date()], ['hello', new Date()]]}];
 
 // create our router object
 var router = express.Router();
 // export our router
 module.exports = router;
+
+// simple function that returns true if a number is within or equal to two bounds, and false otherwise
+function checkNumRange(number, lowerBound, upperBound) {
+	if(isNaN(number)){	// if number isn't really a number, return false immediately
+		return false;
+	}
+	if(number >= lowerBound && number <= upperBound){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 // route for our homepage
 router.get('/', function(req, res) {
@@ -23,17 +36,15 @@ router.get('/new_thread', function (req, res) {
 	res.render('pages/newthread');
 });
 
-// router GET call for showing a select post's title and content
+// router GET call for showing a selected post's title and content
 router.get('/show', function(req, res) {
-  id = req.query.id;
+  var id = req.query.id;
   // checks to see whether id is a number that is between 0 and the # of posts - 1
-  if(!isNaN(id) && id < posts.length && id >= 0) {
-  	var selectedPost = posts[req.query.id];
-  	var selectedPostComment = selectedPost.comment;
-  	res.render('pages/show', {post: selectedPost, id:id, postcomment:selectedPostComment});
+  if(checkNumRange(id, 0, posts.length - 1)) {
+  	res.render('pages/show', {post: posts[id], id:id});
   }
   else{	// if it is not, returns a 404 not found error
-  	res.send("404 Error, Post Not Found");
+  	res.send("404 Error, post not found due to invalid id");
   }
 });
 
@@ -43,8 +54,9 @@ router.post('/new_thread_post', urlencodedParser, function (req, res) {
 	posts.push({
 		"title":req.body.title,
 		"thread":req.body.thread,
+		"votecount":0,
 		"created_at":d,
-		"comment": ['']
+		"comment": []
 	});
 	//TODO: Write this new post into a json file containing all of the posts
 	///res.render('pages/index', {posts: posts});
@@ -54,10 +66,36 @@ router.post('/new_thread_post', urlencodedParser, function (req, res) {
 
 // router POST call for parsing the submitted comment and pushing the data into the array of comments
 router.post('/new_show_post', urlencodedParser, function (req, res) {
-	var selectedPost = posts[id];
-	selectedPost.comment.push(req.body.comment);
-	var selectedPostComment = selectedPost.comment;
+	var id = req.query.id;
+	if(checkNumRange(id, 0, posts.length - 1)) {
+		posts[id].comment.push([req.body.comment, new Date()]);
+		res.redirect('/show?id=' + id);
+	}
+	else {
+		res.send("404 Error, post not found due to invalid id");
+	}
+});
 
-	//res.render('pages/show', {post: selectedPost, id:id, postcomment:selectedPostComment});
-	res.redirect('/show?id=' + id);
+// router POST call for voting up a selected post
+router.post('/vote_up_post', function(req, res) {
+  var id = req.query.id;
+  if(checkNumRange(id, 0, posts.length - 1)) {
+  	posts[id].votecount++;
+  	res.redirect('back');	// Redirects to the page BEFORE the post call, allows us to upvote/downvote on any page
+  }
+  else{
+  	res.send("404 Error, post not found due to invalid id");
+  }
+});
+
+// router POST call for voting down a selected post
+router.post('/vote_down_post', function(req, res) {
+  var id = req.query.id;
+  if(checkNumRange(id, 0, posts.length - 1)) {
+  	posts[id].votecount--;
+  	res.redirect('back');
+  }
+  else{
+  	res.send("404 Error, post not found due to invalid id");
+  }
 });

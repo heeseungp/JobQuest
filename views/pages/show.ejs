@@ -72,27 +72,53 @@
 </nav>
   
 <div class="container-fluid text-left">    
-   <!-- Shows the title and contents of a post -->
-   <h3><%= post.title %></h3>
+    <!-- Display button for upvoting a post -->
+    <div style="display: inline-block; padding: 0px 5px 0px 5px;">
+      <form action = "http://127.0.0.1:4000/vote_up_post?id=<%= id %>" method = "POST">
+        <input class="buttontxt" type="submit" value="&uarr;" />
+      </form>
+    </div>
+    
+    <!-- Display a post's current vote count -->
+    <div style="display: inline-block;">
+      <h3><%= post.votecount %></h3>
+    </div>
+    
+    <!-- Display button for downvoting a post -->
+    <div style="display: inline-block; padding: 0px 5px 0px 5px;">
+      <form action = "http://127.0.0.1:4000/vote_down_post?id=<%= id %>&source=show" method = "POST">
+        <input class="buttontxt" type="submit" value="&darr;" />
+      </form>
+    </div>
+
+    <!-- Shows the title and contents of a post -->
+    <div style="display: inline-block;">
+    <h3><%= post.title %></h3>
+    </div>
       <p>
           <%= post.thread %>
       </p>
+
+  <hr>
   
   <!-- Textbox and button for comment submission -->
-  <form action = "http://127.0.0.1:4000/new_show_post" method = "POST">
+  <label>Add a new comment</label>
+  <form action = "http://127.0.0.1:4000/new_show_post?id=<%= id %>&source=show" method = "POST">
     <textarea name="comment" rows="10" cols="50" placeholder="Comment"></textarea>
     <br>
-    <a href = "show?id=<%= id %>"><input type = "submit" value = "Comment"></a>
+    <input type = "submit" value = "Comment">
     <br>
   </form>
+
+  <hr>
 
 <!--   <p> <%= id %> </p>
  -->
  <h4>Comments</h4>
-  <% postcomment.forEach(function(comment, i) { %>
+  <% post.comment.forEach(function(comment, i) { %>
       <p>
-      <%= comment %>
-      <!-- <i><small><%= postcomment.timestamp %></small><i> -->
+      <%= comment[0] %><br>
+      <i><%= comment[1] %></i>
       </p>
   <% }); %>
 

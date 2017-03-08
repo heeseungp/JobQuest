@@ -25,24 +25,6 @@ describe('ThreadItem', () => {
     ])).to.equal(true);
   });
 
-  it('add one on upvote', () => {
-    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
-    const wrapper = shallow(<ThreadItem data={threadData}/>);
-    wrapper.instance().upVote();
-
-    expect(wrapper.state('votes')).to.eql(threadData.votes+1);
-  });
-
-  it('subtract one on downvote', () => {
-    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
-    const wrapper = shallow(<ThreadItem data={threadData}/>);
-    wrapper.instance().downVote();
-
-    expect(wrapper.state('votes')).to.eql(threadData.votes-1);
-  });
-
   it('pass votes to VoteCounter', () => {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
                       comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};

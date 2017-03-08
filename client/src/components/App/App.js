@@ -5,6 +5,7 @@ import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
 import axios from 'axios';
+import update from 'immutability-helper';
 
 import './App.css';
 
@@ -18,6 +19,10 @@ class App extends Component {
     this.state = {
       threads: []
     };
+
+    // without these, instances don't have these methods
+    this.upvoteCount = this.upvoteCount.bind(this);
+    this.downvoteCount = this.downvoteCount.bind(this);
   }
 
   componentDidMount() {
@@ -26,18 +31,32 @@ class App extends Component {
       .then(res => {
         console.log(res.data);
         this.setState({threads: res.data})
-      });    
+      });
+
+    // const dummy = {title: 'Study guide', author: 'Daniel Chia', comments: [],
+    //                date: 'Sun Mon 09 1993', votes: 15};
+    // axios.post(url, dummy)
+    // .then(() => {console.log('cool')});
+
   }
 
   // should have two methods here where I can update the counts
   upvoteCount(idx) {
-    
+    // update the thread's count
+    const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x+1}}); 
+    let copy = this.state.threads.slice();
+    copy[idx] = updatedCount;
 
-
+    this.setState({threads: copy});
   }
 
-  downvoteCount() {
+  downvoteCount(idx) {
+    // update the thread's count
+    const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x-1}}); 
+    let copy = this.state.threads.slice();
+    copy[idx] = updatedCount;
 
+    this.setState({threads: copy});
   }
 
   render() {
@@ -69,7 +88,8 @@ class App extends Component {
           </div>
         </nav>
         <div className="row">
-          <ThreadItemContainer items={this.state.threads}/>
+          <ThreadItemContainer items={this.state.threads} 
+                               upvote={this.upvoteCount} downvote={this.downvoteCount}/>
           <FutureEvents  data={eventData}/>
         </div>
 			</div>

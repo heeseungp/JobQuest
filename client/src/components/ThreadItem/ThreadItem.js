@@ -8,10 +8,6 @@ class ThreadItem extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      votes: this.props.data.votes
-    };
-
     // still dont get this binding nonsense
     // supposedly binds the instance
     this.upVote = this.upVote.bind(this);
@@ -19,11 +15,13 @@ class ThreadItem extends Component {
   }
 
   upVote(){
-    this.setState({votes: this.state.votes+1});
+    // first execute the post and then update the UI
+
+    this.props.upvote();
   }
 
   downVote(){
-    this.setState({votes: this.state.votes-1});
+    this.props.downvote();
   }
 
   render() {
@@ -34,7 +32,7 @@ class ThreadItem extends Component {
       <div className="threadItem">
         <VoteCounter upvote={this.upVote} 
                      downvote={this.downVote}
-                     votes={this.state.votes}/>
+                     votes={this.props.data.votes}/>
         
         <div className="threadContent">
           <div className="title">{this.props.data.title}</div>

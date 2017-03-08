@@ -11,7 +11,8 @@ function ThreadItemContainer(props){
         </div>
       {props.items ? 
         props.items.map((thread, idx) => {
-          return <ThreadItem data={thread} />
+          return <ThreadItem key={idx} data={thread} upvote={() => props.upvote(idx)}
+                                                    downvote={() => props.downvote(idx)}/>
         })
         : null}
       </div>
@@ -21,6 +22,7 @@ function ThreadItemContainer(props){
 
 ThreadItemContainer.PropTypes = {
   items: React.PropTypes.array.isRequired
+  // add two funcs, TODO
 };
 
 export default ThreadItemContainer;

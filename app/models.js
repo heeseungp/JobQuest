@@ -19,12 +19,19 @@ var PostSchema = new Schema({
     type:String,
     required:true
   },
-  votecount: {
+  author: {
+    type:String,
+    default:'Anonymous',
+    required:true
+  },
+  votes: {
     type:Number,
+    default:0,
     required:true
   },
   created_at: {
     type:Date,
+    default:Date.now,
     required:true
   },
   comments:[{text:String, date:Date}]

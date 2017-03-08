@@ -16,8 +16,7 @@ exports.create_a_post = function(req, res) {
 	var new_post = new Post({
 		title:req.body.title,
 		thread:req.body.thread,
-		votecount:0,
-		created_at: new Date(),
+		author:req.body.author,
 		comments:[]
 	});
 
@@ -51,10 +50,10 @@ exports.vote_on_post = function(req, res) {
 			return res.send('Post id:'+id+' not found');
 		
 		if(type == "up"){
-			post.votecount++;
+			post.votes++;
 		}
 		else if(type == "down"){
-			post.votecount--;
+			post.votes--;
 		}
 		else{
 			return res.send('Invalid type used:'+type);

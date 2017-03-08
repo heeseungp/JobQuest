@@ -4,7 +4,6 @@ import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import ThreadItem from './ThreadItem';
 import VoteCounter from '../VoteCounter/VoteCounter';
-import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
 
 // prop passed is threadData
 // it contains 4 things: votecount, title, author, comments and date posted

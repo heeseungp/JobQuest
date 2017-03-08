@@ -2,7 +2,6 @@
 // now create a lists of threads
 import React, { Component } from 'react';
 import VoteCounter from '../VoteCounter/VoteCounter';
-import ThreadItemContent from '../ThreadItemContent/ThreadItemContent';
 import './ThreadItem.css';
 
 class ThreadItem extends Component {

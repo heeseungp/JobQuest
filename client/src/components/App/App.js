@@ -4,10 +4,42 @@ import logo from './logo.svg';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
+import axios from 'axios';
 
 import './App.css';
 
 class App extends Component {
+  // should all the data be held up here and pass down methods for things to be update?
+  // seems rather inefficient
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      threads: []
+    };
+  }
+
+  componentDidMount() {
+    const url = 'http://rest.learncode.academy/api/am/friends'; 
+    axios.get(url)
+      .then(res => {
+        console.log(res.data);
+        this.setState({threads: res.data})
+      });    
+  }
+
+  // should have two methods here where I can update the counts
+  upvoteCount(idx) {
+    
+
+
+  }
+
+  downvoteCount() {
+
+  }
+
   render() {
     // var threadData = {title: 'Study Guide', author: 'Daniel Chia',
     //                   comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
@@ -26,7 +58,7 @@ class App extends Component {
 
     return (
       <div>
-         <nav>
+        <nav>
           <div className="nav-wrapper">
             <a href="#" className="brand-logo">JobQuest</a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
@@ -37,13 +69,11 @@ class App extends Component {
           </div>
         </nav>
         <div className="row">
-            <ThreadItemContainer items={items}/>
-            <FutureEvents  data={eventData}/>
+          <ThreadItemContainer items={this.state.threads}/>
+          <FutureEvents  data={eventData}/>
         </div>
 			</div>
     );
-
-
 
   }
 }

@@ -8,10 +8,10 @@ module.exports = function(app) {
 
   app.route('/posts/:PostId')
     .get(controller.show_a_post)
-    .post(controller.add_a_comment);
+    .post(controller.add_a_comment);	//To Post or Put, that is the question
 
   app.route('/vote/:type/:PostId')
-  	.get(controller.vote_on_post);
+  	.post(controller.vote_on_post);
 
   app.use(function(req, res) {
   	res.status(404).send({url: req.originalUrl + ' not found'});

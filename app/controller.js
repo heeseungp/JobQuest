@@ -28,22 +28,6 @@ exports.create_a_post = function(req, res) {
 	});
 };
 
-exports.edit_a_post = function(req, res) {
-	var new_post = new Post({
-		title:req.body.title,
-		thread:req.body.thread,
-		author:req.body.author,
-		comments:[]
-	});
-
-	new_post.save(function(err, post) {
-		if (err)
-			return res.send(err);
-		return res.send('Post successfully created');
-		console.log("Post successfully created");
-	});
-};
-
 exports.show_a_post = function(req, res) {
 	var id = req.params.PostId;
 	Post.findById(id, function(err, post) {

@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Post = mongoose.model('Posts');
+var Comment = mongoose.model('Comments');
 
 exports.show_all_posts = function(req, res) {
 	Post.find({}, function(err, post) {
@@ -61,23 +62,29 @@ exports.vote_on_post = function(req, res) {
 
 		post.save(function(err) {
 			if(err)
-				res.send(err);
+				return res.send(err);
 			return res.send('Voted on post id:'+id);
 			console.log('Voted on post id:'+id);
-		})
+		});
 	});
 };
 
 exports.add_a_comment = function(req, res) {
 	var id = req.params.PostId;
 	var comment = req.body.text;
+	// If there is no comment provided, return
+	if(!comment)
+		return res.send('No comment provided');
 
-	Post.findByIdAndUpdate(id,
-		{$push: {"comments": {text: comment, date: new Date()}}}, 
-		{safe: true, upsert: true, new: true},
-		function(err, post) {
+	Post.findById(id, function(err, post) {
 			if(err)
-				console.log(err);
-			return res.send('Comment added to post id:'+id);
+				return res.send(err);
+			post.comments.push(new Comment({text:comment}));
+			post.save(function(err) {
+				if(err)
+					return res.send(err);
+				return res.send('Comment added to post id:'+id);
+				console.log('Comment added to post id:'+id);
+			});
 		});
 };

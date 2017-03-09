@@ -10,6 +10,14 @@ var connection = mongoose.createConnection('mongodb://localhost:27017/jobquest')
 autoIncrement.initialize(connection);
 mongoose.connect('mongodb://localhost:27017/jobquest');
 
+var CommentSchema = new Schema({
+  text:String,
+  created_at: {
+    type:Date,
+    default:Date.now
+  }
+});
+
 var PostSchema = new Schema({
   title: {
     type:String,
@@ -34,9 +42,10 @@ var PostSchema = new Schema({
     default:Date.now,
     required:true
   },
-  comments:[{text:String, date:Date}]
+  comments:[CommentSchema]
 });
 
 //Uses the mongoose-auto-increment plugin to auto-increment the ID
 PostSchema.plugin(autoIncrement.plugin, 'Posts');
 module.exports = mongoose.model('Posts', PostSchema);
+module.exports = mongoose.model('Comments', CommentSchema);

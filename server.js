@@ -9,7 +9,17 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//Middleware used to show all HTTP request info to the server
+app.use(function (req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}, function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+
 var routes = require('./app/routes');
+
 routes(app);
 
 // start the server

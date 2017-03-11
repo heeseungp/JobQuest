@@ -1,16 +1,28 @@
 'use strict';
 
-// I put the mongoose connections here so I could
-// access the mongoose connecton and initialize autoIncrement
-// I will be changing this later
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var autoIncrement = require('mongoose-auto-increment');
 var connection = mongoose.createConnection('mongodb://localhost:27017/jobquest'); 
-autoIncrement.initialize(connection);
 mongoose.connect('mongodb://localhost:27017/jobquest');
+var shortId = require('shortid');
+
+var CommentSchema = new Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
+  text:String,
+  created_at: {
+    type:Date,
+    default:Date.now
+  }
+});
 
 var PostSchema = new Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
   title: {
     type:String,
     required:true
@@ -34,9 +46,8 @@ var PostSchema = new Schema({
     default:Date.now,
     required:true
   },
-  comments:[{text:String, date:Date}]
+  comments:[CommentSchema]
 });
 
-//Uses the mongoose-auto-increment plugin to auto-increment the ID
-PostSchema.plugin(autoIncrement.plugin, 'Posts');
-module.exports = mongoose.model('Posts', PostSchema);
+module.exports = connection.model('Posts', PostSchema);
+module.exports = connection.model('Comments', CommentSchema);

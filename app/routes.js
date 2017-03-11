@@ -8,9 +8,17 @@ module.exports = function(app) {
 
   app.route('/posts/:PostId')
     .get(controller.show_a_post)
-    .post(controller.add_a_comment);	//To Post or Put, that is the question
+    .post(controller.edit_a_post)
+    .delete(controller.remove_a_post);
 
-  app.route('/vote/:type/:PostId')
+  app.route('/posts/:PostId/comment')
+  	.post(controller.add_a_comment);
+
+  app.route('/posts/:PostId/comment/:CommentId')
+  	.post(controller.edit_a_comment)
+  	.delete(controller.remove_a_comment);
+
+  app.route('/vote/:typeId/:PostId')
   	.post(controller.vote_on_post);
 
   app.use(function(req, res) {

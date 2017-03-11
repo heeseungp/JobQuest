@@ -7,7 +7,7 @@
  * Requires title, thread, author (optional) 
 
 * View specific post: GET /posts/[PostId]
- * [PostId] is the index of the post from oldest to newest
+ * [PostId] is the unique 9 character ID of the post
 * Edit a post: POST /posts/[PostId]
  * A new title and/or thread must be provided, otherwise old values will remain
 * Delete a post: DELETE /posts/[PostId]
@@ -17,6 +17,6 @@
 
 * Create a new comment: POST /posts/[PostId]/comment
 * Edit a comment: POST /posts/[PostId]/comment/[CommentId]
- * [CommentId] follows the same convention as [PostId], but for indexing oldest - newest comments instead.
+ * [CommentId] follows the same convention as [PostId]
 * Remove a comment: DELETE /posts/[PostId]/comment/[CommentId]
 

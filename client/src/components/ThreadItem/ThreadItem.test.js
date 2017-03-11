@@ -18,7 +18,7 @@ describe('ThreadItem', () => {
     // if data prop is not passed, it fails
     // the constructor is trying to access an undef value
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
     const wrapper = shallow(<ThreadItem data={threadData}/>);
     expect(wrapper.containsAllMatchingElements([
       <VoteCounter/>,
@@ -27,7 +27,7 @@ describe('ThreadItem', () => {
 
   it('pass votes to VoteCounter', () => {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
     const wrapper = shallow(<ThreadItem data={threadData}/>);
     const voteCounter = wrapper.find(VoteCounter);
 
@@ -36,7 +36,7 @@ describe('ThreadItem', () => {
 
   it('passes upvote and downvote to VoteCounter', () => {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: '"Sun Mar 05 2017 18:37:03 GMT-0500 (EST)"', votes: 1};
+                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
     const wrapper = shallow(<ThreadItem data={threadData}/>);
     const voteCounter = wrapper.find(VoteCounter);
     const upvote = wrapper.instance().upVote;
@@ -48,7 +48,7 @@ describe('ThreadItem', () => {
 
   it('contains title, author, # of comments and date', () => {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
+                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
     const wrapper = shallow(<ThreadItem data={threadData}/>);
 
     expect(wrapper.find('.title').exists()).to.eql(true);

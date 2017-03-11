@@ -9,12 +9,13 @@ function ThreadItemContainer(props){
         <div className="card-action">
           <h3>Threads</h3> 
         </div>
-      {props.items ? 
-        props.items.map((thread, idx) => {
-          return <ThreadItem key={idx} data={thread} upvote={() => props.upvote(idx)}
-                                                    downvote={() => props.downvote(idx)}/>
-        })
-        : null}
+
+        {props.items ? 
+          props.items.map((thread, idx) => {
+            return <ThreadItem key={idx} data={thread} upvote={() => props.upvote(idx)}
+                                                       downvote={() => props.downvote(idx)}/>
+          })
+          : null}
       </div>
     </div>
   );

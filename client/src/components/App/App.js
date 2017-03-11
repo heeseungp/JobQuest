@@ -26,17 +26,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const url = 'http://rest.learncode.academy/api/am/friends'; 
+    // const url = 'http://rest.learncode.academy/api/am/friends'; 
+
+    const url = '/posts/'; 
     axios.get(url)
       .then(res => {
         console.log(res.data);
+        console.log(res.data[0]._id);
         this.setState({threads: res.data})
       });
 
-    // const dummy = {title: 'Study guide', author: 'Daniel Chia', comments: [],
-    //                date: 'Sun Mon 09 1993', votes: 15};
-    // axios.post(url, dummy)
-    // .then(() => {console.log('cool')});
+    // const dummy = {title: 'new stuff brahh', thread: 'Nonsense bahh'};
+    // axios.post('/posts/', dummy)
+    // .then((res) => {console.log('the res is, ', res)})
+    // .catch(err => {
+    //   console.log(err);
+    // });
 
   }
 
@@ -63,12 +68,6 @@ class App extends Component {
     // var threadData = {title: 'Study Guide', author: 'Daniel Chia',
     //                   comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
     
-    const items = [
-      {title: 'Study Guide', author: 'Daniel Chia', comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1},
-      {title: 'Study Guide', author: 'Daniel Chia', comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 15},
-      {title: 'Study Guide', author: 'Daniel Chia', comments: [], date: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 7}
-    ];
-
     var eventData = [
       {title:'Mar 14th', post:'Job Fair at NYU'},
       {title:'May 4th',  post:'Hackathon at CUNY Grad Center'},

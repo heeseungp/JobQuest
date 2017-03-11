@@ -4,8 +4,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var connection = mongoose.createConnection('mongodb://localhost:27017/jobquest'); 
 mongoose.connect('mongodb://localhost:27017/jobquest');
+var shortId = require('shortid');
 
 var CommentSchema = new Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
   text:String,
   created_at: {
     type:Date,
@@ -14,6 +19,10 @@ var CommentSchema = new Schema({
 });
 
 var PostSchema = new Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
   title: {
     type:String,
     required:true

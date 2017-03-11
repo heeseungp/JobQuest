@@ -7,15 +7,15 @@ var Comment = mongoose.model('Comments');
 
 //Shows all posts. Returns every post in the collection.
 exports.show_all_posts = function(req, res) {
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
+	Post.find({}, function(err, posts) {
 		if (err)
 			return res.status(500).send(err);
-
+		console.log("All posts shown");
 		return res.json(posts);
 	});
 };
 
-//Creates a post given a title, thread, and author (optional). Returns a success message.
+//Creates a post given a title, thread, and author (optional). Returns the new post.
 exports.create_a_post = function(req, res) {
 	//Create a new post schema instance with a title, thread, and author.
 	//Only the title and thread is required; author defaults to "Anonymous" if none is provided.
@@ -30,44 +30,44 @@ exports.create_a_post = function(req, res) {
 	new_post.save(function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-
-		return res.send('Post successfully created');
+		console.log('Post successfully created with id:'+post._id);
+		return res.json(post);
 	});
 };
 
-//Displays a post given an ID. Returns the post in JSON format.
+//Displays a post given an ID. Returns the modified post.
 exports.show_a_post = function(req, res) {
 	var id = req.params.PostId;
-	//Sorts all of the posts based on their creation date (oldest to newest), then uses
-	//the value of id to index the resulting Post array (e.g. id=2 would get the third-oldest post, id=0 would get the oldest, etc.)
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
+	Post.findById(id, function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-		if(posts[id] == null)
+		if(post == null)
 			return res.status(404).send('Post id:'+id+' not found');
 
-		return res.json(posts[id]);
+		console.log('Displaying post with id:'+id)
+		return res.json(post);	
 	});
 };
 
-//Edits either a post's title, thread, or both. Returns a success message.
+//Edits either a post's title, thread, or both. Returns the modified post.
 exports.edit_a_post = function(req, res) {
 	var id = req.params.PostId;
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
+	Post.findById(id, function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-		if(posts[id] == null)
+		if(post == null)
 			return res.status(404).send('Post id:'+id+' not found');
 
 		//Sets a new value to the title/thread ONLY if a new title/thread value is provided.
 		//Otherwise, it will retain its old value
-		posts[id].title = req.body.title || posts[id].title;
-		posts[id].thread = req.body.thread || posts[id].thread;
+		post.title = req.body.title || post.title;
+		post.thread = req.body.thread || post.thread;
 
-		posts[id].save(function(err) {
+		post.save(function(err, post) {
 			if(err)
 				return res.status(500).send(err);
-			return res.send('Post id:'+id+' successfully updated');
+			console.log('Post id:'+id+' successfully updated');
+			return res.json(post);
 		});
 	});
 };
@@ -75,46 +75,48 @@ exports.edit_a_post = function(req, res) {
 //Removes a post. Returns a success message.
 exports.remove_a_post = function(req, res) {
 	var id = req.params.PostId;
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
+	Post.findById(id, function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-		if(posts[id] == null)
+		if(post == null)
 			return res.status(404).send('Post id:'+id+' not found');
 
-		posts[id].remove();
-		return res.send('Post id:'+id+' successfully removed');
+		post.remove();
+		console.log('Post id:'+id+' successfully removed');
+		return res.send('Post removed');
 	});
 };
 
-//Votes a post up/down depending on the :type query parameter. Returns a success message.
+//Votes a post up/down depending on the :type query parameter. Returns the modified post.
 exports.vote_on_post = function(req, res) {
 	var id = req.params.PostId;
 	var type = req.params.typeId;
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
+	Post.findById(id, function(err, post) {
 		if(err)
 			return res.status(500).send(err);
-		if(posts[id] == null) 
+		if(post == null) 
 			return res.status(404).send('Post id:'+id+' not found');
 		
 		if(type == "up"){	//Increment votes
-			posts[id].votes++;
+			post.votes++;
 		}
 		else if(type == "down"){	//Decrement votes
-			posts[id].votes--;
+			post.votes--;
 		}
 		else{
 			return res.status(404).send('Type'+type+' not found:');
 		}
 
-		posts[id].save(function(err) {
+		post.save(function(err, post) {
 			if(err)
 				return res.status(500).send(err);
-			return res.send('Voted on post id:'+id);
+			console.log('Voted on post id:'+id);
+			return res.json(post)
 		});
 	});
 };
 
-//Adds a comment to a post. Takes the id of the post and the comment text. Returns a success message.
+//Adds a comment to a post. Takes the id of the post and the comment text. Returns the modified post.
 exports.add_a_comment = function(req, res) {
 	var id = req.params.PostId;
 	var comment = req.body.text;
@@ -122,72 +124,45 @@ exports.add_a_comment = function(req, res) {
 	if(!comment)
 		return res.send('No comment provided');
 
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
-			if(err)
+	Post.findByIdAndUpdate(id, {$push: {"comments": new Comment({text:comment})}}, {"new": true, "upsert": true, "safe": true}, function (err, post) {
+			if (err) 
 				return res.status(500).send(err);
-			if(posts[id] == null) 
-				return res.status(404).send('Post id:'+id+' not found');
-
-			//Push the new comment into the comment array by creating a new comment schema instance.
-			posts[id].comments.push(new Comment({text:comment}));
-			posts[id].save(function(err) {
-				if(err)
-					return res.status(500).send(err);
-				return res.send('Comment added to post id:'+id);
-			});
-		});
+			console.log('Comment successfully inserted to post id:'+id);
+			return res.json(post);	
+	});
 };
 
-//Edits a comment. Takes a postid and commentid, which is the index of the post/comment 
-//sorted from oldest to newest, as well as the comment text. Returns a success message.
+//Edits a comment. Takes a postid and commentid as well as the comment text. Returns a success message.
 exports.edit_a_comment = function(req, res) {
 	var postid = req.params.PostId;
 	var commentid = req.params.CommentId;
 	var comment = req.body.text;
+
 	// If there is no comment provided, return
 	if(!comment)
-		return res.send('No comment provided');
+		return res.send('No new comment text provided');
 	
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
-		if (err)
+	Post.findOneAndUpdate({_id: postid, 'comments._id': commentid}, {$set: {'comments.$.text': comment}}, function(err, numAffected) {
+		if (err) 
 			return res.status(500).send(err);
-		if(posts[postid] == null)
-			return res.status(404).send('Post id:'+postid+' not found');
-		if(posts[postid].comments[commentid] == null)
-			return res.status(404).send('Comment id:'+commentid+' not found');
-
-		//Edits a post's comment
-		posts[postid].comments[commentid].text = comment;
-
-		posts[postid].save(function(err) {
-			if(err)
-				return res.status(500).send(err);
-			return res.send('Post id:'+postid+' comment id:'+commentid+' successfully updated');
-		});
+		if (numAffected.n == 0)
+			return res.status(404).send('No comment with post id:'+postid+' and comment id:'+commentid+' found');
+		console.log('Post id:'+postid+' comment id:'+commentid+' successfully updated');
+		return res.send('Post id:'+postid+' comment id:'+commentid+' successfully updated');
 	});
 };
 
-//Removes a comment. Takes a postid and commentid, which is the index of the post/comment 
-//sorted from oldest to newest. Returns a success message.
+//Removes a comment. Takes the postid and commentid. Returns a success message.
 exports.remove_a_comment = function(req, res) {
 	var postid = req.params.PostId;
 	var commentid = req.params.CommentId;
-	
-	Post.find().sort({'created_at':'asc'}).exec(function(err, posts) {
-		if (err)
+
+	Post.findOneAndUpdate({_id: postid}, {$pull: {comments: {_id: commentid}}}, {"new": true}, function(err, numRemoved) {
+		if (err) 
 			return res.status(500).send(err);
-		if(posts[postid] == null)
-			return res.status(404).send('Post id:'+postid+' not found');
-		if(posts[postid].comments[commentid] == null)
-			return res.status(404).send('Comment id:'+commentid+' not found');
-
-		//Removes comment from post
-		posts[postid].comments[commentid].remove();
-
-		posts[postid].save(function(err) {
-			if(err)
-				return res.status(500).send(err);
-			return res.send('Post id:'+postid+' comment id:'+commentid+' successfully removed');
-		});
+		if (numRemoved.n == 0)
+			return res.status(404).send('No comment with post id:'+postid+' and comment id:'+commentid+' found');
+		console.log('Post id:'+postid+' comment id:'+commentid+' successfully removed');
+		return res.send('Post id:'+postid+' comment id:'+commentid+' successfully removed');
 	});
 };

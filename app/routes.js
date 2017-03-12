@@ -20,10 +20,18 @@ module.exports = function(app) {
 
   app.route('/posts/:PostId')
     .get(controller.show_a_post)
-    .post(controller.add_a_comment);
+    .post(controller.edit_a_post)
+    .delete(controller.remove_a_post);
 
-  app.route('/vote/:type/:PostId')
-  	.get(controller.vote_on_post);
+  app.route('/posts/:PostId/comment')
+  	.post(controller.add_a_comment);
+
+  app.route('/posts/:PostId/comment/:CommentId')
+  	.post(controller.edit_a_comment)
+  	.delete(controller.remove_a_comment);
+
+  app.route('/vote/:typeId/:PostId')
+  	.post(controller.vote_on_post);
 
   app.use(function(req, res) {
   	res.status(404).send({url: req.originalUrl + ' not found'});

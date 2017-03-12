@@ -23,7 +23,6 @@ class ThreadItem extends Component {
       this.props.upvote();
     })
     .catch((err) => {
-      console.log('hahah, you cant upvote');
       console.log(err);
     })
   }

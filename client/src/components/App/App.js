@@ -4,65 +4,12 @@ import logo from './logo.svg';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
-import axios from 'axios';
-import update from 'immutability-helper';
 
 import './App.css';
 
 class App extends Component {
   // should all the data be held up here and pass down methods for things to be update?
   // seems rather inefficient
-
-  constructor(props){
-    super(props);
-
-    this.state = {
-      threads: []
-    };
-
-    // without these, instances don't have these methods
-    this.upvoteCount = this.upvoteCount.bind(this);
-    this.downvoteCount = this.downvoteCount.bind(this);
-  }
-
-  componentDidMount() {
-    // const url = 'http://rest.learncode.academy/api/am/friends'; 
-
-    const url = '/posts/'; 
-    axios.get(url)
-      .then(res => {
-        console.log(res.data);
-        console.log(res.data[0]._id);
-        this.setState({threads: res.data})
-      });
-
-    // const dummy = {title: 'new stuff brahh', thread: 'Nonsense bahh'};
-    // axios.post('/posts/', dummy)
-    // .then((res) => {console.log('the res is, ', res)})
-    // .catch(err => {
-    //   console.log(err);
-    // });
-
-  }
-
-  // should have two methods here where I can update the counts
-  upvoteCount(idx) {
-    // update the thread's count
-    const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x+1}}); 
-    let copy = this.state.threads.slice();
-    copy[idx] = updatedCount;
-
-    this.setState({threads: copy});
-  }
-
-  downvoteCount(idx) {
-    // update the thread's count
-    const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x-1}}); 
-    let copy = this.state.threads.slice();
-    copy[idx] = updatedCount;
-
-    this.setState({threads: copy});
-  }
 
   render() {
     // var threadData = {title: 'Study Guide', author: 'Daniel Chia',
@@ -87,8 +34,7 @@ class App extends Component {
           </div>
         </nav>
         <div className="row">
-          <ThreadItemContainer items={this.state.threads} 
-                               upvote={this.upvoteCount} downvote={this.downvoteCount}/>
+          <ThreadItemContainer/>
           <FutureEvents  data={eventData}/>
         </div>
 			</div>

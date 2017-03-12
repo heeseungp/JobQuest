@@ -5,8 +5,6 @@ var Schema = mongoose.Schema;
 var connection = mongoose.createConnection('mongodb://localhost:27017/jobquest'); 
 mongoose.connect('mongodb://localhost:27017/jobquest');
 var shortId = require('shortid');
-<<<<<<< HEAD
-=======
 
 var CommentSchema = new Schema({
   _id: {
@@ -19,7 +17,6 @@ var CommentSchema = new Schema({
     default:Date.now
   }
 });
->>>>>>> master
 
 var PostSchema = new Schema({
   _id: {
@@ -52,7 +49,6 @@ var PostSchema = new Schema({
   comments:[CommentSchema]
 });
 
-<<<<<<< HEAD
 var ApplicationSchema = new Schema({
 
   _id: {
@@ -85,8 +81,5 @@ var ApplicationSchema = new Schema({
 
 module.exports = mongoose.model('Posts', PostSchema);
 module.exports = connection.model('Applications', ApplicationSchema);
-
-=======
-module.exports = connection.model('Posts', PostSchema);
 module.exports = connection.model('Comments', CommentSchema);
->>>>>>> master
+

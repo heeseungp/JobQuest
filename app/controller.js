@@ -167,9 +167,6 @@ exports.remove_a_comment = function(req, res) {
 	});
 };
 
-<<<<<<< HEAD
-=======
->>>>>>> master
 
 
 

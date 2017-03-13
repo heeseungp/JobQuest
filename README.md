@@ -1,6 +1,6 @@
 # JobQuest
 
-## RESTful API Reference
+ ## RESTful API Reference
 
 * View all posts: GET /posts
 * Create a new post: POST /posts
@@ -19,4 +19,15 @@
 * Edit a comment: POST /posts/[PostId]/comment/[CommentId]
  * [CommentId] follows the same convention as [PostId]
 * Remove a comment: DELETE /posts/[PostId]/comment/[CommentId]
+Id]
+
+* View all applications: GET /applications
+* Create a new application: POST /applications
+ * Requires company, role, status and comment (optional) 
+
+* View specific application: GET /applications/[ApplicationId]
+ * [ApplicationId] is the unique 9 character ID of the application
+* Edit an application: POST /applications/[ApplicationId]
+ * A new company, role, status and/or comment must be provided, otherwise old values will remain
+* Delete an application: DELETE /applications/[ApplicationId]
 

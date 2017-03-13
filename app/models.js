@@ -49,5 +49,37 @@ var PostSchema = new Schema({
   comments:[CommentSchema]
 });
 
-module.exports = connection.model('Posts', PostSchema);
+var ApplicationSchema = new Schema({
+
+  _id: {
+    type:String,
+    'default':shortId.generate
+ },
+
+  company: {
+    type:String,
+    required:true
+  },
+  role: {
+    type:String,
+    required:true
+  },
+  status: {
+    type:String,
+    required:true
+  },
+  comment: {
+    type:String,
+    required:false
+  },
+  created_at: {
+    type:Date,
+    default:Date.now,
+    required:true
+  }
+});
+
+module.exports = mongoose.model('Posts', PostSchema);
+module.exports = connection.model('Applications', ApplicationSchema);
 module.exports = connection.model('Comments', CommentSchema);
+

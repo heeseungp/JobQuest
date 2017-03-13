@@ -166,3 +166,7 @@ exports.remove_a_comment = function(req, res) {
 		return res.send('Post id:'+postid+' comment id:'+commentid+' successfully removed');
 	});
 };
+
+
+
+

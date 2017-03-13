@@ -4,6 +4,7 @@ var express = require('express'),
 	port = 4000,
   	mongoose = require('mongoose'),
   	Post = require('./app/models'),
+	Application = require('./app/models'),
 	bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));

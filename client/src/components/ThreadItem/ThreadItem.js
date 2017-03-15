@@ -19,7 +19,7 @@ class ThreadItem extends Component {
     // first execute the post and then update the UI
     axios.post('/vote/up/' + this.props.data._id, {})
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       this.props.upvote();
     })
     .catch((err) => {
@@ -30,7 +30,7 @@ class ThreadItem extends Component {
   downVote(){
     axios.post('/vote/down/' + this.props.data._id, {})
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       this.props.downvote();
     })
     .catch((err) => {

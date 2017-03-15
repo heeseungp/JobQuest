@@ -4,6 +4,8 @@ import logo from './logo.svg';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
+import VoteCounter from '../VoteCounter/VoteCounter';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import './App.css';
 
@@ -22,6 +24,7 @@ class App extends Component {
     ];
 
     return (
+      <Router>
       <div>
         <nav>
           <div className="nav-wrapper">
@@ -34,10 +37,13 @@ class App extends Component {
           </div>
         </nav>
         <div className="row">
-          <ThreadItemContainer/>
+          <Route exact path="/" component={ThreadItemContainer} />
+
           <FutureEvents  data={eventData}/>
+          
         </div>
 			</div>
+      </Router>
     );
 
   }

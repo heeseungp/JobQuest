@@ -50,12 +50,10 @@ var PostSchema = new Schema({
 });
 
 var ApplicationSchema = new Schema({
-
   _id: {
     type:String,
     'default':shortId.generate
  },
-
   company: {
     type:String,
     required:true
@@ -73,6 +71,33 @@ var ApplicationSchema = new Schema({
     required:false
   },
   created_at: {
+    type:Date,
+    default:Date.now,
+    required:true
+  }
+});
+
+var UserSchema = new Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
+  userName: {
+    type:String,
+    unique:[true, 'This username is already taken'],  // Check uniqueness in controller when creating user
+    required:true
+  },
+  password: {
+    type:String,
+    min: [8, 'Minimum length for passsword is 8 characters'],
+    required:true
+  },
+  email: {  // Controller should verify email format before insertion
+    type:String,
+    unique:[true, 'This email is already taken'],  // Check uniqueness in controller when creating user
+    required:true
+  },
+  joined_at: {
     type:Date,
     default:Date.now,
     required:true

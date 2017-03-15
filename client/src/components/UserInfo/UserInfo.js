@@ -7,6 +7,7 @@ import update from 'immutability-helper';
 class UserInfo extends Component{
     constructor(props){
         super(props);
+        this.created_at = '03/14/2017';
         this.company = 'IBM';
         this.role = 'Software Engineering';
         this.status = 'Active';
@@ -26,7 +27,7 @@ class UserInfo extends Component{
     render(){
         return(
             <div>
-                <UserProfile role = {this.role} status = {this.status} company = {this.company} />
+                <UserProfile created_at={this.created_at} role= {this.role} status = {this.status} company = {this.company} />
             </div>
         )
     }

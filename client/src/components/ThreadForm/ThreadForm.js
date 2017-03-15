@@ -24,7 +24,7 @@ class ThreadForm extends Component {
 
   handleSubmit(event) {
     // create a new thread on db
-    aleart('you are submitting: ', this.state.title, this.state.desc);
+    
 
     // don't know what this does either
     event.preventDefault();
@@ -35,12 +35,14 @@ class ThreadForm extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Title:
-          <input id="threadTitle" type="text" 
+          <input id="tTitle" type="textarea" 
                  value={this.state.title} onChange={this.handleTitle}/>
         </label>
         <label>
-          <input id="threadDesc" type="textarea"
-                 value={this.state.desc} onChange={this.handleDesc} />
+          Description:
+          <textarea id="tDesc" 
+                 value={this.state.desc} onChange={this.handleDesc}/>
+          
         </label>
 
         <input id="submitButton" type="submit" value="Create new thread" />

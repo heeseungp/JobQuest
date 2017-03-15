@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
-import VoteCounter from '../VoteCounter/VoteCounter';
+import ThreadForm from '../ThreadForm/ThreadForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import './App.css';
@@ -28,16 +28,17 @@ class App extends Component {
       <div>
         <nav>
           <div className="nav-wrapper">
-            <a href="#" className="brand-logo">JobQuest</a>
+            <Link to="/" className="brand-logo">JobQuest</Link>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><a href="#">Sass</a></li>
-              <li><a href="#">Components</a></li>
-              <li><a href="#">JavaScript</a></li>
+              <li><Link to="/new_thread">New thread</Link></li>
+              <li><Link to="#">Components</Link></li>
+              <li><Link to="#">JavaScript</Link></li>
             </ul>
           </div>
         </nav>
         <div className="row">
           <Route exact path="/" component={ThreadItemContainer} />
+          <Route path="/new_thread" component={ThreadForm} />
 
           <FutureEvents  data={eventData}/>
           

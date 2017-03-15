@@ -8,12 +8,12 @@ describe('ThreadForm', () => {
 
   it('should have 3 input fields', () => {
     const wrapper = shallow(<ThreadForm/>);
-    expect(wrapper.find('input')).to.have.length(3);
+    expect(wrapper.find('input')).to.have.length(2);
   });
 
   it('should accept a title', () => {
     const wrapper = mount(<ThreadForm/>);
-    const titleInput = wrapper.find('#threadTitle');
+    const titleInput = wrapper.find('#tTitle');
     titleInput.simulate('change', {target: { value: 'I landed a job!' }});
     expect(wrapper.state('title')).to.equal('I landed a job!');
     expect(titleInput.prop('value')).to.equal('I landed a job!');
@@ -21,7 +21,7 @@ describe('ThreadForm', () => {
 
   it('should accept a description', () => {
     const wrapper = mount(<ThreadForm/>);
-    const descInput = wrapper.find('#threadDesc');
+    const descInput = wrapper.find('#tDesc');
     descInput.simulate('change', {target: { value: 'Hoorayyy' }});
     expect(wrapper.state('desc')).to.equal('Hoorayyy');
     expect(descInput.prop('value')).to.equal('Hoorayyy');

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class ThreadForm extends Component {
 
@@ -23,8 +24,18 @@ class ThreadForm extends Component {
   }
 
   handleSubmit(event) {
+
+    var newThread = {title: this.state.title, thread: this.state.desc};
     // create a new thread on db
-    
+    axios.post('/posts', newThread)
+    .then((res) => {
+      // no way to update the UI here, need to rework the app architecture
+      console.log('success', res);
+
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
     // don't know what this does either
     event.preventDefault();
@@ -32,21 +43,28 @@ class ThreadForm extends Component {
 
   render(){
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Title:
-          <input id="tTitle" type="textarea" 
-                 value={this.state.title} onChange={this.handleTitle}/>
-        </label>
-        <label>
-          Description:
-          <textarea id="tDesc" 
-                 value={this.state.desc} onChange={this.handleDesc}/>
-          
-        </label>
+      <div>
+        <form className="col s8" onSubmit={this.handleSubmit}>
+          <div className="row">
+            <div className="input-field col s6">
+              <input value={this.state.title} id="tTitle" type="text" 
+                    className="validate" onChange={this.handleTitle} />
+              <label>Title</label>
+            </div>
+          </div>
 
-        <input id="submitButton" type="submit" value="Create new thread" />
-      </form>
+          <div className="row">
+            <div className="input-field col s6">
+              <textarea id="tDesc" className="materialize-textarea"
+                        value={this.state.desc} onChange={this.handleDesc} ></textarea>
+              <label>Description</label>
+            </div>
+          </div>
+
+          <input id="submitButton" type="submit" value="Create new thread" 
+                className="waves-effect waves-light btn" />
+        </form>
+      </div>
     );
 
   }

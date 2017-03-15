@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
+import UserInfo from '../UserInfo/UserInfo';
 
 import './App.css';
 
@@ -33,6 +34,9 @@ class App extends Component {
             </ul>
           </div>
         </nav>
+        <div className="row">
+          <UserInfo/>
+        </div>
         <div className="row">
           <ThreadItemContainer/>
           <FutureEvents  data={eventData}/>

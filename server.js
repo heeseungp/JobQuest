@@ -2,9 +2,8 @@
 var express = require('express'),
 	app = express(),
 	port = 4000,
-  	mongoose = require('mongoose'),
-  	Post = require('./app/models'),
-	Application = require('./app/models'),
+	mongoose = require('mongoose'),
+	models = require('./app/models/models'),
 	bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,9 +18,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-var routes = require('./app/routes');
+//Require our routes and set the app to use them
+var posts = require('./app/routes/postRoutes');
+var comments = require('./app/routes/commentRoutes');
+var applications = require('./app/routes/applicationRoutes');
 
-routes(app);
+posts(app);
+comments(app);
+applications(app);
+
+//Sends a 404 not found error if the requested URL does not match any API request
+app.use(function(req, res) {
+	res.status(404).send({url: req.originalUrl + ' not found'});
+});
 
 // start the server
 var server = app.listen(port, function() {

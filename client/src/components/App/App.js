@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
+import ThreadForm from '../ThreadForm/ThreadForm';
 
 import './App.css';
 
@@ -27,14 +28,15 @@ class App extends Component {
           <div className="nav-wrapper">
             <a href="#" className="brand-logo">JobQuest</a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><a href="#">Sass</a></li>
+              <li><a href="#">New thread</a></li>
               <li><a href="#">Components</a></li>
               <li><a href="#">JavaScript</a></li>
             </ul>
           </div>
         </nav>
         <div className="row">
-          <ThreadItemContainer/>
+
+          <ThreadItemContainer />
           <FutureEvents  data={eventData}/>
         </div>
 			</div>

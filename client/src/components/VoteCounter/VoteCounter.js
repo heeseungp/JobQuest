@@ -5,13 +5,13 @@ import './VoteCounter.css';
 function VoteCounter(props){
   return (
     <div className="counter">
-      <a className="upvote" href="#" onClick={props.upvote}>
+      <a className="upvote" href="#/" onClick={props.upvote}>
         <i className="fa fa-chevron-up" aria-hidden="true"></i>
       </a>
 
       <div className="voteCount">{props.votes}</div>
 
-      <a className="downvote" href="#" onClick={props.downvote}>
+      <a className="downvote" href="#/" onClick={props.downvote}>
         <i className="fa fa-chevron-down" aria-hidden="true"></i>
       </a>
     </div>

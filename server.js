@@ -22,10 +22,12 @@ app.use(function (req, res, next) {
 var posts = require('./app/routes/postRoutes');
 var comments = require('./app/routes/commentRoutes');
 var applications = require('./app/routes/applicationRoutes');
+var auth = require('./app/routes/authRoutes');
 
 posts(app);
 comments(app);
 applications(app);
+auth(app);
 
 //Sends a 404 not found error if the requested URL does not match any API request
 app.use(function(req, res) {

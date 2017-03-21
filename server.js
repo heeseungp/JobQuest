@@ -5,9 +5,23 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	models = require('./app/models/models'),
 	bodyParser = require('body-parser');
+var passport = require('passport');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// passport middleware
+app.use(passport.initialize());
+
+// load passport strategies
+var localSignupStrategy = require('./app/passport/local-signup');
+var localLoginStrategy = require('./app/passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
+// pass the authenticaion checker middleware
+var authCheckMiddleware = require('./app/middleware/auth-check');
+app.use('/api', authCheckMiddleware);
 
 //Middleware used to show all HTTP request info to the server
 app.use(function (req, res, next) {
@@ -23,11 +37,13 @@ var posts = require('./app/routes/postRoutes');
 var comments = require('./app/routes/commentRoutes');
 var applications = require('./app/routes/applicationRoutes');
 var auth = require('./app/routes/authRoutes');
+var api = require('./app/routes/api');
 
 posts(app);
 comments(app);
 applications(app);
 auth(app);
+api(app);
 
 //Sends a 404 not found error if the requested URL does not match any API request
 app.use(function(req, res) {

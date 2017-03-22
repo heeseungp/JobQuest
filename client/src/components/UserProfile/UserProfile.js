@@ -1,13 +1,10 @@
 import React,{ Component } from 'react';
+import axios from 'axios';
 import './UserProfile.css';
 
-
-function UserProfile(props){
+  function UserProfile(props){
         return(
-         <div className="col m7">
-          <div className="card blue-grey darken-1">
-            <div className="card-content white-text">
-                <span className="card-title">Applications </span>
+            <div>
                 <table className="centered">
                     <thead>
                         <tr>
@@ -26,14 +23,9 @@ function UserProfile(props){
                             </tr>
                         </tbody>
                 </table>
-                <div className="card-action">
-                    <a href="#">Update</a>
-                </div>
             </div>
-          </div>
-        </div>  
         );
-}
+    }
 
 UserProfile.propTypes ={
  created_at: React.PropTypes.number.isRequired,

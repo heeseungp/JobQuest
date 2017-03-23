@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import './ProfileContainer.css'
 import UserProfile from '../UserProfile/UserProfile';
+
 import axios from "axios";
 
 class ProfileContainer extends Component{
@@ -27,7 +29,7 @@ class ProfileContainer extends Component{
         console.log(this.state.applications);
         console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA')
         return(
-            <div className="col m7">
+            <div className="col m8">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">Applications</span>
@@ -44,7 +46,7 @@ class ProfileContainer extends Component{
                                     this.state.applications.map((application, idx) => {
                                         console.log(application);
                                         console.log(idx);
-                                        return <UserProfile key={idx} created_at={application.created_at}
+                                        return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
                                                             company={application.company}
                                                             role={application.role}
                                                             status={application.status}

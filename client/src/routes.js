@@ -3,6 +3,7 @@ import HomePage from './components/HomePage/HomePage';
 import DashboardPage from './components/Dashboard/DashboardPage';
 import LoginPage from './components/LoginForm/LoginPage';
 import SignUpPage from './components/SignUpForm/SignUpPage';
+import ProfilePage from './components/Profile/ProfilePage';
 import Auth from './modules/Auth';
 
 
@@ -39,6 +40,11 @@ const routes = {
         // change the current URL to /
         replace('/');
       }
+    },
+
+    {
+      path: '/profile',
+      component: ProfilePage
     }
   ]
 };

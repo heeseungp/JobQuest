@@ -34,7 +34,9 @@ class App extends Component {
             </ul>
           </div>
         </nav>
-        <ProfileContainer /> 
+        <div className="row">
+          <ProfileContainer />
+        </div> 
         <div className="row">
           <ThreadItemContainer/>
           <FutureEvents  data={eventData}/>

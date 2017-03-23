@@ -7,10 +7,15 @@ const config = require('../../config');
  *  The Auth Checker middleware function.
  */
 module.exports = (req, res, next) => {
+
+  console.log('passing through the middleware route');
+
   if (!req.headers.authorization) {
+    console.log('no auth');
     return res.status(401).end();
   }
 
+  console.log('after authorization');
   // get the last part from a authorization header string like "bearer token-value"
   const token = req.headers.authorization.split(' ')[1];
 
@@ -20,6 +25,9 @@ module.exports = (req, res, next) => {
     if (err) { return res.status(401).end(); }
 
     const userId = decoded.sub;
+    console.log('the userid is, ', userId);
+    // adding the ID to the request to make calls to db later
+    req.userID = userId;
 
     // check if a user exists
     return User.findById(userId, (userErr, user) => {

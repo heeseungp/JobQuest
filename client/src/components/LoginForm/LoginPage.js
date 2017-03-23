@@ -62,6 +62,7 @@ class LoginPage extends React.Component {
         });
 
         // save the token
+        console.log('here is the response', xhr.response);
         Auth.authenticateUser(xhr.response.token);
 
 

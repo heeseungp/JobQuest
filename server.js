@@ -19,10 +19,6 @@ var localLoginStrategy = require('./app/passport/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
-// pass the authenticaion checker middleware
-var authCheckMiddleware = require('./app/middleware/auth-check');
-app.use('/api', authCheckMiddleware);
-
 //Middleware used to show all HTTP request info to the server
 app.use(function (req, res, next) {
   console.log('Request URL:', req.originalUrl);
@@ -31,6 +27,10 @@ app.use(function (req, res, next) {
   console.log('Request Type:', req.method);
   next();
 });
+
+// pass the authenticaion checker middleware
+var authCheckMiddleware = require('./app/middleware/auth-check');
+app.use('/api', authCheckMiddleware);
 
 //Require our routes and set the app to use them
 var posts = require('./app/routes/postRoutes');
@@ -43,7 +43,8 @@ posts(app);
 comments(app);
 applications(app);
 auth(app);
-api(app);
+
+app.use('/api', api);
 
 //Sends a 404 not found error if the requested URL does not match any API request
 app.use(function(req, res) {

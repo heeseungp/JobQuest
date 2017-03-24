@@ -27,7 +27,7 @@ class ThreadForm extends Component {
 
     var newThread = {title: this.state.title, thread: this.state.desc};
     // create a new thread on db
-    axios.post('/posts', newThread)
+    axios.post('/posts/create', newThread)
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);

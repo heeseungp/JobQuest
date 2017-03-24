@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import ThreadItem from '../ThreadItem/ThreadItem';
+import Paper from 'material-ui/Paper';
 import axios from 'axios';
 import update from 'immutability-helper';
 
@@ -62,20 +63,15 @@ class ThreadItemContainer extends Component {
   }
 
   render(){
-    return (
-      <div className="col m8">
-        <div className="card-panel white z-depth-4"> 
-          <div className="card-action">
-            <h3>Threads</h3> 
-          </div>
 
-          {this.state.threads ? 
-            this.state.threads.map((thread, idx) => {
-              return <ThreadItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
-                                                         downvote={() => this.downvoteCount(idx)}/>
-            })
-            : null}
-        </div>
+    return (
+      <div> 
+        {this.state.threads ? 
+          this.state.threads.map((thread, idx) => {
+            return <ThreadItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
+                                                        downvote={() => this.downvoteCount(idx)}/>
+          })
+          : null}
       </div>
     );
   }

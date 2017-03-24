@@ -9,13 +9,19 @@ class ProfileContainer extends Component{
         super(props);
 
         this.state = {
-            applications: []
+            applications: [],
+            add: false
         };
+        this.edit = this.edit.bind(this);
+        this.cancel = this.cancel.bind(this);
     };
-
+    edit(){
+        this.setState({add:true});
+    }
+    cancel(){
+        this.setState({add:false});
+    }
     componentDidMount() {
-    // const url = 'http://rest.learncode.academy/api/am/friends'; 
-
         const url = '/applications/'; 
         axios.get(url)
         .then(res => {
@@ -23,11 +29,25 @@ class ProfileContainer extends Component{
             //this.setState({threads: res.data})
         });
     }
+    renderForm(){
+        return(
+                <div className="col m8">
+                    <div className = "card blue-grey darken-1">
+                        <div className="card-content white-text">
+                            <span className="card-title">Application Process</span>
+                        </div>
+                        <div className="card-action">
+                            <a className="waves-effect waves-light btn" onClick={this.cancel}>Cancel</a>
+                        </div>
+                    </div>
+                </div>
+        );
 
-    render(){
-        console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVV')
+    }
+    renderRes(){
+        /*console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVV')
         console.log(this.state.applications);
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA') */
         return(
             <div className="col m8">
                 <div className="card blue-grey darken-1">
@@ -55,9 +75,22 @@ class ProfileContainer extends Component{
                                 : null}
                             </table>
                     </div>
+                    <div className="card-action">
+                        <a className="waves-effect waves-light btn" onClick = {this.edit}>Add</a>
+                    </div>
                 </div>
             </div>
         );
+
+    }
+    render(){
+        if(this.state.add){
+            return this.renderForm();
+        }
+        else{
+            return this.renderRes();
+        }
+ 
     }
     
     

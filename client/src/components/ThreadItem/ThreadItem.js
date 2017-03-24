@@ -44,7 +44,7 @@ class ThreadItem extends Component {
 
     const style = {
       height: 90,
-      width: 600,
+      width: 850,
       margin: 20,
     };
 

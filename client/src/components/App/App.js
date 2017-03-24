@@ -5,6 +5,7 @@ import ThreadItem from '../ThreadItem/ThreadItem';
 import FutureEvents from '../Events/FutureEvents';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer';
 import ThreadForm from '../ThreadForm/ThreadForm';
+import ProfileContainer from '../ProfileContainer/ProfileContainer';
 
 import './App.css';
 
@@ -35,8 +36,11 @@ class App extends Component {
           </div>
         </nav>
         <div className="row">
-
           <ThreadItemContainer />
+          <ProfileContainer />
+        </div> 
+        <div className="row">
+          <ThreadItemContainer/>
           <FutureEvents  data={eventData}/>
         </div>
 			</div>

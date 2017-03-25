@@ -12,6 +12,8 @@ class ProfileContainer extends Component{
 
         this.state = {
             applications: [],
+            displaySelectAll: false,
+            adjustForCheckbox: false,
             add: false
         };
         this.edit = this.edit.bind(this);
@@ -34,8 +36,8 @@ class ProfileContainer extends Component{
     renderForm(){
         return(
             <Card>
-                <CardHeader title = "Application Form"/>
-                <CardText>
+                <CardHeader title = "Application Form" style = {{textAlign: 'center'}}/>
+                <CardText style = {{textAlign:'center'}}>
                     <TextField hintText = "Company" />
                     <br />
                     <TextField hintText = "Role" />
@@ -54,59 +56,29 @@ class ProfileContainer extends Component{
         console.log(this.state.applications);
         console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA') */
         return(
-           /* <div className="col m8">
-                <div className="card blue-grey darken-1">
-                    <div className="card-content white-text">
-                        <span className="card-title">Applications</span>
-                            <table className="centered">
-                                <thead>
-                                    <tr>
-                                        <th data-field="Created-at">Date</th>
-                                        <th data-field="Company">Company</th>
-                                        <th data-field="Role">Role</th>
-                                        <th data-field="Status">Status</th>
-                                    </tr>
-                                </thead>
-                                {this.state.applications ? 
-                                    this.state.applications.map((application, idx) => {
-                                        console.log(application);
-                                        console.log(idx);
-                                        return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
-                                                            company={application.company}
-                                                            role={application.role}
-                                                            status={application.status}
-                                                            />
-                                    })
-                                : null}
-                            </table>
-                    </div>
-                    <div className="card-action">
-                        <a className="waves-effect waves-light btn" onClick = {this.edit}>Add</a>
-                    </div>
-                </div>
-            </div>
-        ); */
         <Card> 
-            <CardHeader title= "Application History" />
+            <CardHeader title= "Application History" style = {{textAlign: 'center'}} />
             <CardText>
                 <Table>
-                    <TableHeader>
-                        <TableRowColumn>Date</TableRowColumn>
-                        <TableRowColumn>Company</TableRowColumn>
-                        <TableRowColumn>Role</TableRowColumn>
-                        <TableRowColumn>Status</TableRowColumn>
+                    <TableHeader displaySelectAll = {this.state.displaySelectAll} adjustForCheckbox = {this.state.adjustForCheckbox}>
+                        <TableRow>
+                            <TableHeaderColumn>Date</TableHeaderColumn>
+                            <TableHeaderColumn>Company</TableHeaderColumn>
+                            <TableHeaderColumn>Role</TableHeaderColumn>
+                            <TableHeaderColumn>Status</TableHeaderColumn>
+                        </TableRow>
                     </TableHeader>
                     <TableBody>
-                     {this.state.applications ?  this.state.applications.map((application, idx) => {
-                            console.log(application);
-                            console.log(idx);
-                            return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
-                                                company={application.company}
-                                                role={application.role}
-                                                status={application.status}
-                                                />
-                        })
-                    : null}
+                        {this.state.applications ?  this.state.applications.map((application, idx) => {
+                                console.log(application);
+                                console.log(idx);
+                                return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
+                                                    company={application.company}
+                                                    role={application.role}
+                                                    status={application.status}
+                                                    />
+                            })
+                        : null}
                     </TableBody>
                 </Table>
             </CardText>

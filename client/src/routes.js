@@ -4,6 +4,7 @@ import DashboardPage from './components/Dashboard/DashboardPage';
 import LoginPage from './components/LoginForm/LoginPage';
 import SignUpPage from './components/SignUpForm/SignUpPage';
 import ProfilePage from './components/Profile/ProfilePage';
+import ProfileContainer from './components/ProfileContainer/ProfileContainer';
 import Auth from './modules/Auth';
 
 
@@ -45,6 +46,10 @@ const routes = {
     {
       path: '/profile',
       component: ProfilePage
+    },
+    {
+      path: '/app-history',
+      component: ProfileContainer
     }
   ]
 };

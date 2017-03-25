@@ -1,19 +1,16 @@
-import React,{ Component } from 'react';
-import axios from 'axios';
-import './UserProfile.css';
+var React  = require('react');
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-function UserProfile(props){
-        return(
-            <tbody>
-                <tr>
-                    <td>{props.created_at}</td>
-                    <td>{props.company}</td>
-                    <td>{props.role}</td>
-                    <td>{props.status}</td>
-                </tr>
-            </tbody>
-        );
-    }
+const UserProfile = (props) => (
+    <TableBody>
+        <TableRow>
+            <TableRowColumn>{props.created_at}</TableRowColumn>
+            <TableRowColumn>{props.company}</TableRowColumn>
+            <TableRowColumn>{props.role}</TableRowColumn>
+            <TableRowColumn>{props.status}</TableRowColumn>
+        </TableRow>
+    </TableBody>
+);
 
 UserProfile.propTypes ={
  created_at: React.PropTypes.number.isRequired,

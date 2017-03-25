@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './ProfileContainer.css'
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import UserProfile from '../UserProfile/UserProfile';
-
 import axios from "axios";
 
 class ProfileContainer extends Component{
@@ -31,16 +33,19 @@ class ProfileContainer extends Component{
     }
     renderForm(){
         return(
-                <div className="col m8">
-                    <div className = "card blue-grey darken-1">
-                        <div className="card-content white-text">
-                            <span className="card-title">Application Process</span>
-                        </div>
-                        <div className="card-action">
-                            <a className="waves-effect waves-light btn" onClick={this.cancel}>Cancel</a>
-                        </div>
-                    </div>
-                </div>
+            <Card>
+                <CardHeader title = "Application Form"/>
+                <CardText>
+                    <TextField hintText = "Company" />
+                    <br />
+                    <TextField hintText = "Role" />
+                    <br /> 
+                    <TextField hintText = "Status" />
+                </CardText>
+                <CardActions>
+                    <FlatButton label = "Cancel" onClick={this.cancel} />
+                </CardActions>
+            </Card>
         );
 
     }
@@ -49,7 +54,7 @@ class ProfileContainer extends Component{
         console.log(this.state.applications);
         console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA') */
         return(
-            <div className="col m8">
+           /* <div className="col m8">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">Applications</span>
@@ -80,8 +85,36 @@ class ProfileContainer extends Component{
                     </div>
                 </div>
             </div>
+        ); */
+        <Card> 
+            <CardHeader title= "Application History" />
+            <CardText>
+                <Table>
+                    <TableHeader>
+                        <TableRowColumn>Date</TableRowColumn>
+                        <TableRowColumn>Company</TableRowColumn>
+                        <TableRowColumn>Role</TableRowColumn>
+                        <TableRowColumn>Status</TableRowColumn>
+                    </TableHeader>
+                    <TableBody>
+                     {this.state.applications ?  this.state.applications.map((application, idx) => {
+                            console.log(application);
+                            console.log(idx);
+                            return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
+                                                company={application.company}
+                                                role={application.role}
+                                                status={application.status}
+                                                />
+                        })
+                    : null}
+                    </TableBody>
+                </Table>
+            </CardText>
+            <CardActions>
+                <FlatButton label = "Add" onClick = {this.edit} />
+            </CardActions>
+        </Card>
         );
-
     }
     render(){
         if(this.state.add){

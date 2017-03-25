@@ -4,6 +4,8 @@ import DashboardPage from './components/Dashboard/DashboardPage';
 import LoginPage from './components/LoginForm/LoginPage';
 import SignUpPage from './components/SignUpForm/SignUpPage';
 import ProfilePage from './components/Profile/ProfilePage';
+import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
+import InterviewForm from './components/InterviewForm/InterviewForm';
 import Auth from './modules/Auth';
 
 
@@ -45,7 +47,18 @@ const routes = {
     {
       path: '/profile',
       component: ProfilePage
+    },
+
+    {
+      path: '/interview',
+      component: InterviewItemContainer  
+    },
+
+    {
+      path: '/postNewInterview',
+      component: InterviewForm
     }
+
   ]
 };
 export default routes;

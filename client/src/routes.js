@@ -5,6 +5,7 @@ import LoginPage from './components/LoginForm/LoginPage';
 import SignUpPage from './components/SignUpForm/SignUpPage';
 import ProfilePage from './components/Profile/ProfilePage';
 import ForumPage from './components/Forum/ForumPage';
+import ThreadForm from './components/ThreadForm/ThreadForm';
 import Auth from './modules/Auth';
 
 
@@ -51,6 +52,11 @@ const routes = {
     {
       path: '/forum',
       component: ForumPage
+    },
+
+    {
+      path: '/new_post',
+      component: ThreadForm
     },
     
   ]

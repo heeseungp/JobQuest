@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import axios from 'axios';
 
 class ThreadForm extends Component {
@@ -43,28 +46,28 @@ class ThreadForm extends Component {
 
   render(){
     return (
-      <div>
-        <form className="col s8" onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div className="input-field col s6">
-              <input value={this.state.title} id="tTitle" type="text" 
-                    className="validate" onChange={this.handleTitle} />
-              <label>Title</label>
-            </div>
+      <Card className="container">
+        <form onSubmit={this.handleSubmit}>
+
+          <h2 className="card-heading">New Post</h2>
+
+          <div className="field-line">
+            <TextField hintText="Enter title" id="tTitle" fullWidth={true}
+                        value={this.state.title} onChange={this.handleTitle} />
+          </div>
+          
+          <div className="field-line">
+            <TextField hintText="Enter description" id="tDesc" 
+                        multiLine={true} rows={5} rowsMax={10} fullWidth={true}
+                        value={this.state.desc} onChange={this.handleDesc} />
           </div>
 
-          <div className="row">
-            <div className="input-field col s6">
-              <textarea id="tDesc" className="materialize-textarea"
-                        value={this.state.desc} onChange={this.handleDesc} ></textarea>
-              <label>Description</label>
-            </div>
+          <div className="button-line">
+            <RaisedButton id="submitButton" type="submit" label="Create new post" primary />
           </div>
 
-          <input id="submitButton" type="submit" value="Create new thread" 
-                className="waves-effect waves-light btn" />
         </form>
-      </div>
+      </Card>
     );
 
   }

@@ -9,13 +9,11 @@ const ForumPage = () => (
 
     <Card className="container">
       <CardTitle title="Welcome to JobQuest's Forums" 
-                 subtitle="Here's where students post CS related content" />
+                 subtitle="Here's where students ask questions" />
     </Card>
 
-    {/*<ThreadForm />*/}
-    <ThreadItemContainer />
-
-    
+    {/*<ThreadItemContainer />*/}
+    <ThreadForm />
 
   </div>
 );

@@ -1,5 +1,5 @@
 var React  = require('react');
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {TableRow, TableRowColumn} from 'material-ui/Table';
 
 const UserProfile = (props) => (
     <TableRow>
@@ -15,6 +15,6 @@ UserProfile.propTypes ={
  role: React.PropTypes.string.isRequired,
  company: React.PropTypes.string.isRequired,
  status: React.PropTypes.string.isRequired   
-};
+}; 
 
 export default UserProfile;

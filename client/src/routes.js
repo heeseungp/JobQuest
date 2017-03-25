@@ -48,7 +48,7 @@ const routes = {
       component: ProfilePage
     },
     {
-      path: '/app-history',
+      path: '/app-log',
       component: ProfileContainer
     }
   ]

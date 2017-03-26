@@ -163,7 +163,7 @@ exports.vote_on_post = function(req, res) {
 		else if(type == "down"){	//Decrement votes
 			switch(post.votedOn[i].value){
 				case -1: 	//Downvote -> Downvote = Neutral (Toggle downvote)
-					post.votes = post.votes++;
+					post.votes++;
 					post.votedOn[i].value++;
 					break;
 				case 0: 	//Neutral -> Downvote = Downvote (Decrement by 1)

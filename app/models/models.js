@@ -12,6 +12,8 @@ var CommentSchema = new Schema({
     type:String,
     'default':shortId.generate
   },
+  author:String,
+  authorID:String,
   text:String,
   created_at: {
     type:Date,
@@ -24,6 +26,8 @@ var PostSchema = new Schema({
     type:String,
     'default':shortId.generate
   },
+  author:String,
+  authorID:String,
   title: {
     type:String,
     required:true
@@ -32,12 +36,6 @@ var PostSchema = new Schema({
     type:String,
     required:true
   },
-  author: {
-    type:String,
-    default:'Anonymous',
-    required:true
-  },
-  authorID:String,
   votes: {
     type:Number,
     default:0,
@@ -50,6 +48,7 @@ var PostSchema = new Schema({
   },
   comments:[CommentSchema],
   votedOn: [{
+    _id:false,
     userID: String,
     value: Number
   }]
@@ -59,7 +58,9 @@ var ApplicationSchema = new Schema({
   _id: {
     type:String,
     'default':shortId.generate
- },
+  },
+  author:String,
+  authorID:String,
   company: {
     type:String,
     required:true

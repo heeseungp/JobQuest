@@ -15,9 +15,17 @@ exports.show_all_applications = function(req, res) {
 
 //Creates a new application providing company, role, status and comment (optional). Returns the new application.
 exports.create_an_application = function(req, res) {
+
+  if(!req.isValidUser){
+    console.log('Request not completed due to lack of authentication');
+    return res.status(401).send('User must be logged in to access this function');
+  }
+
  //Create a new application schema.
  //Only company, role and status required
   var new_application = new Application({
+    author:req.user.name,
+    authorID:req.user._id,
   	company:req.body.company,
   	role:req.body.role,
   	status:req.body.status,
@@ -50,12 +58,18 @@ exports.show_an_application = function(req, res) {
 
 //Edits either an application's company, role, status or comment. Returns the modified application.
 exports.edit_an_application = function(req, res) {
+
+  if(!req.isValidUser){
+    console.log('Request not completed due to lack of authentication');
+    return res.status(401).send('User must be logged in to access this function');
+  }
+
  	var id = req.params.ApplicationId;
- 	Application.findById(id, function(err, application) {
+ 	Application.findOne({_id:id, authorID:req.user._id}, function(err, application) {
  		if (err)
  			return res.status(500).send(err);
  		if(application == null)
- 			return res.status(404).send('Application id:'+id+' not found');
+ 			return res.status(404).send('Application id:'+id+' not found, or user does not have permission');
  
  		//Sets a new value to company, role, status or comment ONLY if a new title/thread value is provided.
  		//Otherwise, it will retain its old value
@@ -75,12 +89,18 @@ exports.edit_an_application = function(req, res) {
 
 //Removes an application. Returns a success message.
 exports.remove_an_application = function(req, res) {
+
+  if(!req.isValidUser){
+    console.log('Request not completed due to lack of authentication');
+    return res.status(401).send('User must be logged in to access this function');
+  }
+
 	var id = req.params.ApplicationId;
-	Application.findById(id, function(err, application) {
+	Application.findOne({_id:id, authorID:req.user._id}, function(err, application) {
 		if (err)
 			return res.status(500).send(err);
 		if(application == null)
-			return res.status(404).send('Application id:'+id+' not found');
+			return res.status(404).send('Application id:'+id+' not found, or user does not have permission');
 
 		application.remove();
 		console.log('Application id:'+id+' successfully removed');

@@ -4,6 +4,7 @@
 
 ### Note: Items in *italics* require user authentication.
 
+
 * View all posts: GET /posts
 * _Create a new post: POST /posts/create_
  * Requires title, thread
@@ -15,10 +16,12 @@
 * _Vote on a post: POST /vote/[TypeId]/[PostId]_
  * [TypeId] can be 'up' to vote up or 'down' to vote down
 
+
 * _Create a new comment: POST /posts/[PostId]/comments/create_
 * _Edit a comment: POST /posts/[PostId]/comments/[CommentId]/edit_
  * [CommentId] follows the same convention as [PostId]
 * _Remove a comment: DELETE /posts/[PostId]/comments/[CommentId]/remove_
+
 
 * View all applications: GET /applications
 * _Create a new application: POST /applications/create_
@@ -28,4 +31,3 @@
 * _Edit an application: POST /applications/[ApplicationId]/edit_
  * A new company, role, status and/or comment must be provided, otherwise old values will remain
 * _Delete an application: DELETE /applications/[ApplicationId]/remove_
-

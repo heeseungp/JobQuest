@@ -1,12 +1,19 @@
 
 import React, { Component } from 'react';
+import './VoteCounter.css';
 
 function VoteCounter(props){
   return (
-    <div>
-      <a className="upvote" href="#" onClick={props.upvote}>Upvote</a>
-      <a className="downvote" href="#" onClick={props.downvote}>Downvote</a>
+    <div className="counter">
+      <a className="upvote" href="#/" onClick={props.upvote}>
+        <i className="fa fa-chevron-up" aria-hidden="true"></i>
+      </a>
+
       <div className="voteCount">{props.votes}</div>
+
+      <a className="downvote" href="#/" onClick={props.downvote}>
+        <i className="fa fa-chevron-down" aria-hidden="true"></i>
+      </a>
     </div>
   );
 }

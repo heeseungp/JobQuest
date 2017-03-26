@@ -12,12 +12,6 @@ var CommentSchema = new Schema({
     type:String,
     'default':shortId.generate
   },
-  author: {
-    type:String,
-    default:'Anonymous',
-    required:true
-  },
-  authorID:String,
   text:String,
   created_at: {
     type:Date,
@@ -145,4 +139,3 @@ module.exports = mongoose.model('Posts', PostSchema);
 module.exports = connection.model('Applications', ApplicationSchema);
 module.exports = connection.model('Comments', CommentSchema);
 module.exports = connection.model('User', UserSchema);
-

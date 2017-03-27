@@ -12,6 +12,7 @@ class InterviewForm extends Component {
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDesc = this.handleDesc.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleTitle(event) {
@@ -27,11 +28,10 @@ class InterviewForm extends Component {
 
     var newThread = {title: this.state.title, thread: this.state.desc};
     // create a new thread on db
-    axios.post('/interview', newThread)
+    axios.post('/posts/create', newThread)
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);
-      console.log(newThread)
 
     })
     .catch((err) => {
@@ -40,6 +40,10 @@ class InterviewForm extends Component {
 
     // don't know what this does either
     event.preventDefault();
+  }
+
+  handleClick() {
+    axios.get('/interview')
   }
 
   render(){
@@ -63,7 +67,7 @@ class InterviewForm extends Component {
           </div>
 
           <input id="submitButton" type="submit" value="Create new thread" 
-                className="waves-effect waves-light btn" />
+                className="waves-effect waves-light btn" onClick={this.handleClick} />
         </form>
       </div>
     );

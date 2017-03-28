@@ -13,59 +13,43 @@ class AppLogForm extends Component{
             status:''
         };
     
-    this._create=this._create.bind(this);
-    this._onSubmit=this._onSubmit.bind(this);
-    this._onChange=this._onChange.bind(this);
-
+    this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleCompany=this.handleCompany.bind(this);
+    this.handleRole=this.handleRole.bind(this);
+    this.handleStatus=this.handleStatus.bind(this);
     };
     //data is the information that is being passed
-    _create(data){
+    handleCompany(event){
+        this.setState({company:event.target.value});
+    }
+    handleRole(event){
+        this.setState({role:event.target.value});
+    }
+    handleStatus(event){
+        this.setState({status:event.target.value});
+    }
+    handleSubmit(event){
+        var data = {company:this.state.company,role:this.state.role,status:this.state.status};
         axios.post('/applications/create',data)
         .then((res) => {console.log('the res is, ', res)})
-        .catch(err => {console.log(err);}); 
+        .catch(err => {console.log(err);});
+        event.preventDefault(); 
     }
-    _onSubmit(e){
-       e.preventDefault();
-       //save the current information from the form
-       var dateCreated=this.state.created_at;
-       var companyName=this.state.company;
-       var jobRole=this.state.role;
-       var currentStatus=this.state.status;
-       //change the states after the information is saved
-       this.props.submitNewForm({
-           created_at:dateCreated,
-           company:companyName,
-           role:jobRole,
-           status:currentStatus
-       })
-       this.setState({
-           company:'',
-           role:'',
-           status:''
-       })
-    }
-    //trying to understand what this is doing
-    _onChange(e){
-        var object={};
-        object[e.target.name]=$.trim(e.target.value);
-        this.setState(object);
-    }
+
     render(){
         return(
-            <form onSubmit={this._onSubmit}>
-                <TextField hintText="Company"onChange={this._onChange}/>
+            <form onSubmit={this.handleSubmit}>
+                <TextField hintText="Company" value={this.state.company} onChange={this.handleCompany}/>
                 <br />
-                <TextField hintText="Role" onChange={this._onChange}/>
+                <TextField hintText="Role" value={this.state.role} onChange={this.handleRole}/>
                 <br />
-                <TextField hintText="Status" onChange={this._onChange}/>
+                <TextField hintText="Status" value={this.state.status} onChange={this.handleStatus}/>
                 <br />
-                <FlatButton label="Submit" />
+                <FlatButton type="submit" label="Submit"/>
             </form>
         );
     }
 
 }
 
-
-
-
+export default AppLogForm; 

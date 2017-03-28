@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import Paper from 'material-ui/Paper'
 import FlatButton from 'material-ui/FlatButton';
-//import AppLogForm from '../AppLogForm/AppLogForm';
+import AppLogForm from '../AppLogForm/AppLogForm';
 import AppLogTable from '../AppLogTable/AppLogTable';
 
 
@@ -25,16 +26,13 @@ class ProfileContainer extends Component{
     }
     
     renderForm(){
-        return ( 
+        return (
             <Card>
-                <CardHeader title="Application Form" />
+                <CardHeader title="Application "/>
                 <CardText>
-                    <h2>Blah </h2>
+                    <AppLogForm />
                 </CardText>
-                <CardActions>
-                    <FlatButton label="Cancel" onClick={this.cancel} />
-                </CardActions>
-            </Card>
+            </Card>             
         );
     }
     renderRes(){

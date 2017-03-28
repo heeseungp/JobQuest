@@ -8,32 +8,35 @@ const config = require('../../config');
 module.exports = (req, res, next) => {
 
   req.isValidUser = false;
-  console.log('passing through the auth checker middleware');
+  console.log('Passing through the auth checker middleware');
 
   if (!req.headers.authorization) {
-    console.log('no auth');
+    console.log('No authorization token provided');
     return next();
   }
 
-  console.log('after authorization');
   // get the last part from a authorization header string like "bearer token-value"
   const token = req.headers.authorization.split(' ')[1];
+  console.log('Received token '+token);
 
   // decode the token using a secret key-phrase
   return jwt.verify(token, config.jwtSecret, (err, decoded) => {
-    // the 401 code is for unauthorized status
-    if (err) { return res.status(401).end(); }
+    if (err) { 
+      console.log('Error decoding token, token could not be verified');
+      return next();
+    }
 
     const userId = decoded.sub;
-    console.log('the userid is, ', userId);
-    // adding the ID to the request to make calls to db later
-    //req.userID = userId;
+    console.log('Decoded token, the userid is, ', userId);
 
     // check if a user exists
     return User.findById(userId, (userErr, user) => {
       if (userErr || !user) {
-        return res.status(401).end();
+        console.log('Error finding user with this userid');
+        return next();
       }
+      console.log('User '+user.name+' successfully made a request');
+      //setting flag for successful authentication and saving user to request
       req.isValidUser = true;
       req.user = user;
       return next();

@@ -132,12 +132,9 @@ exports.vote_on_post = function(req, res) {
 		}
 		if(!foundUser){	//Could not find user in votedOn array, make a new entry
 			console.log('User did not vote on post '+id+' yet, adding to votedOn array');
-			var isEmpty = false;
-			if(post.votedOn.length == 0){
-				isEmpty = true;
-			}
+			var length = post.votedOn.length;
 			post.votedOn.push({userID:req.user._id, value:0});
-			if(!isEmpty){
+			if(length != 0){
 				i++;
 			}
 		}

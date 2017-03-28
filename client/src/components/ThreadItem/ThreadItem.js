@@ -49,26 +49,33 @@ class ThreadItem extends Component {
       margin: 20,
     };
 
-    var linkToThread = "thread/" + this.props.data._id;
+    var linkToThread = this.props.data ? "thread/" + this.props.data._id
+                                       : null;
 
     return (
       <Paper className="threadItem" style={style} zDepth={1}>
-        <VoteCounter upvote={this.upVote} 
-                    downvote={this.downVote}
-                    votes={this.props.data.votes}/>
 
-        <div className="threadContent">
-          <div className="title">
-            <Link to={linkToThread}>{this.props.data.title}</Link>
+        {this.props.data ? 
+          <div>
+            <VoteCounter upvote={this.upVote} 
+                        downvote={this.downVote}
+                        votes={this.props.data.votes}/>
+
+            <div className="threadContent">
+              <div className="title">
+                <Link to={linkToThread}>{this.props.data.title}</Link>
+              </div>
+
+              <div className="details">
+                <span className="author">Author - {this.props.data.author}</span> |
+                <span className="numOfComments">{this.props.data.comments.length} comments</span> |
+                <span className="date">Posted {this.props.data.created_at.slice(0, 10)}</span>
+              </div>
+            </div>
           </div>
-
-          <div className="details">
-            <span className="author">Author - {this.props.data.author}</span> |
-            <span className="numOfComments">{this.props.data.comments.length} comments</span> |
-            <span className="date">Posted {this.props.data.created_at.slice(0, 10)}</span>
-          </div>
-        </div>
-
+         : null
+        }
+      
       </Paper>
     );
   }

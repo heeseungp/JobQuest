@@ -14,6 +14,12 @@ describe('ThreadItem', () => {
   // TODO, find a set up method
   // threadData is being passed at every test...
 
+  it('should render an empty div when data prop is not passed', () => {
+    const wrapper = shallow(<ThreadItem />);
+    expect(wrapper.find('VoteCounter')).to.have.length(0);
+    expect(wrapper.find('.threadContent')).to.have.length(0);
+  });
+
   it('should render VoteCounter', () => {
     // if data prop is not passed, it fails
     // the constructor is trying to access an undef value

@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import VoteCounter from '../VoteCounter/VoteCounter';
 import Paper from 'material-ui/Paper'
+import { Link } from 'react-router';
 import axios from 'axios';
 import './ThreadItem.css';
 
@@ -48,6 +49,8 @@ class ThreadItem extends Component {
       margin: 20,
     };
 
+    var linkToThread = "thread/" + this.props.data._id;
+
     return (
       <Paper className="threadItem" style={style} zDepth={1}>
         <VoteCounter upvote={this.upVote} 
@@ -55,7 +58,9 @@ class ThreadItem extends Component {
                     votes={this.props.data.votes}/>
 
         <div className="threadContent">
-          <div className="title">{this.props.data.title}</div>
+          <div className="title">
+            <Link to={linkToThread}>{this.props.data.title}</Link>
+          </div>
 
           <div className="details">
             <span className="author">Author - {this.props.data.author}</span> |

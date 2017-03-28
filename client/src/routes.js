@@ -6,6 +6,7 @@ import SignUpPage from './components/SignUpForm/SignUpPage';
 import ProfilePage from './components/Profile/ProfilePage';
 import ForumPage from './components/Forum/ForumPage';
 import ThreadForm from './components/ThreadForm/ThreadForm';
+import ThreadPage from './components/ThreadPage/ThreadPage';
 import Auth from './modules/Auth';
 
 
@@ -58,6 +59,12 @@ const routes = {
       path: '/new_post',
       component: ThreadForm
     },
+
+    {
+      path: '/thread/:id',
+      component: ThreadPage
+    },
+    
     
   ]
 };

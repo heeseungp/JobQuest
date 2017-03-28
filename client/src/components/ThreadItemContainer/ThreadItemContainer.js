@@ -48,18 +48,10 @@ class ThreadItemContainer extends Component {
     axios.get(url)
       .then(res => {
         console.log(res.data);
-        console.log(res.data[0]._id);
         this.setState({threads: res.data})
       });
 
     // mongo jobquest --eval "db.dropDatabase()" => to reset DB
-
-     const dummy = {title: 'new stuff brahh', thread: 'Nonsense bahh'};
-     axios.post('/posts/', dummy)
-     .then((res) => {console.log('the res is, ', res)})
-     .catch(err => {
-       console.log(err);
-     });
   }
 
   render(){

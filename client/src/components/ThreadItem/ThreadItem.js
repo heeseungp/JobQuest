@@ -66,6 +66,14 @@ class ThreadItem extends Component {
                 <Link to={linkToThread}>{this.props.data.title}</Link>
               </div>
 
+              {this.props.showDesc ? 
+                // this is pretty ugly but eh
+                <div className="desc">
+                  <div> {this.props.data.thread} </div>
+                </div>
+                : null
+              }
+              
               <div className="details">
                 <span className="author">Author - {this.props.data.author}</span> |
                 <span className="numOfComments">{this.props.data.comments.length} comments</span> |

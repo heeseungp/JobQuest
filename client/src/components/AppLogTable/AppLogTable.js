@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn} from 'material-ui/Table';
+import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn,TableFooter} from 'material-ui/Table';
 import axios from 'axios';
 import UserProfile from '../UserProfile/UserProfile';
 
-
+/*Need to clean this code before April begins */
 class AppLogTable extends Component{
     constructor(props){
         super(props);

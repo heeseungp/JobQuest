@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper'
 import FlatButton from 'material-ui/FlatButton';
 import AppLogForm from '../AppLogForm/AppLogForm';
 import AppLogTable from '../AppLogTable/AppLogTable';
 
-
+/*Need to clean this code before April begins */
 class ProfileContainer extends Component{
     constructor(props){
         super(props);
@@ -26,26 +27,32 @@ class ProfileContainer extends Component{
     }    
     renderForm(){
         return(
-            <Card>
-                <CardHeader title="Application Form" />
-                <CardText>
-                    <AppLogForm />
-                </CardText>
-            </Card>
+        <GridList cellHeight={'300'}>
+            <GridTile >
+                <Paper>
+                    <h5 style={{textAlign:'center'}}>Application Form</h5>
+                    <AppLogForm onClick={this.showTable}/> 
+                </Paper>
+            </GridTile>
+        </GridList>
         );
     }
     renderRes(){
         return(
-            <Paper>
-                <h6>Application History</h6>
-                <AppLogTable />
-                <FlatButton label="Add" onClick={this.form} />
-            </Paper>
+        <GridList cellHeight={'auto'}>
+           <GridTile> 
+                <Paper>
+                    <h5 style={{textAlign:'center'}}>Application History</h5>
+                    <AppLogTable />
+                    <FlatButton label="Add" onClick={this.form} />
+                </Paper>
+            </GridTile>
+        </GridList>
         );
     }
     render(){
-        if(this.state.add){return this.renderForm();}
-        else{return this.renderRes();}
+            if(this.state.add){return this.renderForm();}
+            else{return this.renderRes();} 
     }   
 }
 

@@ -9,12 +9,13 @@ var FutureEvents = React.createClass({
       <Card> 
         <CardHeader title="Upcoming Events" />
         <CardText>
-          {this.props.data.map(function(events){
-            return(
-              <Events data={events} />
-            );
-          })}
-        </CardText>
+          {this.props.data ? this.props.data.map(function(events){
+            return (
+                <Events data={events} />
+                );
+            })
+            : null}
+          </CardText>
       </Card>
     );
   }

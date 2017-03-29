@@ -4,6 +4,8 @@ import FlatButton from 'material-ui/FlatButton';
 import axios from 'axios';
 import React, { Component } from 'react';
 
+
+/*Need to clean this code before April begins */
 class AppLogForm extends Component{
     constructor(props){
         super(props);
@@ -38,7 +40,7 @@ class AppLogForm extends Component{
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
                 <TextField hintText="Company" value={this.state.company} onChange={this.handleCompany}/>
                 <br />
                 <TextField hintText="Role" value={this.state.role} onChange={this.handleRole}/>
@@ -46,6 +48,7 @@ class AppLogForm extends Component{
                 <TextField hintText="Status" value={this.state.status} onChange={this.handleStatus}/>
                 <br />
                 <FlatButton type="submit" label="Submit"/>
+                <FlatButton label="Back" onClick={this.props.onClick} />
             </form>
         );
     }

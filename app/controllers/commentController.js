@@ -10,67 +10,153 @@ exports.add_a_comment = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
 
-	var id = req.params.PostId;
+	var postid = req.params.PostId;
 	var comment = req.body.text;
-	// If there is no comment provided, return
-	if(!comment)
-		return res.send('No comment provided');
+	var errors = {};
 
-	Post.findByIdAndUpdate(id, {$push: {"comments": new Comment({text:comment, author:req.user.name, authorID:req.user._id})}}, {"new": true, "upsert": true, "safe": true}, function (err, post) {
-			if (err) 
+	//Error checking on all required parameters
+	if(!postid)
+		errors.postid = 'No post ID parameter provided (check URL)';
+	if(!comment)
+		errors.text = 'No text parameter provided (check body)';
+
+	//Returns all errors
+	if(Object.keys(errors).length > 0)
+		return res.status(400).json(errors);
+
+	Post.findOne({_id:postid}, function(err, post) {
+		if(err)
+			return res.status(500).send(err);
+		if(post == null){
+			errors.postid = 'Post id:'+postid+' not found';
+			return res.status(404).json(errors);
+		}
+
+		post.comments.push(new Comment({text:comment, author:req.user.name, authorID:req.user._id}));
+
+		post.save(function(err, post) {
+			if(err)
 				return res.status(500).send(err);
-			console.log('Comment successfully inserted to post id:'+id);
-			return res.json(post);	
+			console.log('Comment successfully inserted to post id:'+postid);
+			return res.json(post);
+		});
 	});
 };
 
-//Edits a comment. Takes a postid and commentid as well as the comment text. Returns a success message.
+//Edits a comment. Takes a postid and commentid as well as the comment text.
 exports.edit_a_comment = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
 
 	var postid = req.params.PostId;
 	var commentid = req.params.CommentId;
 	var comment = req.body.text;
+	var errors = {};
 
-	// If there is no comment provided, return
 	if(!comment)
-		return res.send('No new comment text provided');
-	
-	Post.findOneAndUpdate({_id: postid, 'comments._id': commentid, 'comments.authorID': req.user._id}, {$set: {'comments.$.text': comment}}, function(err, numAffected) {
-		if (err) 
+		errors.comment = 'No comment parameter provided (check body)';
+	if(!commentid)
+		errors.commentid = 'No comment ID parameter provided (check URL)';
+	if(!postid)
+		errors.postid = 'No post ID parameter provided (check URL)';
+
+	if(Object.keys(errors).length > 0)
+		return res.status(400).json(errors);
+
+	Post.findOne({_id: postid}, function(err, post) {
+		if(err)
 			return res.status(500).send(err);
-		if (numAffected.n == 0)
-			return res.status(404).send('No comment with post id:'+postid+' and comment id:'+commentid+' found, or user does not have permission');
-		console.log('Post id:'+postid+' comment id:'+commentid+' successfully updated');
-		return res.send('Post id:'+postid+' comment id:'+commentid+' successfully updated');
+		if(post == null){
+			errors.postid = 'Post id:'+postid+' not found';
+			return res.status(404).json(errors);
+		}
+
+		var foundComment = false;
+		for(var i = 0; i < post.comments.length; i++) {
+			if(commentid == post.comments[i]._id){
+				foundComment = true;
+				//If the user requests a comment which he/she did not create
+				if(req.user._id != post.comments[i].authorID){
+					errors.userid = 'User does not have permission to modify comment with id:'+commentid;
+					return res.status(401).json(errors);
+				}
+				post.comments[i].text = comment;
+				break;
+			}
+		}
+		if(!foundComment){
+			errors.commentid = 'Comment id:'+commentid+' not found';
+			return res.status(404).json(errors);
+		}
+
+		post.save(function(err, post) {
+			if(err)
+				return res.status(500).send(err);
+			console.log('Comment successfully updated');
+			return res.json(post);
+		});
 	});
 };
 
-//Removes a comment. Takes the postid and commentid. Returns a success message.
+//Removes a comment. Takes the postid and commentid.
 exports.remove_a_comment = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
 
 	var postid = req.params.PostId;
 	var commentid = req.params.CommentId;
+	var errors = {};
 
-	Post.findOneAndUpdate({_id: postid, 'comments.authorID': req.user._id}, {$pull: {comments: {_id: commentid}}}, {"new": true}, function(err, numRemoved) {
-		if (err) 
+	if(!postid)
+		errors.postid = 'No post ID parameter provided (check URL)';
+	if(!commentid)
+		errors.commentid = 'No comment ID parameter provided (check URL)';
+
+	if(Object.keys(errors).length > 0)
+		return res.status(400).json(errors);
+
+	Post.findOne({_id: postid}, function(err, post) {
+		if(err)
 			return res.status(500).send(err);
-		if (!numRemoved || numRemoved.n == 0)
-			return res.status(404).send('No comment with post id:'+postid+' and comment id:'+commentid+' found, or user does not have permission');
-		console.log('Post id:'+postid+' comment id:'+commentid+' successfully removed');
-		return res.send('Post id:'+postid+' comment id:'+commentid+' successfully removed');
+		if(post == null){
+			errors.postid = 'Post id:'+postid+' not found';
+			return res.status(404).json(errors);
+		}
+
+		var foundComment = false;
+		for(var i = 0; i < post.comments.length; i++) {
+			if(commentid == post.comments[i]._id){
+				foundComment = true;
+				//If the user requests a comment which he/she did not create
+				if(req.user._id != post.comments[i].authorID){
+					errors.userid = 'User does not have permission to modify comment with id:'+commentid;
+					return res.status(401).json(errors);
+				}
+				//Removes 1 element from array with index at i, returns modified array
+				post.comments.splice(i, 1);
+				break;
+			}
+		}
+		if(!foundComment){
+			errors.commentid = 'Comment id:'+commentid+' not found';
+			return res.status(404).json(errors);
+		}
+
+		post.save(function(err, post) {
+			if(err)
+				return res.status(500).send(err);
+			console.log('Comment successfully updated');
+			return res.json(post);
+		});
 	});
 };
 

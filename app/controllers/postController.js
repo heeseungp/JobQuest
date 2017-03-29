@@ -21,17 +21,30 @@ exports.create_a_post = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
+
+	var postTitle = req.body.title;
+	var postThread = req.body.thread;
+	var errors = {};
+
+	if(!postTitle)
+		errors.title = 'No title parameter provided (check body)';
+	if(!postThread)
+		errors.thread = 'No thread parameter provided (check body)';
+
+	if(Object.keys(errors).length > 0)
+		return res.status(400).json(errors);
 
 	//Create a new post schema instance with a title, thread, and author.
 	//Only the title and thread is required; author defaults to "Anonymous" if none is provided.
 	var new_post = new Post({
-		title:req.body.title,
-		thread:req.body.thread,
+		title:postTitle,
+		thread:postThread,
 		author:req.user.name,
 		authorID:req.user._id,
-		comments:[]
+		comments:[],
+		votedOn:[]
 	});
 
 	//Saves the new post into the Post collection
@@ -45,12 +58,22 @@ exports.create_a_post = function(req, res) {
 
 //Displays a post given an ID.
 exports.show_a_post = function(req, res) {
+
 	var id = req.params.PostId;
+	var errors = {};
+
+	if(!id){
+		errors.postid = 'No post ID parameter provided (check URL)';
+		return res.status(400).json(errors);
+	}
+
 	Post.findById(id, function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-		if(post == null)
+		if(post == null){
+
 			return res.status(404).send('Post id:'+id+' not found');
+		}
 
 		console.log('Displaying post with id:'+id)
 		return res.json(post);	
@@ -62,27 +85,45 @@ exports.edit_a_post = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
 
 	var id = req.params.PostId;
+	var errors = {};
+
+	if(!id){
+		errors.postid = 'No post ID parameter provided (check URL)';
+		return res.status(400).json(errors);
+	}
+	
 	Post.findOne({_id:id, authorID:req.user._id}, function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-		if(post == null)
-			return res.status(404).send('Post id:'+id+' not found, or user with id:'+req.user._id+' does not have permission');
+		if(post == null) {
+			//No matching post was found, so perform one more query to check if post exists
+			//This determines what error message is sent back to the client
+			Post.count({_id:id}, function(err, count) {
+				if(count > 0) {	//Post exists, so issue must be due to lack of permissions
+					return res.status(401).send('User does not have permission to modify this post');
+				}
+				else {	//Post does not exist, so that is the issue
+					return res.status(404).send('Post id:'+id+' not found');
+				}
+			});
+		}
+		else {
+			//Sets a new value to the title/thread ONLY if a new title/thread value is provided.
+			//Otherwise, it will retain its old value
+			post.title = req.body.title || post.title;
+			post.thread = req.body.thread || post.thread;
 
-		//Sets a new value to the title/thread ONLY if a new title/thread value is provided.
-		//Otherwise, it will retain its old value
-		post.title = req.body.title || post.title;
-		post.thread = req.body.thread || post.thread;
-
-		post.save(function(err, post) {
-			if(err)
-				return res.status(500).send(err);
-			console.log('Post id:'+id+' successfully updated');
-			return res.json(post);
-		});
+			post.save(function(err, post) {
+				if(err)
+					return res.status(500).send(err);
+				console.log('Post id:'+id+' successfully updated');
+				return res.json(post);
+			});
+		}
 	});
 };
 
@@ -91,19 +132,38 @@ exports.remove_a_post = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
 
 	var id = req.params.PostId;
+	var errors = {};
+
+	if(!id){
+		errors.postid = 'No post ID parameter provided (check URL)';
+		return res.status(400).json(errors);
+	}
+
 	Post.findOne({_id:id, authorID:req.user._id}, function(err, post) {
 		if (err)
 			return res.status(500).send(err);
-		if(post == null)
-			return res.status(404).send('Post id:'+id+' not found, or user with id:'+req.user._id+' does not have permission');
-
-		post.remove();
-		console.log('Post id:'+id+' successfully removed');
-		return res.send('Post removed');
+		if(post == null) {
+			Post.count({_id:id}, function(err, count) {
+				if(count > 0) {
+					errors.userid = 'User does not have permission to modify this post';
+					return res.status(401).json(errors);
+				}
+				else {
+					errors.postid = 'Post id:'+id+' not found';
+					return res.status(404).json(errors);
+				}
+			});
+		}
+		else {
+			//Removes the post
+			post.remove();
+			console.log('Post id:'+id+' successfully removed');
+			return res.json({result:'Post removed'});
+		}
 	});
 };
 
@@ -112,21 +172,34 @@ exports.vote_on_post = function(req, res) {
 
 	if(!req.isValidUser){
 		console.log('Request not completed due to lack of authentication');
-		return res.status(401).send('User must be logged in to access this function');
+		return res.status(401).json({error:'User must be logged in to access this function'});
 	}
 
 	var id = req.params.PostId;
 	var type = req.params.typeId;
-	Post.findById(id, function(err, post) {
+	var errors = {};
+
+	if(!id)
+		errors.postid = 'No post ID parameter provided (check URL)';
+	if(!type)
+		errors.type = 'No type parameter provided (check URL)';
+
+	if(Object.keys(errors).length > 0)
+		return res.status(400).json(errors);
+
+	Post.find({_id:id}, function(err, post) {
 		if(err)
 			return res.status(500).send(err);
-		if(post == null) 
-			return res.status(404).send('Post id:'+id+' not found');
+		if(post == null) {
+			errors.postid = 'Post id:'+id+' not found';
+			return res.status(404).json(errors);
+		}
 
 		var foundUser = false;
 		for(var i = 0; i < post.votedOn.length; i++) {
-			if(req.user._id = post.votedOn[i].userID){
+			if(req.user._id == post.votedOn[i].userID){
 				foundUser = true;
+				console.log('User voted on post '+id+' before, taking previous post value');
 				break;
 			}
 		}
@@ -134,7 +207,7 @@ exports.vote_on_post = function(req, res) {
 			console.log('User did not vote on post '+id+' yet, adding to votedOn array');
 			var length = post.votedOn.length;
 			post.votedOn.push({userID:req.user._id, value:0});
-			if(length != 0){
+			if(length != 0){	//Only increment index if array was previously non-empty, otherwise we would have an index of 1 in an array of size 1.
 				i++;
 			}
 		}
@@ -176,7 +249,8 @@ exports.vote_on_post = function(req, res) {
 			}
 		}
 		else{
-			return res.status(404).send('Type'+type+' not found:');
+			errors.type = 'Type '+type+' is not a valid type';
+			return res.status(400).json(errors);
 		}
 
 		post.save(function(err, post) {

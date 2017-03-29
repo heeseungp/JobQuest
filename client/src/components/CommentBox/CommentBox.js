@@ -40,7 +40,7 @@ class CommentBox extends Component {
         <input type="button" id="addComment"
                onClick={this.handleClick} />
 
-        <CommentList />
+        <CommentList comments={this.props.comments} />
 
       </div>
     );

@@ -8,10 +8,6 @@ import CommentList from '../CommentList/CommentList';
 // setup -> action -> assertion
 describe('CommentBox', () => {
   
-  // TODO (3)
-  // tests to add, accepts input, call onSubmit when clicked
-  // and the input box should be cleared after the click
-
   it('should two inputs and a CommentList', () => {
     const wrapper = shallow(<CommentBox />);
     expect(wrapper.containsAllMatchingElements([
@@ -19,6 +15,14 @@ describe('CommentBox', () => {
       <input/>,
       <CommentList />
     ])).to.equal(true);
+  });
+
+  it('should pass comments to CommentList', () => {
+    const wrapper = shallow(<CommentBox comments={[]}/>);
+    const CommentList = wrapper.find('CommentList');
+
+    // console.log('prop passed is, ', CommentList.prop('comments'));
+    expect(CommentList.prop('comments')).to.not.eql(undefined);
   });
 
   it('should accept input', () => {

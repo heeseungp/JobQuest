@@ -24,12 +24,24 @@ describe('CommentBox', () => {
   it('should accept input', () => {
     // remember that when the input changes, that's an event
     // we want the target.value of that event
-    
+
     const wrapper = mount(<CommentBox/>);
     const input = wrapper.find('.inputComment');
     input.simulate('change', {target: { value: 'ay, new comment' }});
     expect(wrapper.state('text')).to.equal('ay, new comment');
     expect(input.prop('value')).to.equal('ay, new comment');
+  });
+
+  it('should call onSubmit when Add Comment is clicked', () => {
+    const addCommentSpy = spy();
+    const wrapper = shallow(<CommentBox onSubmit={addCommentSpy}/>);
+    wrapper.setState({text: 'best comment'});
+    const addCommentButton = wrapper.find('#addComment');
+
+    addCommentButton.simulate('click');
+
+    expect(addCommentSpy.calledOnce).to.equal(true);
+    expect(addCommentSpy.calledWith('best comment')).to.equal(true);
   });
 
 });

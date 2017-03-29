@@ -18,10 +18,15 @@ class CommentBox extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(e){
     this.setState({text: e.target.value});
+  }
+
+  handleClick(){
+    this.props.onSubmit(this.state.text);
   }
 
   render() {
@@ -31,7 +36,8 @@ class CommentBox extends Component {
 
         <input type="text" className="inputComment"
                onChange={this.handleChange} value={this.state.text} />
-        <input type="button" />
+        <input type="button" id="addComment"
+               onClick={this.handleClick} />
 
         <CommentList />
 
@@ -40,6 +46,11 @@ class CommentBox extends Component {
   }
 
 }
+
+CommentBox.PropTypes = {
+  comments: React.PropTypes.array.isRequired,
+  onSubmit: React.PropTypes.func.isRequired
+};
 
 export default CommentBox;
 

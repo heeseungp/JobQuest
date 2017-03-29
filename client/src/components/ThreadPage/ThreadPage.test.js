@@ -58,6 +58,4 @@ describe('ThreadPage', () => {
     expect(CommentBox.prop('comments')).to.not.eql(undefined);
   })
 
-
-
 });

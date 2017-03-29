@@ -30,6 +30,9 @@ describe('ThreadPage', () => {
 
   // test that it is passed down to Comment Box
   // same goes for all the other props, the post object + comments (3 total)
+  // API, when I go on the page, I see the full post
+  // and I see a comment container, with an input form at the top
+  // and a list of the current comments in a list
 
   it('passes addComment to CommentBox', () => {
     const wrapper = shallow(<ThreadPage/>);
@@ -43,7 +46,18 @@ describe('ThreadPage', () => {
     const CommentBox = wrapper.find('CommentBox');
     CommentBox.prop('onSubmit')('the best comment');
     expect(wrapper.state('threadData').comments).to.eql(['the best comment']);
-
   });
+
+  it('passed thread data down to ThreadItem and CommentBox', () => {
+    const wrapper = shallow(<ThreadPage/>);
+    const ThreadItem = wrapper.find('ThreadItem');
+    const CommentBox = wrapper.find('CommentBox');
+
+    // console.log('prop passed is, ', ThreadItem.prop('data'));
+    expect(ThreadItem.prop('data')).to.not.eql(undefined);
+    expect(CommentBox.prop('comments')).to.not.eql(undefined);
+  })
+
+
 
 });

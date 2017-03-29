@@ -35,8 +35,8 @@ const ThreadPage = React.createClass({
         <CardTitle title="Single thread" subtitle="Check out this single thread page yo" />
         {/*<p>The id of this thread is: {this.props.params.id}</p>*/}
       
-        <ThreadItem />
-        <CommentBox onSubmit={this.addComment} />
+        <ThreadItem data={this.state.threadData} />
+        <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
       </Card>
     )
   }

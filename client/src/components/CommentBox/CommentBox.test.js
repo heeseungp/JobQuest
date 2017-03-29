@@ -44,4 +44,17 @@ describe('CommentBox', () => {
     expect(addCommentSpy.calledWith('best comment')).to.equal(true);
   });
 
+  it('should clear input box when AddComment is clicked', () => {
+    const addCommentSpy = spy();
+    const wrapper = mount(<CommentBox onSubmit={addCommentSpy}/>);
+    const inputComment = wrapper.find('.inputComment');
+    const addComment = wrapper.find('#addComment');
+
+    wrapper.setState({text: 'Nonsense'});
+    addComment.simulate('click');
+
+    expect(wrapper.state('text')).to.equal('');
+    expect(inputComment.prop('value')).to.equal('');
+  });
+
 });

@@ -27,6 +27,7 @@ class CommentBox extends Component {
 
   handleClick(){
     this.props.onSubmit(this.state.text);
+    this.setState({text: ''}); // clear input
   }
 
   render() {

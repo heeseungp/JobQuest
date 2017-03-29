@@ -13,8 +13,20 @@ const ThreadPage = React.createClass({
 
   getInitialState() {
     return {
-      greeting: 'hello',
+      // this whole object gets replaced when the AJAX call goes through
+      threadData: {
+        comments: []
+      },
     };
+  },
+
+  addComment(comment) {
+    // might need to do an update on that whole object
+    var newComments = this.state.threadData.comments.slice();
+    newComments.push(comment);
+
+    var updated = Object.assign({}, this.state.threadData, {comments: newComments});
+    this.setState({threadData: updated})
   },
 
   render() {

@@ -7,7 +7,7 @@ import ThreadItem from '../ThreadItem/ThreadItem';
 import CommentBox from '../CommentBox/CommentBox';
 
 // setup -> action -> assertion
-describe('ThreadItem', () => {
+describe('ThreadPage', () => {
   
   // TODO
   // threaditem and a comment box are rendered
@@ -19,5 +19,14 @@ describe('ThreadItem', () => {
       <CommentBox />
     ])).to.equal(true);
   });
+
+  it('adds a new comment', () => {
+    var data = {comments: []};
+    const wrapper = shallow(<ThreadPage threadData={data} />);
+    wrapper.instance().addComment('New Comment');
+    console.log(wrapper.state('threadData'));
+    expect(wrapper.state('threadData').comments).to.eql(['New Comment']);
+  });
+
 
 });

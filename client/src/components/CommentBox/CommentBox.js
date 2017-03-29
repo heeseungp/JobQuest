@@ -10,12 +10,27 @@ class CommentBox extends Component {
   // in addition it'll also get a function
   // will test that the add function has been clicked once
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      text: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e){
+    this.setState({text: e.target.value});
+  }
+
   render() {
     return (
       <div>
         <h3> Comments </h3>
 
-        <input type="text" className="inputComment"/>
+        <input type="text" className="inputComment"
+               onChange={this.handleChange} value={this.state.text} />
         <input type="button" />
 
         <CommentList />

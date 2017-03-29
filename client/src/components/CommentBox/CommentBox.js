@@ -15,7 +15,7 @@ class CommentBox extends Component {
       <div>
         <h3> Comments </h3>
 
-        <input type="text" />
+        <input type="text" className="inputComment"/>
         <input type="button" />
 
         <CommentList />

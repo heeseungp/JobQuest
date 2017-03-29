@@ -36,7 +36,7 @@ const ThreadPage = React.createClass({
         {/*<p>The id of this thread is: {this.props.params.id}</p>*/}
       
         <ThreadItem />
-        <CommentBox />
+        <CommentBox onSubmit={this.addComment} />
       </Card>
     )
   }

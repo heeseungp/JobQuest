@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
 
 // pass the authenticaion checker middleware
 var authCheckMiddleware = require('./app/middleware/auth-check');
-app.use('/api', authCheckMiddleware);
+app.use('/', authCheckMiddleware);
 
 //Require our routes and set the app to use them
 var posts = require('./app/routes/postRoutes');

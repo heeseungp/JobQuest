@@ -12,6 +12,8 @@ var CommentSchema = new Schema({
     type:String,
     'default':shortId.generate
   },
+  author:String,
+  authorID:String,
   text:String,
   created_at: {
     type:Date,
@@ -24,17 +26,14 @@ var PostSchema = new Schema({
     type:String,
     'default':shortId.generate
   },
+  author:String,
+  authorID:String,
   title: {
     type:String,
     required:true
   },
   thread: {
     type:String,
-    required:true
-  },
-  author: {
-    type:String,
-    default:'Anonymous',
     required:true
   },
   votes: {
@@ -47,14 +46,21 @@ var PostSchema = new Schema({
     default:Date.now,
     required:true
   },
-  comments:[CommentSchema]
+  comments:[CommentSchema],
+  votedOn: [{
+    _id:false,
+    userID: String,
+    value: Number
+  }]
 });
 
 var ApplicationSchema = new Schema({
   _id: {
     type:String,
     'default':shortId.generate
- },
+  },
+  author:String,
+  authorID:String,
   company: {
     type:String,
     required:true
@@ -81,12 +87,16 @@ var ApplicationSchema = new Schema({
 
 // define the User model schema
 const UserSchema = new mongoose.Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
   email: {
     type: String,
     index: { unique: true }
   },
   password: String,
-  name: String
+  name: String,
 });
 
 
@@ -130,4 +140,3 @@ module.exports = mongoose.model('Posts', PostSchema);
 module.exports = connection.model('Applications', ApplicationSchema);
 module.exports = connection.model('Comments', CommentSchema);
 module.exports = connection.model('User', UserSchema);
-

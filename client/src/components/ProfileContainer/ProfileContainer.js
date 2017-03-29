@@ -14,51 +14,39 @@ class ProfileContainer extends Component{
             add: false,
         };
         this.form=this.form.bind(this); 
-        this.cancel=this.cancel.bind(this);
+        this.showTable=this.showTable.bind(this);
+        //this.modify=this.modify.bind(this)
     };
 
-    
     form(){
         this.setState({add:true});
     }
-    cancel(){
+    showTable(){
         this.setState({add:false});
-    }
-    
+    }    
     renderForm(){
-        return (
+        return(
             <Card>
-                <CardHeader title="Application "/>
+                <CardHeader title="Application Form" />
                 <CardText>
                     <AppLogForm />
                 </CardText>
-            </Card>             
+            </Card>
         );
     }
     renderRes(){
-        return (
-            <Card>
-                <CardHeader title="Application History" style={{textAlign: 'center'}} />
-                <CardText>
-                    <AppLogTable />
-                </CardText>
-                <CardActions>
-                    <FlatButton label="Add" onClick={this.form} />
-                </CardActions>
-            </Card>   
+        return(
+            <Paper>
+                <h6>Application History</h6>
+                <AppLogTable />
+                <FlatButton label="Add" onClick={this.form} />
+            </Paper>
         );
     }
     render(){
-        if(this.state.add){
-            return this.renderForm();
-        }
-        else{
-            return this.renderRes();
-        }
- 
-    }
-    
-    
+        if(this.state.add){return this.renderForm();}
+        else{return this.renderRes();}
+    }   
 }
 
 export default ProfileContainer;

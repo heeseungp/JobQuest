@@ -6,11 +6,21 @@ class CommentList extends Component {
 
   render() {
     return (
-      <div>A comment list!</div>
+      <div>
+        <ul>
+          { this.props.comments ? 
+            this.props.comments.map((comment) => (
+              <li> {comment} </li>
+            ))
+            : null
+          }     
+        </ul>
+      </div>
     );
   }
-
 }
+
+
 
 export default CommentList;
 

@@ -2,7 +2,10 @@
 // now create a lists of threads
 import React, { Component } from 'react';
 import VoteCounter from '../VoteCounter/VoteCounter';
+import Paper from 'material-ui/Paper'
+import { Link } from 'react-router';
 import axios from 'axios';
+import Auth from '../../modules/Auth';
 import './ThreadItem.css';
 
 class ThreadItem extends Component {
@@ -17,18 +20,21 @@ class ThreadItem extends Component {
 
   upVote(){
     // first execute the post and then update the UI
-    axios.post('/vote/up/' + this.props.data._id, {})
-    .then((res) => {
-      // console.log(res);
-      this.props.upvote();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    // post fn is of the form - url, data, options
+    axios.post('/vote/up/' + this.props.data._id, {},
+      { headers: {authorization: 'bearer ' + Auth.getToken()} })
+      .then((res) => {
+        // console.log(res);
+        this.props.upvote();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   downVote(){
-    axios.post('/vote/down/' + this.props.data._id, {})
+    axios.post('/vote/down/' + this.props.data._id, {},
+      { headers: {authorization: 'bearer ' + Auth.getToken()} })
     .then((res) => {
       // console.log(res);
       this.props.downvote();
@@ -41,22 +47,48 @@ class ThreadItem extends Component {
   render() {
     // make date contain only MM/DD/YYYY
 
-    return (
-      <div className="threadItem">
-        <VoteCounter upvote={this.upVote} 
-                     downvote={this.downVote}
-                     votes={this.props.data.votes}/>
-        
-        <div className="threadContent">
-          <div className="title">{this.props.data.title}</div>
+    const style = {
+      height: 90,
+      width: 850,
+      margin: 20,
+    };
 
-          <div className="details">
-            <span className="author">Author - {this.props.data.author}</span> |
-            <span className="numOfComments">{this.props.data.comments.length} comments</span> |
-            <span className="date">Posted {this.props.data.created_at.slice(0, 10)}</span>
+    var linkToThread = this.props.data ? "thread/" + this.props.data._id
+                                       : null;
+
+    return (
+      <Paper className="threadItem" style={style} zDepth={1}>
+
+        {this.props.data ? 
+          <div>
+            <VoteCounter upvote={this.upVote} 
+                        downvote={this.downVote}
+                        votes={this.props.data.votes}/>
+
+            <div className="threadContent">
+              <div className="title">
+                <Link to={linkToThread}>{this.props.data.title}</Link>
+              </div>
+
+              {this.props.showDesc ? 
+                // this is pretty ugly but eh
+                <div className="desc">
+                  <div> {this.props.data.thread} </div>
+                </div>
+                : null
+              }
+              
+              <div className="details">
+                <span className="author">Author - {this.props.data.author}</span> |
+                <span className="numOfComments">{this.props.data.comments.length} comments</span> |
+                <span className="date">Posted {this.props.data.created_at.slice(0, 10)}</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+         : null
+        }
+      
+      </Paper>
     );
   }
 }

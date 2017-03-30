@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('mongoose').model('User');
+const User = require('mongoose').set('debug', true).model('User');
 const config = require('../../config');
 
 /**
@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
     // check if a user exists
     return User.findById(userId, (userErr, user) => {
       if (userErr || !user) {
-        console.log('Error finding user with this userid');
+        console.log('Error finding user with this userid, ', userErr, user);
         return next();
       }
       console.log('User '+user.name+' successfully made a request');

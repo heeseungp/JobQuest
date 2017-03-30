@@ -1,11 +1,11 @@
-
+import { Link, IndexLink } from 'react-router';
 import React, { Component } from 'react';
 import ThreadItem from '../ThreadItem/ThreadItem';
-import Paper from 'material-ui/Paper';
+import InterviewItem from '../InterviewItem/InterviewItem'
 import axios from 'axios';
 import update from 'immutability-helper';
 
-class ThreadItemContainer extends Component {
+class InterviewItemContainer extends Component {
   // has to be switched back to a class Component
   // this container will contain the two methods
 
@@ -42,36 +42,60 @@ class ThreadItemContainer extends Component {
   }
 
   componentDidMount() {
+    // const url = 'http://rest.learncode.academy/api/am/friends'; 
 
     const url = '/posts/'; 
     axios.get(url)
       .then(res => {
         console.log(res.data);
+        console.log(res.data[0]._id);
         this.setState({threads: res.data})
       });
 
     // mongo jobquest --eval "db.dropDatabase()" => to reset DB
+
+     const dummy = {title: 'new stuff brahh', thread: 'Nonsense bahh'};
+     axios.post('/posts/', dummy)
+     .then((res) => {console.log('the res is, ', res)})
+     .catch(err => {
+       console.log(err);
+     });
   }
 
   render(){
-
     return (
-      <div> 
-        {this.state.threads ? 
-          this.state.threads.map((thread, idx) => {
-            return <ThreadItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
-                                                        downvote={() => this.downvoteCount(idx)}/>
-          })
-          : null}
+      <div className="row">
+        <div className="col s8">
+          <div className="card-panel white z-depth-4"> 
+            <div className="card-action">
+              <h3>Interview Questions</h3> 
+            </div>
+
+            {this.state.threads ? 
+              this.state.threads.map((thread, idx) => {
+                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
+                                                           downvote={() => this.downvoteCount(idx)}/>
+              })
+              : null}
+          </div>
+        </div>
+
+        <div className="col s4">
+          <div className="card-panel white z-depth-4"> 
+            <div className="card-action">
+              <Link to="/postNewInterview">Submit New Question</Link> 
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
 }
 
-ThreadItemContainer.PropTypes = {
+InterviewItemContainer.PropTypes = {
   items: React.PropTypes.array.isRequired
   // add two funcs, TODO
 };
 
-export default ThreadItemContainer;
+export default InterviewItemContainer;

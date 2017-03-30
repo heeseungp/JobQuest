@@ -42,7 +42,6 @@ class ThreadItemContainer extends Component {
   }
 
   componentDidMount() {
-    // const url = 'http://rest.learncode.academy/api/am/friends'; 
 
     const url = '/posts/'; 
     axios.get(url)

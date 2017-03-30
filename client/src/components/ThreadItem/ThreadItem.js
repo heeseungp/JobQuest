@@ -5,6 +5,7 @@ import VoteCounter from '../VoteCounter/VoteCounter';
 import Paper from 'material-ui/Paper'
 import { Link } from 'react-router';
 import axios from 'axios';
+import Auth from '../../modules/Auth';
 import './ThreadItem.css';
 
 class ThreadItem extends Component {
@@ -19,14 +20,16 @@ class ThreadItem extends Component {
 
   upVote(){
     // first execute the post and then update the UI
-    axios.post('/vote/up/' + this.props.data._id, {})
-    .then((res) => {
-      // console.log(res);
-      this.props.upvote();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    // post fn is of the form - url, data, options
+    axios.post('/vote/up/' + this.props.data._id, {},
+      { headers: {authorization: 'bearer ' + Auth.getToken()} })
+      .then((res) => {
+        // console.log(res);
+        this.props.upvote();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   downVote(){

@@ -10,7 +10,7 @@ class CommentList extends Component {
         <ul>
           { this.props.comments ? 
             this.props.comments.map((comment) => (
-              <li key={comment} > {comment} </li>
+              <li> {comment.text} </li>
             ))
             : null
           }     

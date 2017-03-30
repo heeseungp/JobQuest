@@ -188,12 +188,18 @@ exports.vote_on_post = function(req, res) {
 		return res.status(400).json(errors);
 
 	Post.find({_id:id}, function(err, post) {
+
+		// post is an array of objects
+		var post = post[0];
 		if(err)
 			return res.status(500).send(err);
 		if(post == null) {
 			errors.postid = 'Post id:'+id+' not found';
 			return res.status(404).json(errors);
 		}
+
+		console.log('post is, ', post);
+		console.log('post is, ', post.votedOn);
 
 		var foundUser = false;
 		for(var i = 0; i < post.votedOn.length; i++) {

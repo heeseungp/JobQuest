@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Auth from '../../modules/Auth';
 import axios from 'axios';
 
 class ThreadForm extends Component {
@@ -30,7 +31,8 @@ class ThreadForm extends Component {
 
     var newThread = {title: this.state.title, thread: this.state.desc};
     // create a new thread on db
-    axios.post('/posts/create', newThread)
+    axios.post('/posts/create', newThread, 
+               { headers: {authorization: 'bearer ' + Auth.getToken()} })
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);

@@ -7,6 +7,7 @@ import ProfilePage from './components/Profile/ProfilePage';
 import ForumPage from './components/Forum/ForumPage';
 import ThreadForm from './components/ThreadForm/ThreadForm';
 import ThreadPage from './components/ThreadPage/ThreadPage';
+import ProfileContainer from './components/ProfileContainer/ProfileContainer';
 import Auth from './modules/Auth';
 
 
@@ -65,7 +66,10 @@ const routes = {
       component: ThreadPage
     },
     
-    
+    {
+      path: '/app-log',
+      component: ProfileContainer
+    }
   ]
 };
 export default routes;

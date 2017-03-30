@@ -38,10 +38,9 @@ class CommentBox extends Component {
         <input type="text" className="inputComment"
                onChange={this.handleChange} value={this.state.text} />
         <input type="button" id="addComment"
-               onClick={this.handleClick} />
+               onClick={this.handleClick} value="Add Comment" />
 
         <CommentList comments={this.props.comments} />
-
       </div>
     );
   }

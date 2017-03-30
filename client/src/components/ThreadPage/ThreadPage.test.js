@@ -21,7 +21,7 @@ describe('ThreadPage', () => {
   });
 
   it('adds a new comment', () => {
-    var data = {comments: []};
+    var data = {threadData: {comments: []}};
     const wrapper = shallow(<ThreadPage threadData={data} />);
     wrapper.instance().addComment('New Comment');
     console.log(wrapper.state('threadData'));

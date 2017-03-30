@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
-import ThreadItem from '../ThreadItem/ThreadItem'
-import CommentBox from '../CommentBox/CommentBox'
+import ThreadItem from '../ThreadItem/ThreadItem';
+import CommentBox from '../CommentBox/CommentBox';
+import axios from 'axios';
 
 const ThreadPage = React.createClass({
 
@@ -11,12 +12,12 @@ const ThreadPage = React.createClass({
   // this page has access to the ID of the post
   // this will allow us to make the AJAX calls for post data and comments
 
+  // TODO, hook in componentDidMount
+
   getInitialState() {
     return {
       // this whole object gets replaced when the AJAX call goes through
-      threadData: {
-        comments: []
-      },
+      threadData: ''
     };
   },
 
@@ -26,16 +27,25 @@ const ThreadPage = React.createClass({
     newComments.push(comment);
 
     var updated = Object.assign({}, this.state.threadData, {comments: newComments});
-    this.setState({threadData: updated})
+    this.setState({threadData: updated});
+  },
+
+  componentDidMount() {
+    const url = '/posts/' + this.props.params.id + '/show';
+    axios.get(url)
+      .then(res => {
+        console.log('the response went through', res.data);
+        this.setState({threadData: res.data});
+      });
   },
 
   render() {
     return (
       <Card className="container">
-        <CardTitle title="Single thread" subtitle="Check out this single thread page yo" />
+        <CardTitle title="Single thread" subtitle="sup dawg" />
         {/*<p>The id of this thread is: {this.props.params.id}</p>*/}
       
-        <ThreadItem data={this.state.threadData} />
+        <ThreadItem data={this.state.threadData} showDesc={true} />
         <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
       </Card>
     )

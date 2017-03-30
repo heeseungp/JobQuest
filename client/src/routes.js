@@ -8,6 +8,8 @@ import ForumPage from './components/Forum/ForumPage';
 import ThreadForm from './components/ThreadForm/ThreadForm';
 import ThreadPage from './components/ThreadPage/ThreadPage';
 import ProfileContainer from './components/ProfileContainer/ProfileContainer';
+import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
+import InterviewForm from './components/InterviewForm/InterviewForm';
 import Auth from './modules/Auth';
 
 
@@ -69,7 +71,18 @@ const routes = {
     {
       path: '/app-log',
       component: ProfileContainer
+    },
+
+    {
+      path: '/interview',
+      component: InterviewItemContainer  
+    },
+
+    {
+      path: '/postNewInterview',
+      component: InterviewForm
     }
+
   ]
 };
 export default routes;

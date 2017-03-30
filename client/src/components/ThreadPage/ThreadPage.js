@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import CommentBox from '../CommentBox/CommentBox';
+import Auth from '../../modules/Auth';
 import axios from 'axios';
 
 const ThreadPage = React.createClass({
@@ -29,7 +30,8 @@ const ThreadPage = React.createClass({
     var updated = Object.assign({}, this.state.threadData, {comments: newComments});
 
     const url = '/posts/' + this.props.params.id + '/comments/create';
-    axios.post(url, {text: comment})
+    axios.post(url, {text: comment}, 
+               { headers: {authorization: 'bearer ' + Auth.getToken()} })
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);

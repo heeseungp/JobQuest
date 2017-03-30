@@ -33,7 +33,8 @@ class ThreadItem extends Component {
   }
 
   downVote(){
-    axios.post('/vote/down/' + this.props.data._id, {})
+    axios.post('/vote/down/' + this.props.data._id, {},
+      { headers: {authorization: 'bearer ' + Auth.getToken()} })
     .then((res) => {
       // console.log(res);
       this.props.downvote();

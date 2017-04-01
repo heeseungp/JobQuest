@@ -17,7 +17,7 @@ class AppLogTable extends Component{
     };
     componentDidMount(){
         const url='/applications/';
-        axios.get(url,{ headers: {authorization: 'bearer ' + Auth.getToken()} })
+        axios.get(url)
         .then(res => {
             this.setState({applications: res.data});
         });

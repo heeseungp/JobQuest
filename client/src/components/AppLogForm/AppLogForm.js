@@ -33,7 +33,7 @@ class AppLogForm extends Component{
     }
     handleSubmit(event){
         var data = {company:this.state.company,role:this.state.role,status:this.state.status};
-        axios.post('/applications/create',data,{ headers: {authorization: 'bearer ' + Auth.getToken()} })
+        axios.post('/applications/create',data)
         .then((res) => {console.log('the res is, ', res)})
         .catch(err => {console.log(err);});
         event.preventDefault(); 

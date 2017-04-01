@@ -21,8 +21,7 @@ class ThreadItem extends Component {
   upVote(){
     // first execute the post and then update the UI
     // post fn is of the form - url, data, options
-    axios.post('/vote/up/' + this.props.data._id, {},
-      { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    axios.post('/vote/up/' + this.props.data._id, {})
       .then((res) => {
         // console.log(res);
         this.props.upvote();
@@ -33,8 +32,7 @@ class ThreadItem extends Component {
   }
 
   downVote(){
-    axios.post('/vote/down/' + this.props.data._id, {},
-      { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    axios.post('/vote/down/' + this.props.data._id, {})
     .then((res) => {
       // console.log(res);
       this.props.downvote();

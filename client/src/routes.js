@@ -7,7 +7,7 @@ import ProfilePage from './components/Profile/ProfilePage';
 import ForumPage from './components/Forum/ForumPage';
 import ThreadForm from './components/ThreadForm/ThreadForm';
 import ThreadPage from './components/ThreadPage/ThreadPage';
-import ProfileContainer from './components/ProfileContainer/ProfileContainer';
+import AppLogContainer from './components/AppLogContainer/AppLogContainer';
 import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
 import InterviewForm from './components/InterviewForm/InterviewForm';
 import Auth from './modules/Auth';
@@ -67,11 +67,14 @@ const routes = {
       path: '/thread/:id',
       component: ThreadPage
     },
-    
     {
       path: '/app-log',
+      component: AppLogContainer
+    }, 
+   /* {
+      path: '/app-log',
       component: ProfileContainer
-    },
+    }, */
 
     {
       path: '/interview',

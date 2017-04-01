@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn,TableFooter} from 'material-ui/Table';
 import axios from 'axios';
+import Auth from '../../modules/Auth';
 import UserProfile from '../UserProfile/UserProfile';
 
 /*Need to clean this code before April begins */
@@ -16,7 +17,7 @@ class AppLogTable extends Component{
     };
     componentDidMount(){
         const url='/applications/';
-        axios.get(url)
+        axios.get(url,{ headers: {authorization: 'bearer ' + Auth.getToken()} })
         .then(res => {
             this.setState({applications: res.data});
         });

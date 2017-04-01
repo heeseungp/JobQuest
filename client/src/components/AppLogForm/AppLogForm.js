@@ -1,6 +1,7 @@
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
+import Auth from '../../modules/Auth';
 import axios from 'axios';
 import React, { Component } from 'react';
 
@@ -32,7 +33,7 @@ class AppLogForm extends Component{
     }
     handleSubmit(event){
         var data = {company:this.state.company,role:this.state.role,status:this.state.status};
-        axios.post('/applications/create',data)
+        axios.post('/applications/create',data,{ headers: {authorization: 'bearer ' + Auth.getToken()} })
         .then((res) => {console.log('the res is, ', res)})
         .catch(err => {console.log(err);});
         event.preventDefault(); 

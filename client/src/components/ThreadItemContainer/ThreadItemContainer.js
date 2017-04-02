@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 import update from 'immutability-helper';
 
+import './ThreadItemContainer.css';
+
 class ThreadItemContainer extends Component {
   // has to be switched back to a class Component
   // this container will contain the two methods
@@ -56,7 +58,7 @@ class ThreadItemContainer extends Component {
   render(){
 
     return (
-      <div> 
+      <div id="threadContainer"> 
         {this.state.threads ? 
           this.state.threads.map((thread, idx) => {
             return <ThreadItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}

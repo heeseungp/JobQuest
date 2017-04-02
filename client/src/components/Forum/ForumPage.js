@@ -8,26 +8,32 @@ import ThreadForm from '../ThreadForm/ThreadForm'
 import './ForumPage.css';
 
 
-const ForumPage = () => (
-  <div>
+const ForumPage = React.createClass({
 
-    <Card className="container">
-      <CardTitle title="Welcome to JobQuest's Forums" 
-                 subtitle="Here's where students ask questions" />
-    </Card>
+  render: function(){
+    return (
+      <div>
+        <Card className="container">
+          <CardTitle title="Welcome to JobQuest's Forums" 
+                    subtitle="Here's where students ask questions" />
+        </Card>
 
-    <div id="newPost" className="button-line">
-      <Link to="/new_post">
-        <RaisedButton label="Create a new post" primary />
-      </Link>
-    </div>
+        <div id="newPost" className="button-line">
+          <Link to="/new_post">
+            <RaisedButton label="Create a new post" primary />
+          </Link>
+        </div>
 
-    <ThreadItemContainer />
-    {/*<ThreadForm />*/}
-
-
-
-  </div>
-);
+        <ThreadItemContainer />
+        
+        <div id="rightColumn">
+          <div id="calendar"> Calendar here </div>
+          <div id="events"> Events here </div>
+        </div>
+        
+      </div>
+    );
+  }
+}); 
 
 export default ForumPage;

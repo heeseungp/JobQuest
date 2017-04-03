@@ -100,6 +100,51 @@ const UserSchema = new mongoose.Schema({
 });
 
 
+var InterviewQuestionsSchema = new Schema({ // Requires: QuestionTopic QuestionTitle and Question
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
+  author:String,
+  
+  authorID:String,
+  
+  topic: {
+    type:String,
+    required:true
+  },
+  title: {
+    type:String,
+    required:true
+  },
+  question: {
+    type:String,
+    required:true
+  },
+  answers:[AnswersSchema], // each answer follow the AnswersSchema structure below
+
+  created_at: {
+    type:Date,
+    default:Date.now,
+    required:true
+  }
+});
+
+var AnswersSchema = new Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
+  author:String,
+  authorID:String,
+  answer:String,
+  created_at: {
+    type:Date,
+    default:Date.now
+  }
+});
+
+
 /**
  * Compare the passed password with the value in the database. A model method.
  *
@@ -135,7 +180,8 @@ UserSchema.pre('save', function saveHook(next) {
   });
 });
 
-
+module.exports = mongoose.model('InterviewQuestions', InterviewQuestionsSchema);
+module.exports = mongoose.model('Answers', AnswersSchema);
 module.exports = mongoose.model('Posts', PostSchema);
 module.exports = connection.model('Applications', ApplicationSchema);
 module.exports = connection.model('Comments', CommentSchema);

@@ -4,6 +4,10 @@ import ThreadItem from '../ThreadItem/ThreadItem';
 import InterviewItem from '../InterviewItem/InterviewItem'
 import axios from 'axios';
 import update from 'immutability-helper';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import {GridList, GridTile} from 'material-ui/GridList';
+
 
 class InterviewItemContainer extends Component {
   // has to be switched back to a class Component
@@ -62,32 +66,131 @@ class InterviewItemContainer extends Component {
      });
   }
 
+
   render(){
+
+    const styleCard = {
+      left: {
+        marginUp: '50px',
+        marginLeft: '50px',
+        marginRight: '50px'
+      },
+
+      right: {
+        marginUp: '50px',
+        marginRight: '50px',
+        marginBottom: '50px' 
+      }
+    }
+
+    const styleFont = {
+      left: {
+        fontSize: '40px',
+        fontWeight: 'bold'
+      },
+
+      description: {
+        fontSize: '20px'
+      },
+
+      button: {
+        fontSize: '20px'
+      },
+
+      contributor: {
+        fontSize: '20px',
+        textAlign: 'center'
+      }
+
+    }
+
+
+
     return (
-      <div className="row">
-        <div className="col s8">
-          <div className="card-panel white z-depth-4"> 
-            <div className="card-action">
-              <h3>Interview Questions</h3> 
-            </div>
+        <GridList 
+          cols={12}>
+          <GridTile 
+            cols={8}
+            rows={50}>
+            
+            {/*Threads*/}
+            <Card
+              zDepth={2}
+              style={styleCard.left}>
+              <CardHeader
+                title="Interview Questions"
+                titleStyle={styleFont.left}/>
+              <CardText
+                style={styleFont.description}>
+                
 
-            {this.state.threads ? 
-              this.state.threads.map((thread, idx) => {
-                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
-                                                           downvote={() => this.downvoteCount(idx)}/>
-              })
-              : null}
-          </div>
-        </div>
+                {/*{this.state.threads ? 
+                              this.state.threads.map((thread, idx) => {
+                                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
+                                                                          downvote={() => this.downvoteCount(idx)}/>
+                              })
+                              : null}*/}
 
-        <div className="col s4">
-          <div className="card-panel white z-depth-4"> 
-            <div className="card-action">
-              <Link to="/postNewInterview">Submit New Question</Link> 
-            </div>
-          </div>
-        </div>
-      </div>
+                <InterviewItem />
+
+
+                
+              
+              </CardText>
+            </Card>
+          </GridTile>
+
+          <GridTile 
+            cols={4}
+            rows={50}>
+
+            {/*Button and Description*/}
+            <Card 
+              zDepth={2}
+              style={styleCard.right}>
+              <RaisedButton label="Submit a New Question" primary={true} fullWidth={true}/>
+
+              <CardText 
+                style={styleFont.description}>
+                <b>Welcome, one and all, to Interview Questions!</b>
+                <br />
+                <br />
+                Here we discuss interview questions in Computer Science, Computer Engineering, Software Engineering, 
+                and related fields. Please keep the conversation professional.
+                <br />
+                </CardText>
+            </Card>
+
+            {/*High score*/}
+            <Card 
+              zDepth={2}
+              style={styleCard.right}>
+              <CardText
+                style={styleFont.description}>
+                <b>Top Contributors</b>
+                <br />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                <br />
+                <br />
+                <b>Top Contributors</b>
+                <br />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                <br />
+                </CardText>
+            </Card>
+
+            
+          </GridTile>
+
+
+        </GridList>
+
     );
   }
 

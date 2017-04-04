@@ -53,11 +53,15 @@ const ThreadPage = React.createClass({
   },
 
   render() {
+
+    const style = {
+      width: 850,
+      padding: 10,
+      margin: 10
+    }
+
     return (
-      <Card className="container">
-        <CardTitle title="Single thread" subtitle="sup dawg" />
-        {/*<p>The id of this thread is: {this.props.params.id}</p>*/}
-      
+      <Card style={style}>
         <ThreadItem data={this.state.threadData} showDesc={true} />
         <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
       </Card>

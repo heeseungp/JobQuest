@@ -47,8 +47,9 @@ class ThreadItem extends Component {
   render() {
     // make date contain only MM/DD/YYYY
 
+    // hacking the height for singular page
     const style = {
-      height: 90,
+      height: this.props.showDesc ? 300 : 80,
       width: 800,
       margin: 20,
     };

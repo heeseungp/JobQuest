@@ -7,17 +7,23 @@ var Reddit = new r("Redditbot v0.0.1");
 
 function parseData(raw_data) {
 
-	var all_raw_posts = raw_data.data.children;
+	var all_raw_posts;
+	if(raw_data.data){
+		all_raw_posts = raw_data.data.children;
+	}
+	else{
+		return {'error':'raw_data.data is undefined'};
+	}
 	var cleaned_posts = [];
 
 	for(var i = 0; i < all_raw_posts.length; i++){
 		if(!all_raw_posts[i].data.stickied){	//Filters out any stickied posts, which are usually subreddit meta/automoderator posts.
-			cleaned_posts.push({subreddit:all_raw_posts[i].data.subreddit,
-								title:all_raw_posts[i].data.title,
-								created_at:new Date(all_raw_posts[i].data.created_utc * 1000),
-								author:all_raw_posts[i].data.author,
-								votes:all_raw_posts[i].data.score,
-								link:all_raw_posts[i].data.url,
+			cleaned_posts.push({'subreddit':all_raw_posts[i].data.subreddit,
+								'title':all_raw_posts[i].data.title,
+								'created_at':new Date(all_raw_posts[i].data.created_utc * 1000),
+								'author':all_raw_posts[i].data.author,
+								'votes':all_raw_posts[i].data.score,
+								'link':all_raw_posts[i].data.url,
 								});
 		}
 	}
@@ -93,7 +99,7 @@ exports.search_subreddit = function(req, res) {
 		return res.status(400).json(errors);
 
 	console.log("Searching in /r/"+subreddit+" for posts that have to do with "+searchterm);
-	Reddit.subreddit(subreddit).search(searchterm).exec(function(data) {
+	Reddit.subreddit(subreddit).search(searchterm).limit(15).exec(function(data) {
 		if(!data)
 			return res.status(404).json({error:'No posts found.'});
 		return res.json(parseData(data));

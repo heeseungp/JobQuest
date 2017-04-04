@@ -49,7 +49,7 @@ class ThreadItem extends Component {
 
     // hacking the height for singular page
     const style = {
-      height: this.props.showDesc ? 300 : 80,
+      minHeight: this.props.showDesc ? 150 : 80,
       width: 800,
       margin: 20,
     };

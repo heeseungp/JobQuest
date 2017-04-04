@@ -17,12 +17,13 @@
 }
 
 .desc {
-  height: 150px;
-  width: 720px;
-  padding: 10px;
+  min-height: 50px;
+  width: 730px;
+  padding: 12px;
   margin: 10px 0 10px 0;
-  background-color: rebeccapurple;
-  overflow: overlay;
+  background-color: #a58caf;
+  border-radius: 3px;
+  /*overflow: overlay;*/
 }
 
 .details > span {

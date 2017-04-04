@@ -3,7 +3,7 @@
 //Requires mongoose and our schemas
 var mongoose = require('mongoose');
 var Question = mongoose.model('InterviewQuestions');
-var Comment = mongoose.model('Answers');
+var Answer = mongoose.model('Answers');
 var User = mongoose.model('User');
 
 //Shows all questions. Returns every question.
@@ -99,15 +99,15 @@ exports.edit_a_question = function(req, res) {
 		return res.status(400).json(errors);
 	}
 	
-	Post.findOne({_id:id, authorID:req.user._id}, function(err, newQuestion) {
+	Question.findOne({_id:id, authorID:req.user._id}, function(err, newQuestion) {
 		if (err)
 			return res.status(500).send(err);
 		if(newQuestion == null) {
 			
 			//No matching question was found, so perform one more query to check if question exists
 			//This determines what error message is sent back to the client
-			Question.count({_id:id}, function(err, count) { //??
-				if(count > 0) {	//Post exists, so issue must be due to lack of permissions
+			Question.count({_id:id}, function(err, count) { 
+				if(count > 0) {	//Question exists, so issue must be due to lack of permissions
 					return res.status(401).send('User does not have permission to modify this question');
 				}
 				else {	//Question does not exist, so that is the issue
@@ -120,7 +120,7 @@ exports.edit_a_question = function(req, res) {
 			//Otherwise, it will retain its old value
 			newQuestion.topic = req.body.topic || newQuestion.topic;
 			newQuestion.title = req.body.title || newQuestion.title;
-			newQuestion.thread = req.body.thread || newQuestion.question;
+			newQuestion.question = req.body.question || newQuestion.question;
 
 			newQuestion.save(function(err, newQuestion) {
 				if(err)
@@ -148,7 +148,7 @@ exports.remove_a_question = function(req, res) {
 		return res.status(400).json(errors);
 	}
 
-	Post.findOne({_id:id, authorID:req.user._id}, function(err, newQuestion) {
+	Question.findOne({_id:id, authorID:req.user._id}, function(err, newQuestion) {
 		if (err)
 			return res.status(500).send(err);
 		if(newQuestion == null) {

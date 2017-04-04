@@ -2,7 +2,7 @@
 
 //Requires mongoose and our schemas
 var mongoose = require('mongoose');
-var Question = mongoose.model('Questions');
+var Question = mongoose.model('InterviewQuestions'); 
 var Answer = mongoose.model('Answers');
 
 //Adds an answer to a question. Takes the id of the question and the answer text. Returns the modified question.
@@ -14,14 +14,14 @@ exports.add_an_answer = function(req, res) {
 	}
 
 	var questionid = req.params.QuestionId;
-	var answer = req.body.text;
+	var answer = req.body.answerText; // possible change
 	var errors = {};
 
 	//Error checking on all required parameters
 	if(!questionid)
 		errors.questionid = 'No question ID parameter provided (check URL)';
 	if(!answer)
-		errors.text = 'No answer parameter provided (check body)';
+		errors.answerText = 'No answerText parameter provided (check body)';
 
 	//Returns all errors
 	if(Object.keys(errors).length > 0)
@@ -31,11 +31,11 @@ exports.add_an_answer = function(req, res) {
 		if(err)
 			return res.status(500).send(err);
 		if(question == null){
-			errors.questionid = 'Post id:'+questionid+' not found';
+			errors.questionid = 'Question id:'+questionid+' not found';
 			return res.status(404).json(errors);
 		}
 
-		question.answers.push(new Answer({answer:answer, author:req.user.name, authorID:req.user._id}));
+		question.answers.push(new Answer({answerText:answer, author:req.user.name, authorID:req.user._id})); 
 
 		question.save(function(err, question) {
 			if(err)
@@ -46,7 +46,7 @@ exports.add_an_answer = function(req, res) {
 	});
 };
 
-//Edits an answer. Takes a questionid and answerid as well as the answer text.
+//Edits an answer. Takes a questionid and answerid as well as the answerText.
 exports.edit_an_answer = function(req, res) {
 
 	if(!req.isValidUser){
@@ -56,7 +56,7 @@ exports.edit_an_answer = function(req, res) {
 
 	var questionid = req.params.QuestionId;
 	var answerid = req.params.AnswerId;
-	var answer = req.body.answer;
+	var answer = req.body.answerText;
 	var errors = {};
 
 	if(!answer)
@@ -73,25 +73,25 @@ exports.edit_an_answer = function(req, res) {
 		if(err)
 			return res.status(500).send(err);
 		if(question == null){
-			errors.questionid = 'Post id:'+questionid+' not found';
+			errors.questionid = 'Question id:'+questionid+' not found';
 			return res.status(404).json(errors);
 		}
 
 		var foundAnswer = false;
 		for(var i = 0; i < question.answers.length; i++) {
-			if(commentid == question.answers[i]._id){
+			if(answerid == question.answers[i]._id){
 				foundAnswer = true;
 				//If the user requests an answer which he/she did not create
 				if(req.user._id != question.answers[i].authorID){
-					errors.userid = 'User does not have permission to modify answer with id:'+canswerid;
+					errors.userid = 'User does not have permission to modify answer with id:'+answerid;
 					return res.status(401).json(errors);
 				}
-				question.answers[i].answer = answer;
+				question.answers[i].answerText = answer; 
 				break;
 			}
 		}
 		if(!foundAnswer){
-			errors.answerid = 'Answer id:'+canswerid+' not found';
+			errors.answerid = 'Answer id:'+answerid+' not found';
 			return res.status(404).json(errors);
 		}
 
@@ -147,7 +147,7 @@ exports.remove_an_answer = function(req, res) {
 			}
 		}
 		if(!foundAnswer){
-			errors.answerid = 'Answer id:'+canswerid+' not found';
+			errors.answerid = 'Answer id:'+answerid+' not found';
 			return res.status(404).json(errors);
 		}
 

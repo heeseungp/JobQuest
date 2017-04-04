@@ -5,12 +5,12 @@ module.exports = function(app) {
 	// GET REQUESTS
 
 	// POST REQUESTS
-	app.route('/questions/:QuestionId/answers/create')
+	app.route('/interviewQuestions/:QuestionId/answers/create')
 		.post(controller.add_an_answer);
-	app.route('/questions/:PostId/answers/:CommentId/edit')
+	app.route('/interviewQuestions/:QuestionId/answers/:AnswerId/edit')
 		.post(controller.edit_an_answer);
 
 	// DELETE REQUESTS
-	app.route('/questions/:QuestionId/answers/:AnswerId/remove')
+	app.route('/interviewQuestions/:QuestionId/answers/:AnswerId/remove')
 		.delete(controller.remove_an_answer);
 };

@@ -39,7 +39,7 @@ var applications = require('./app/routes/applicationRoutes');
 var auth = require('./app/routes/authRoutes');
 var api = require('./app/routes/api');
 var interviewQuestions = require('./app/routes/questionRoutes');
-var answers = require('./app/routes/answersRoutes');
+var answers = require('./app/routes/answerRoutes');
 
 
 posts(app);

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-	var controller = require('../controllers/interviewQuestionsController'); // create controller
+	var controller = require('../controllers/questionController'); // create controller
 
 	// GET REQUESTS 
 	app.route('/interviewQuestions')

@@ -99,8 +99,21 @@ const UserSchema = new mongoose.Schema({
   name: String,
 });
 
+var AnswersSchema = new mongoose.Schema({
+  _id: {
+    type:String,
+    'default':shortId.generate
+  },
+  author:String,
+  authorID:String,
+  answerText:String,
+  created_at: {
+    type:Date,
+    default:Date.now
+  }
+});
 
-var InterviewQuestionsSchema = new Schema({ // Requires: QuestionTopic QuestionTitle and Question
+var InterviewQuestionsSchema = new Schema({ 
   _id: {
     type:String,
     'default':shortId.generate
@@ -123,24 +136,10 @@ var InterviewQuestionsSchema = new Schema({ // Requires: QuestionTopic QuestionT
   },
   answers:[AnswersSchema], // each answer follow the AnswersSchema structure below
 
-  created_at: {
+  created_at:{
     type:Date,
     default:Date.now,
     required:true
-  }
-});
-
-var AnswersSchema = new Schema({
-  _id: {
-    type:String,
-    'default':shortId.generate
-  },
-  author:String,
-  authorID:String,
-  answer:String,
-  created_at: {
-    type:Date,
-    default:Date.now
   }
 });
 

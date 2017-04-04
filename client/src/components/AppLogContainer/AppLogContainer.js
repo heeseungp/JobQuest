@@ -7,53 +7,31 @@ import AppLogForm from '../AppLogForm/AppLogForm';
 import AppLogTable from '../AppLogTable/AppLogTable';
 
 /*Need to clean this code before April begins */
-class ProfileContainer extends Component{
-    constructor(props){
-        super(props);
+class AppLogContainer extends Component{
 
-        this.state = {
-            add: false,
-        };
-        this.form=this.form.bind(this); 
-        this.showTable=this.showTable.bind(this);
-        //this.modify=this.modify.bind(this)
-    };
-
-    form(){
-        this.setState({add:true});
-    }
-    showTable(){
-        this.setState({add:false});
-    }    
-    renderForm(){
-        return(
-        <GridList cellHeight={'300'}>
-            <GridTile >
-                <Paper>
-                    <h5 style={{textAlign:'center'}}>Application Form</h5>
-                    <AppLogForm onClick={this.showTable}/> 
-                </Paper>
-            </GridTile>
-        </GridList>
-        );
-    }
-    renderRes(){
+    render(){
         return(
         <GridList cellHeight={'auto'}>
            <GridTile> 
-                <Paper>
-                    <h5 style={{textAlign:'center'}}>Application History</h5>
-                    <AppLogTable />
-                    <FlatButton label="Add" onClick={this.form} />
-                </Paper>
+               <Card>
+                   <CardHeader title="Application History" style={{textAlign:'center'}} />
+                   <CardText>
+                       <AppLogTable />
+                       <AppLogForm />
+                    </CardText>
+               </Card>
+           </GridTile>
+           <GridTile>
+               <Card>
+                   <CardHeader title="Application Chart" style={{textAlign:'center'}} />
+                   <CardText>
+                       Use ReactD3.js to output pie Chart
+                   </CardText>
+                </Card>
             </GridTile>
         </GridList>
         );
-    }
-    render(){
-            if(this.state.add){return this.renderForm();}
-            else{return this.renderRes();} 
     }   
 }
 
-export default ProfileContainer;
+export default AppLogContainer;

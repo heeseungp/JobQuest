@@ -3,7 +3,6 @@ import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn,TableFooter} f
 import axios from 'axios';
 import Auth from '../../modules/Auth';
 import UserProfile from '../UserProfile/UserProfile';
-
 /*Need to clean this code before April begins */
 class AppLogTable extends Component{
     constructor(props){
@@ -12,7 +11,7 @@ class AppLogTable extends Component{
             applications:[],
             //this is for the material-ui
             displaySelectAll: false,
-            adjustForCheckbox: false,
+            adjustForCheckbox: true,
         };
     };
     componentDidMount(){
@@ -22,6 +21,7 @@ class AppLogTable extends Component{
             this.setState({applications: res.data});
         });
     }
+        //to '/applications/:Applicat
     render(){
         return(
             <Table>

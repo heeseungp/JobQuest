@@ -7,6 +7,8 @@ import update from 'immutability-helper';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {GridList, GridTile} from 'material-ui/GridList';
+// import './InterviewItemContainer.css';
+
 
 
 class InterviewItemContainer extends Component {
@@ -80,7 +82,7 @@ class InterviewItemContainer extends Component {
         marginUp: '50px',
         marginRight: '50px',
         marginBottom: '50px' 
-      }
+      },
     }
 
     const styleFont = {
@@ -90,16 +92,11 @@ class InterviewItemContainer extends Component {
       },
 
       description: {
-        fontSize: '20px'
-      },
-
-      button: {
-        fontSize: '20px'
+        fontSize: '25px'
       },
 
       contributor: {
-        fontSize: '20px',
-        textAlign: 'center'
+        fontSize: '15px'
       }
 
     }
@@ -107,49 +104,25 @@ class InterviewItemContainer extends Component {
 
 
     return (
-        <GridList 
-          cols={12}>
-          <GridTile 
-            cols={8}
-            rows={50}>
-            
+        <GridList cols={12}>
+          <GridTile cols={8} rows={50}>
             {/*Threads*/}
-            <Card
-              zDepth={2}
-              style={styleCard.left}>
-              <CardHeader
-                title="Interview Questions"
-                titleStyle={styleFont.left}/>
-              <CardText
-                style={styleFont.description}>
-                
-
-                {/*{this.state.threads ? 
-                              this.state.threads.map((thread, idx) => {
-                                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
-                                                                          downvote={() => this.downvoteCount(idx)}/>
+            <Card zDepth={2} style={styleCard.left}>
+              <CardHeader title="Interview Questions" titleStyle={styleFont.left}/>
+              <CardText style={styleFont.description}>
+                {this.state.threads ? this.state.threads.map((thread, idx) => {
+                                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)} downvote={() => this.downvoteCount(idx)}/>
                               })
-                              : null}*/}
-
-                <InterviewItem />
-
-
-                
-              
+                              : null}
               </CardText>
             </Card>
           </GridTile>
 
-          <GridTile 
-            cols={4}
-            rows={50}>
+          <GridTile cols={4} rows={50}>
 
             {/*Button and Description*/}
-            <Card 
-              zDepth={2}
-              style={styleCard.right}>
-              <RaisedButton label="Submit a New Question" primary={true} fullWidth={true}/>
-
+            <Card zDepth={2} style={styleCard.right}>
+              <RaisedButton labelStyle={{fontSize: '25px', fontFamily:'san-serif'}} label="Submit a New Question" primary={true} fullWidth={true}/>
               <CardText 
                 style={styleFont.description}>
                 <b>Welcome, one and all, to Interview Questions!</b>
@@ -162,33 +135,21 @@ class InterviewItemContainer extends Component {
             </Card>
 
             {/*High score*/}
-            <Card 
-              zDepth={2}
-              style={styleCard.right}>
-              <CardText
-                style={styleFont.description}>
-                <b>Top Contributors</b>
+            <Card zDepth={2} style={styleCard.right}>
+              <CardText style={styleFont.contributor}>
+                <h2>Top Contributors</h2>
+                <h3>1. Joseph Park</h3>
+                <h3>2. Joseph Park</h3>
+                <h3>3. Joseph Park</h3>
                 <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                <br />
-                <br />
-                <b>Top Contributors</b>
-                <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                <h2>Recent Contributors</h2>
+                <h3>1. Joseph Park</h3>
+                <h3>2. Joseph Park</h3>
+                <h3>3. Joseph Park</h3>
                 <br />
                 </CardText>
             </Card>
-
-            
           </GridTile>
-
-
         </GridList>
 
     );

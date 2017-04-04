@@ -5,6 +5,7 @@ import VoteCounter from '../VoteCounter/VoteCounter';
 import axios from 'axios';
 import './InterviewItem.css'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 
 
@@ -16,6 +17,7 @@ class InterviewItem extends Component {
     // supposedly binds the instance
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
+    this.subtitle = this.subtitle.bind(this);
   }
 
   upVote(){
@@ -41,15 +43,46 @@ class InterviewItem extends Component {
     })
   }
 
+  subtitle(){
+    var temp = 'Created by ' + this.props.data.author  + ' at ' + this.props.data.created_at;
+    return temp;
+  }
+
+
+
   render() {
     // make date contain only MM/DD/YYYY
 
-    const styleCardHeader = {
-      title: {
-        fontSize: '22px',
-        fontWeight: 'bold'
+    const styleCard = {
+        item: {
+          marginLeft: '20px',   
+          marginBottom: '20px', 
+          marginRight: '10px',
+          width: '95%',
+          display: 'inline-block'
       }
     }
+
+    const styleCardHeader = {
+      title: {
+        margin: '5px',
+        fontSize: '30px',
+        fontWeight: 'bold'
+      },
+
+      subtitle: {
+        marginLeft: '6px',
+        fontSize: '20px'
+      }
+    }
+
+    const styleButton = {
+      votecounter: {
+        marginUp: '50 px'
+      }
+    }
+
+  
 
     return (
       /*<div className="InterviewItem">
@@ -68,27 +101,30 @@ class InterviewItem extends Component {
         </div>
       </div>*/
 
-      //title can be the title of the question, subtitle can be the contributer with dates
+
+      <div>
+        <VoteCounter style={styleButton.votecounter} upvote={this.upVote} downvote={this.downVote} votes={this.props.data.votes} />            
+        <Card style={styleCard.item}>
+            <CardHeader
+              title={this.props.data.title}
+              titleStyle={styleCardHeader.title}
+              subtitle={this.subtitle()}
+              subtitleStyle={styleCardHeader.subtitle}
+              actAsExpander={true}
+              showExpandableButton={true}/>
+              
+          <CardActions>
+            <FlatButton labelStyle={{fontSize: '15px'}} label="View Solution"/>
+            <FlatButton labelStyle={{fontSize: '15px'}} label="Comment"/>
+          </CardActions>
+
+          <CardText expandable={true}>
+            <p style={{fontSize: '20px'}}>{this.props.data.thread}</p>
+          </CardText>
+        
+        </Card>
+      </div>
       
-      <Card>
-        <CardHeader
-          title="Example Title"
-          titleStyle={styleCardHeader.title}
-          subtitle="Example Subtitle"
-          actAsExpander={true}
-          showExpandableButton={true}/>
-
-        <CardActions>
-          <FlatButton label="Comments"/>
-        </CardActions>
-
-        <CardText expandable={true}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-      </Card>
 
 
     );

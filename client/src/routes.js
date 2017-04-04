@@ -4,9 +4,10 @@ import DashboardPage from './components/Dashboard/DashboardPage';
 import LoginPage from './components/LoginForm/LoginPage';
 import SignUpPage from './components/SignUpForm/SignUpPage';
 import ProfilePage from './components/Profile/ProfilePage';
-import ForumPage from './components/Forum/ForumPage';
+import ForumLayout from './components/ForumLayout/ForumLayout';
 import ThreadForm from './components/ThreadForm/ThreadForm';
 import ThreadPage from './components/ThreadPage/ThreadPage';
+import ThreadListPage from './components/ThreadListPage/ThreadListPage';
 import ProfileContainer from './components/ProfileContainer/ProfileContainer';
 import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
 import InterviewForm from './components/InterviewForm/InterviewForm';
@@ -55,19 +56,26 @@ const routes = {
 
     {
       path: '/forum',
-      component: ForumPage
+      component: ForumLayout,
+      indexRoute: {component: ThreadListPage},
+      childRoutes: [{
+        path: 'thread/:id',
+        onEnter: ({ params }, replace) => replace(`/thread/${params.id}`)
+      }]
     },
 
+    {
+      component: ForumLayout,
+      childRoutes: [{
+        path: 'thread/:id', component: ThreadPage
+      }]
+    },
+    
     {
       path: '/new_post',
       component: ThreadForm
     },
 
-    {
-      path: '/thread/:id',
-      component: ThreadPage
-    },
-    
     {
       path: '/app-log',
       component: ProfileContainer

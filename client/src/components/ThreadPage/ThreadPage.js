@@ -57,7 +57,8 @@ const ThreadPage = React.createClass({
     const style = {
       width: 850,
       padding: 10,
-      margin: 10
+      margin: 10,
+      display: 'inline-block'
     }
 
     return (

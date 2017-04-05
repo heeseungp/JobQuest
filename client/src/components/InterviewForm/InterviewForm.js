@@ -60,19 +60,33 @@ class InterviewForm extends Component {
       width: '50%'
     }
 
+    const styleButton = {
+      marginTop: '50px',
+      marginBottom: '50px',
+      width: '40%',
+    }
+
+    const styleForm = {
+      marginLeft: '150px',
+      marginRight: '150px'
+    }
+
 
     return (
       <Card style={styleCard}>
         {/*<CardTitle titleStyle={{fontSize:'35px'}} title="Submit a New Interview Question"/>*/}
-        <h2 className="card-heading">Submit a New Interview Question</h2>
-          <TextField fullWidth={true} floatingLabelText="Title" multiLine={true} rows={3}/>
-          <br />
-          <TextField fullWidth={true} floatingLabelText="Description" multiLine={true} rows={3}/>
-          <br />
-          <TextField fullWidth={true} floatingLabelText="Answer" multiLine={true} rows={3}/>
-          <br />
-          <RaisedButton primary='primary' label="Submit"/>
-      </Card>
+       
+          <div style={styleForm}>
+            <h2 className="card-heading">Submit a New Interview Question</h2>
+            <TextField fullWidth={true} hintText="Title" multiLine={true} rows={1}/>
+            <br />
+            <TextField fullWidth={true} hintText="Description" multiLine={true} rows={3}/>
+            <br />
+            <TextField fullWidth={true} hintText="Answer" multiLine={true} rows={3}/>
+            <br />
+            <RaisedButton style={styleButton} primary='primary' label="Submit"/>
+          </div>  
+        </Card>
     );
 
   }

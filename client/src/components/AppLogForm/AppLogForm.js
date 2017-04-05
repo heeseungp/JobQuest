@@ -41,9 +41,21 @@ class AppLogForm extends Component{
     render(){
         return(
             <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
-                <TextField hintText="Company" value={this.state.company} onChange={this.handleCompany} style={{width:80,margin:10}}/>
-                <TextField hintText="Role" value={this.state.role} onChange={this.handleRole} style={{width:80,margin:10}}/>
-                <TextField hintText="Status" value={this.state.status} onChange={this.handleStatus} style={{width:80,margin:10}}/>
+                <TextField 
+                    hintText="Company"
+                    value={this.state.company} 
+                    onChange={this.handleCompany} 
+                    style={{width:80,margin:10}}/>
+                <TextField 
+                    hintText="Role" 
+                    value={this.state.role} 
+                    onChange={this.handleRole} 
+                    style={{width:80,margin:10}}/>
+                <TextField 
+                    hintText="Status" 
+                    value={this.state.status} 
+                    onChange={this.handleStatus} 
+                    style={{width:80,margin:10}}/>
                 <br />
                 <FlatButton label="Submit" type="submit" />
             </form>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn,TableFooter} from 'material-ui/Table';
+import {Table, TableBody,TableRow,TableRowColumn, TableHeader, TableHeaderColumn,TableFooter} from 'material-ui/Table';
 import axios from 'axios';
 import Auth from '../../modules/Auth';
 import UserProfile from '../UserProfile/UserProfile';
@@ -21,6 +21,7 @@ class AppLogTable extends Component{
             this.setState({applications: res.data});
         });
     }
+ 
         //to '/applications/:Applicat
     render(){
         return(
@@ -44,7 +45,7 @@ class AppLogTable extends Component{
                                                 />
                         })
                             : null}
-                    </TableBody>
+                   </TableBody>
             </Table>
         );
     }

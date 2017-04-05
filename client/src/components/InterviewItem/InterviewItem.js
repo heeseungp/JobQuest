@@ -1,6 +1,7 @@
 
 // now create a lists of threads
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 import VoteCounter from '../VoteCounter/VoteCounter';
 import axios from 'axios';
 import './InterviewItem.css'

@@ -122,7 +122,9 @@ class InterviewItemContainer extends Component {
 
             {/*Button and Description*/}
             <Card zDepth={2} style={styleCard.right}>
-              <RaisedButton labelStyle={{fontSize: '25px', fontFamily:'san-serif'}} label="Submit a New Question" primary={true} fullWidth={true}/>
+              <Link to='/postNewInterview'>
+                <RaisedButton labelStyle={{fontSize: '25px', fontFamily:'<Sans-serif></Sans-serif>'}} label="Submit a New Question" primary={true} fullWidth={true}/>
+              </Link>
               <CardText 
                 style={styleFont.description}>
                 <b>Welcome, one and all, to Interview Questions!</b>

@@ -3,6 +3,13 @@ import axios from 'axios';
 
 var EditThreadForm = React.createClass({
 
+  getInitialState() {
+    return {
+      titleInput: this.props.title || '',
+      descInput: this.props.desc || ''
+    };
+  },
+
   render() {
     return (
       <div>

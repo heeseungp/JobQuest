@@ -18,6 +18,25 @@ describe('EditThreadForm', () => {
     ])).to.equal(true);
   })
 
+  it('should have empty strings values for inputs', () => {
+    const wrapper = shallow(<EditThreadForm/>);
+
+    // title and desc are initially empty
+    expect(wrapper.state('titleInput')).to.equal('');
+    expect(wrapper.state('descInput')).to.equal('');
+  });
+
+  it('should prefill input values if props are passed', () => {
+    var title = "This is a title";
+    var desc = "This is a description";
+
+    const wrapper = shallow(<EditThreadForm title={title} 
+                                            desc={desc} />);
+
+    // title and desc should prefill
+    expect(wrapper.state('titleInput')).to.equal(title);
+    expect(wrapper.state('descInput')).to.equal(desc);
+  });
 
 
 });

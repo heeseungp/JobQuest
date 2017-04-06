@@ -10,29 +10,42 @@ class InterviewForm extends Component {
   constructor(props){
     super(props);
 
-    this.state = {title: '', desc: ''}
-
+    this.state = {topic: '', title: '', question:''}
     // I hate writing these bindings
+    this.handleTopic = this.handleTopic.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
-    this.handleDesc = this.handleDesc.bind(this);
+    this.handleQuestion = this.handleQuestion.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
+
+  handleTopic(event) {
+    // still not too familiar with this event object
+    this.setState({topic: event.target.value});
+  }
+
 
   handleTitle(event) {
     // still not too familiar with this event object
     this.setState({title: event.target.value});
   }
 
-  handleDesc(event) {
-    this.setState({desc: event.target.value});
+
+  handleQuestion(event) {
+    this.setState({question: event.target.value});
   }
+
+
+  // handleAnswer(event) {
+  //   this.setState({answer: event.target.value});
+  // }
+
 
   handleSubmit(event) {
 
-    var newThread = {title: this.state.title, thread: this.state.desc};
+    var newQuestion = {topic: this.state.topic, title: this.state.title, question: this.state.question};
     // create a new thread on db
-    axios.post('/posts/create', newThread)
+    axios.post('/questions/create', newQuestion)
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);
@@ -75,17 +88,24 @@ class InterviewForm extends Component {
     return (
       <Card style={styleCard}>
         {/*<CardTitle titleStyle={{fontSize:'35px'}} title="Submit a New Interview Question"/>*/}
-       
-          <div style={styleForm}>
-            <h2 className="card-heading">Submit a New Interview Question</h2>
-            <TextField fullWidth={true} hintText="Title" multiLine={true} rows={1}/>
-            <br />
-            <TextField fullWidth={true} hintText="Description" multiLine={true} rows={3}/>
-            <br />
-            <TextField fullWidth={true} hintText="Answer" multiLine={true} rows={3}/>
-            <br />
-            <RaisedButton style={styleButton} primary='primary' label="Submit"/>
-          </div>  
+        <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
+            <div style={styleForm}>
+              
+
+              <h2 className="card-heading">Submit a New Interview Question</h2>
+
+              <TextField fullWidth={true} hintText="Topic" multiLine={true} rows={1}/>
+              <br />
+              <TextField fullWidth={true} hintText="Title" multiLine={true} rows={3}/>
+              <br />
+              <TextField fullWidth={true} hintText="Question" multiLine={true} rows={3}/>
+              <br />
+              {/*<TextField fullWidth={true} hintText="Answer" multiLine={true} rows={3}/>
+              <br />*/}
+              <RaisedButton style={styleButton} primary='primary' label="Submit" onClick={this.handleClick}/>
+            </div>  
+
+          </form>
         </Card>
     );
 

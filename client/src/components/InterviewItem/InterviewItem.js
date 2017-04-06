@@ -86,22 +86,6 @@ class InterviewItem extends Component {
   
 
     return (
-      /*<div className="InterviewItem">
-        <VoteCounter upvote={this.upVote} 
-                     downvote={this.downVote}
-                     votes={this.props.data.votes}/>
-        
-        <div className="threadContent">
-          <div className="title">{this.props.data.title}</div>
-
-          <div className="details">
-            <span className="author">Author - {this.props.data.author}</span> |
-            <span className="numOfComments">{this.props.data.comments.length} comments</span> |
-            <span className="date">Posted {this.props.data.created_at.slice(0, 10)}</span>
-          </div>
-        </div>
-      </div>*/
-
 
       <div>
         <VoteCounter style={styleButton.votecounter} upvote={this.upVote} downvote={this.downVote} votes={this.props.data.votes} />            
@@ -115,8 +99,11 @@ class InterviewItem extends Component {
               showExpandableButton={true}/>
               
           <CardActions>
-            <FlatButton labelStyle={{fontSize: '15px'}} label="View Solution"/>
-            <FlatButton labelStyle={{fontSize: '15px'}} label="Comment"/>
+            <Link to='/eachInterview'>
+              <FlatButton labelStyle={{fontSize: '15px'}} label="View Solution"/>
+              <FlatButton labelStyle={{fontSize: '15px'}} label="Comment"/>
+            </Link>
+            
           </CardActions>
 
           <CardText expandable={true}>

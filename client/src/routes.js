@@ -10,6 +10,7 @@ import ThreadPage from './components/ThreadPage/ThreadPage';
 import ProfileContainer from './components/ProfileContainer/ProfileContainer';
 import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
 import InterviewForm from './components/InterviewForm/InterviewForm';
+import InterviewPage from './components/InterviewPage/InterviewPage';
 import Auth from './modules/Auth';
 
 
@@ -81,6 +82,11 @@ const routes = {
     {
       path: '/postNewInterview',
       component: InterviewForm
+    },
+
+    {
+      path: '/eachInterview',
+      component: InterviewPage
     }
 
   ]

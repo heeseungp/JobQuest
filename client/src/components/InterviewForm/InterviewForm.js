@@ -10,14 +10,13 @@ class InterviewForm extends Component {
   constructor(props){
     super(props);
 
-    this.state = {topic: '', title: '', question:''}
+    this.state = {topic: '', title: '', question:''};
     // I hate writing these bindings
     this.handleTopic = this.handleTopic.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
     this.handleQuestion = this.handleQuestion.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+  };
 
   handleTopic(event) {
     // still not too familiar with this event object
@@ -45,7 +44,7 @@ class InterviewForm extends Component {
 
     var newQuestion = {topic: this.state.topic, title: this.state.title, question: this.state.question};
     // create a new thread on db
-    axios.post('/questions/create', newQuestion)
+    axios.post('/interviewQuestions/create', newQuestion)
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);
@@ -57,10 +56,6 @@ class InterviewForm extends Component {
 
     // don't know what this does either
     event.preventDefault();
-  }
-
-  handleClick() {
-    axios.get('/interview')
   }
 
   render(){
@@ -94,15 +89,15 @@ class InterviewForm extends Component {
 
               <h2 className="card-heading">Submit a New Interview Question</h2>
 
-              <TextField fullWidth={true} hintText="Topic" multiLine={true} rows={1}/>
+              <TextField value={this.state.topic} onChange={this.handleTopic} fullWidth={true} hintText="Topic" multiLine={true} rows={1}/>
               <br />
-              <TextField fullWidth={true} hintText="Title" multiLine={true} rows={3}/>
+              <TextField value={this.state.title} onChange={this.handleTitle} fullWidth={true} hintText="Title" multiLine={true} rows={3}/>
               <br />
-              <TextField fullWidth={true} hintText="Question" multiLine={true} rows={3}/>
+              <TextField value={this.state.question} onChange={this.handleQuestion} fullWidth={true} hintText="Question" multiLine={true} rows={3}/>
               <br />
               {/*<TextField fullWidth={true} hintText="Answer" multiLine={true} rows={3}/>
               <br />*/}
-              <RaisedButton style={styleButton} primary='primary' label="Submit" onClick={this.handleClick}/>
+              <RaisedButton style={styleButton} primary='primary' label="Submit" type="submit"/>  
             </div>  
 
           </form>

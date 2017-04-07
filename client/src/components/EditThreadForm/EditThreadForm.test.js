@@ -43,7 +43,9 @@ describe('EditThreadForm', () => {
     const wrapper = mount(<EditThreadForm/>);
     const titleInput = wrapper.find('#editTitle');
 
-    titleInput.simulate('change', {target: { value: 'I landed a job!' }});
+    // have to provide target.name in the test, not free
+    titleInput.simulate('change', {target: { value: 'I landed a job!',
+                                             name: 'titleInput'}});
     
     expect(wrapper.state('titleInput')).to.equal('I landed a job!');
     expect(titleInput.prop('value')).to.equal('I landed a job!');
@@ -54,7 +56,8 @@ describe('EditThreadForm', () => {
     const wrapper = mount(<EditThreadForm/>);
     const descInput = wrapper.find('#editDesc');
 
-    descInput.simulate('change', {target: { value: 'a new description' }});
+    descInput.simulate('change', {target: { value: 'a new description',
+                                            name: 'descInput' }});
     
     expect(wrapper.state('descInput')).to.equal('a new description');
     expect(descInput.prop('value')).to.equal('a new description');    

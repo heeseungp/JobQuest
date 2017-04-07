@@ -26,7 +26,7 @@ describe('EditThreadForm', () => {
     expect(wrapper.state('descInput')).to.equal('');
   });
 
-  it('should prefill input values if props are passed', () => {
+  it('should prefill state if props are passed', () => {
     var title = "This is a title";
     var desc = "This is a description";
 
@@ -38,5 +38,26 @@ describe('EditThreadForm', () => {
     expect(wrapper.state('descInput')).to.equal(desc);
   });
 
+  it('should accept a title', () => {
+    // mount is needed, otherwise props pops up empty
+    const wrapper = mount(<EditThreadForm/>);
+    const titleInput = wrapper.find('#editTitle');
+
+    titleInput.simulate('change', {target: { value: 'I landed a job!' }});
+    
+    expect(wrapper.state('titleInput')).to.equal('I landed a job!');
+    expect(titleInput.prop('value')).to.equal('I landed a job!');
+  });
+
+  it('should accept a description', () => {
+    // mount is needed, otherwise props pops up empty
+    const wrapper = mount(<EditThreadForm/>);
+    const descInput = wrapper.find('#editDesc');
+
+    descInput.simulate('change', {target: { value: 'a new description' }});
+    
+    expect(wrapper.state('descInput')).to.equal('a new description');
+    expect(descInput.prop('value')).to.equal('a new description');    
+  })
 
 });

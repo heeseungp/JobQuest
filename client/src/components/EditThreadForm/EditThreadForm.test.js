@@ -16,7 +16,7 @@ describe('EditThreadForm', () => {
       <input/>,
       <button>Save</button>
     ])).to.equal(true);
-  })
+  });
 
   it('should have empty strings values for inputs', () => {
     const wrapper = shallow(<EditThreadForm/>);
@@ -61,6 +61,16 @@ describe('EditThreadForm', () => {
     
     expect(wrapper.state('descInput')).to.equal('a new description');
     expect(descInput.prop('value')).to.equal('a new description');    
-  })
+  });
+
+  it('should call onEdit prop when save is clicked', () => {
+    const editPostSpy = spy();
+    const wrapper = shallow(<EditThreadForm handleEdit={editPostSpy} />);
+    const addButton = wrapper.find('button');
+
+    addButton.simulate('click');
+
+    expect(editPostSpy.calledOnce).to.equal(true);
+  });
 
 });

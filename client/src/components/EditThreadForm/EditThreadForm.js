@@ -20,6 +20,10 @@ var EditThreadForm = React.createClass({
     this.setState({[name]: e.target.value});
   },
 
+  handleClick(){
+    this.props.handleEdit();
+  },
+
   render(){
     return (
       <div>
@@ -27,11 +31,17 @@ var EditThreadForm = React.createClass({
                value={this.state.titleInput} onChange={this.handleChange} />
         <input type="text" id="editDesc" name="descInput"
                value={this.state.descInput} onChange={this.handleChange} />
-        <button>Save</button>
+        <button onClick={this.handleClick} >Save</button>
       </div>
     );
   }
 
 }); 
+
+EditThreadForm.PropTypes = {
+  title: React.PropTypes.string.isRequired,
+  desc: React.PropTypes.string.isRequired,
+  handleEdit: React.PropTypes.func.isRequired
+}
 
 export default EditThreadForm;

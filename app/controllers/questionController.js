@@ -6,7 +6,7 @@ var Question = mongoose.model('InterviewQuestions');
 var Answer = mongoose.model('Answers');
 var User = mongoose.model('User');
 
-//Shows all questions. Returns every question.
+//Shows all questions and user-rovided answer. Returns every question/answer.
 exports.show_all_questions = function(req, res) {
 	Question.find({}, function(err, newQuestion) {
 		if (err)
@@ -27,6 +27,7 @@ exports.create_a_question = function(req, res) {
 	var questionTopic = req.body.topic;
 	var questionTitle = req.body.title; 
 	var question = req.body.question;
+	var answer = req.body.originalAnswer;
 	var errors = {};
 
 	if(!questionTopic)
@@ -35,6 +36,8 @@ exports.create_a_question = function(req, res) {
 		errors.title = 'No title parameter provided (check body)';
 	if(!question)
 		errors.question = 'No question parameter provided (check body)';
+	if(!answer)
+		errors.originalAnswer = 'No answer parameter provided (check body)';
 
 	if(Object.keys(errors).length > 0) //??
 		return res.status(400).json(errors);
@@ -45,6 +48,7 @@ exports.create_a_question = function(req, res) {
 		topic:questionTopic,
 		title:questionTitle,
 		question:question,
+		originalAnswer:answer,
 		author:req.user.name,
 		authorID:req.user._id,
 		answers:[]
@@ -121,6 +125,7 @@ exports.edit_a_question = function(req, res) {
 			newQuestion.topic = req.body.topic || newQuestion.topic;
 			newQuestion.title = req.body.title || newQuestion.title;
 			newQuestion.question = req.body.question || newQuestion.question;
+			newQuestion.originalAnswer = req.body.originalAnswer || newQuestion.originalAnswer;
 
 			newQuestion.save(function(err, newQuestion) {
 				if(err)

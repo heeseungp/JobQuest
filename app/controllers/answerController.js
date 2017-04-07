@@ -1,11 +1,11 @@
 'use strict';
 
 //Requires mongoose and our schemas
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'); 
 var Question = mongoose.model('InterviewQuestions'); 
 var Answer = mongoose.model('Answers');
 
-//Adds an answer to a question. Takes the id of the question and the answer text. Returns the modified question.
+//Adds an optinal answer to a question. Takes the id of the question and the answer text. Returns the modified question.
 exports.add_an_answer = function(req, res) {
 
 	if(!req.isValidUser){
@@ -35,7 +35,7 @@ exports.add_an_answer = function(req, res) {
 			return res.status(404).json(errors);
 		}
 
-		question.answers.push(new Answer({answerText:answer, author:req.user.name, authorID:req.user._id})); 
+		question.otherAnswers.push(new Answer({answerText:answer, author:req.user.name, authorID:req.user._id})); 
 
 		question.save(function(err, question) {
 			if(err)
@@ -78,15 +78,15 @@ exports.edit_an_answer = function(req, res) {
 		}
 
 		var foundAnswer = false;
-		for(var i = 0; i < question.answers.length; i++) {
-			if(answerid == question.answers[i]._id){
+		for(var i = 0; i < question.otherAnswers.length; i++) {
+			if(answerid == question.otherAnswers[i]._id){
 				foundAnswer = true;
 				//If the user requests an answer which he/she did not create
-				if(req.user._id != question.answers[i].authorID){
+				if(req.user._id != question.otherAnswers[i].authorID){
 					errors.userid = 'User does not have permission to modify answer with id:'+answerid;
 					return res.status(401).json(errors);
 				}
-				question.answers[i].answerText = answer; 
+				question.otherAnswers[i].answerText = answer; 
 				break;
 			}
 		}
@@ -133,16 +133,16 @@ exports.remove_an_answer = function(req, res) {
 		}
 
 		var foundAnswer = false;
-		for(var i = 0; i < question.answers.length; i++) {
-			if(answerid == question.answers[i]._id){
+		for(var i = 0; i < question.otherAnswers.length; i++) {
+			if(answerid == question.otherAnswers[i]._id){
 				foundAnswer = true;
 				//If the user requests an answer which he/she did not create
-				if(req.user._id != question.answers[i].authorID){
+				if(req.user._id != question.otherAnswers[i].authorID){
 					errors.userid = 'User does not have permission to modify answer with id:'+answerid;
 					return res.status(401).json(errors);
 				}
 				//Removes 1 element from array with index at i, returns modified array
-				question.answers.splice(i, 1);
+				question.otherAnswers.splice(i, 1);
 				break;
 			}
 		}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -37,6 +37,9 @@ class ThreadForm extends Component {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);
 
+      // make it redirect to the page of the post
+      this.context.router.replace('/forum');
+
     })
     .catch((err) => {
       console.log(err);
@@ -74,5 +77,9 @@ class ThreadForm extends Component {
 
   }
 }
+
+ThreadForm.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default ThreadForm;

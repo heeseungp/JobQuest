@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import CommentBox from '../CommentBox/CommentBox';
@@ -57,6 +57,20 @@ const ThreadPage = React.createClass({
     });
   },
 
+  deleteThread(){
+    const url = '/posts/' + this.props.params.id + '/remove';
+    // send ajax call to update and update state as well
+    axios.delete(url, 
+               { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    .then((res) => {
+      console.log('success, deleted', res);
+      this.context.router.replace('/forum');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
   componentDidMount() {
     const url = '/posts/' + this.props.params.id + '/show';
     axios.get(url)
@@ -82,9 +96,14 @@ const ThreadPage = React.createClass({
         <EditThreadForm title={this.state.threadData.title} 
                         desc={this.state.threadData.thread} 
                         handleEdit={this.editThread} />
+        <button onClick={this.deleteThread}>Delete</button>
       </Card>
     )
   }
 })
+
+ThreadPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default ThreadPage;

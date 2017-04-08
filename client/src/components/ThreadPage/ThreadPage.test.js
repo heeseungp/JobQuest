@@ -20,6 +20,8 @@ describe('ThreadPage', () => {
     ])).to.equal(true);
   });
 
+  // this gets complicated because the ajax call needs to go through
+  // in order to update the darn state, sigh
   // it('adds a new comment', () => {
   //   var data = {threadData: {comments: []}};
   //   const wrapper = shallow(<ThreadPage threadData={data} />);
@@ -57,5 +59,13 @@ describe('ThreadPage', () => {
   //   expect(ThreadItem.prop('data')).to.not.eql(undefined);
   //   expect(CommentBox.prop('comments')).to.not.eql(undefined);
   // })
+
+  it('should pass editThread as a prop to EditThreadForm', () => {
+    const wrapper = shallow(<ThreadPage/>);
+    const EditThreadForm = wrapper.find('EditThreadForm');
+
+    const editThread = wrapper.instance().editThread;
+    expect(EditThreadForm.prop('handleEdit')).to.eql(editThread);
+  });
 
 });

@@ -21,7 +21,9 @@ var EditThreadForm = React.createClass({
   },
 
   handleClick(){
-    this.props.handleEdit();
+    // pack title and desc into an obj
+    var newPost = {title: this.state.titleInput, thread: this.state.descInput}
+    this.props.handleEdit(newPost);
   },
 
   render(){

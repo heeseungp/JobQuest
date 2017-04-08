@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItem from '../ThreadItem/ThreadItem';
 import CommentBox from '../CommentBox/CommentBox';
+import EditThreadForm from '../EditThreadForm/EditThreadForm';
 import Auth from '../../modules/Auth';
 import axios from 'axios';
 
@@ -43,6 +44,19 @@ const ThreadPage = React.createClass({
     });
   },
 
+  editThread(data) {
+    // edit the current post data if reques goes through
+    axios.post('/posts/' + this.props.params.id + '/edit', data, 
+               { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    .then((res) => {
+      console.log('success', res);
+      this.setState({threadData: res.data})
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
   componentDidMount() {
     const url = '/posts/' + this.props.params.id + '/show';
     axios.get(url)
@@ -65,6 +79,9 @@ const ThreadPage = React.createClass({
       <Card style={style}>
         <ThreadItem data={this.state.threadData} showDesc={true} />
         <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
+        <EditThreadForm title={this.state.threadData.title} 
+                        desc={this.state.threadData.thread} 
+                        handleEdit={this.editThread} />
       </Card>
     )
   }

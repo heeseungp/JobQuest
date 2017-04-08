@@ -3,7 +3,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper'
 import FlatButton from 'material-ui/FlatButton';
-import AppLogTable from '../AppLogTable/AppLogTable';
+import AppLogTable from '../AppLogHistory/AppLogHistory';
 
 /*Need to clean this code before April begins */
 class AppLogContainer extends Component{

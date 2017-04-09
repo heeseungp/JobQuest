@@ -28,7 +28,6 @@ class ThreadItem extends Component {
 
         {this.props.data ? 
           <div>
-            {/*re add upvote and downvote props*/}
             <VoteCounter votes={this.props.data.votes}
                          onUpvote={this.props.onUpvote}
                          onDownvote={this.props.onDownvote} />

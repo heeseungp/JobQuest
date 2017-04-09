@@ -29,8 +29,7 @@ const ThreadPage = React.createClass({
     var updated = Object.assign({}, this.state.threadData, {comments: newComments});
 
     const url = '/posts/' + this.props.params.id + '/comments/create';
-    axios.post(url, {text: comment}, 
-               { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    axios.post(url, {text: comment})
     .then((res) => {
       // no way to update the UI here, need to rework the app architecture
       console.log('success', res);

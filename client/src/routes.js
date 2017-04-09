@@ -8,7 +8,7 @@ import ForumLayout from './components/ForumLayout/ForumLayout';
 import ThreadForm from './components/ThreadForm/ThreadForm';
 import ThreadPage from './components/ThreadPage/ThreadPage';
 import ThreadListPage from './components/ThreadListPage/ThreadListPage';
-import ProfileContainer from './components/ProfileContainer/ProfileContainer';
+import AppLogContainer from './components/AppLogContainer/AppLogContainer';
 import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
 import InterviewForm from './components/InterviewForm/InterviewForm';
 import Auth from './modules/Auth';
@@ -78,8 +78,8 @@ const routes = {
 
     {
       path: '/app-log',
-      component: ProfileContainer
-    },
+      component: AppLogContainer
+    }, 
 
     {
       path: '/interview',

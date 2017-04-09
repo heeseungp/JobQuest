@@ -68,4 +68,22 @@ describe('ThreadPage', () => {
     expect(EditThreadForm.prop('handleEdit')).to.eql(editThread);
   });
 
+  it('passes upvoteThread to ThreadItem', () => {
+    const wrapper = shallow(<ThreadPage/>);
+    const ThreadItem = wrapper.find('ThreadItem');
+    const upvoteThread = wrapper.instance().upvoteThread;
+
+    // passes at first, def fn to get it to fail
+    expect(ThreadItem.prop('onUpvote')).to.eql(upvoteThread);
+  });
+
+  it('passes downvoteThread to ThreadItem', () => {
+    const wrapper = shallow(<ThreadPage/>);
+    const ThreadItem = wrapper.find('ThreadItem');
+    const downvoteThread = wrapper.instance().downvoteThread;
+
+    // passes at first, def fn to get it to fail
+    expect(ThreadItem.prop('onDownvote')).to.eql(downvoteThread);
+  });
+
 });

@@ -14,8 +14,6 @@ const ThreadPage = React.createClass({
   // this page has access to the ID of the post
   // this will allow us to make the AJAX calls for post data and comments
 
-  // TODO, hook in componentDidMount
-
   getInitialState() {
     return {
       // this whole object gets replaced when the AJAX call goes through
@@ -71,6 +69,36 @@ const ThreadPage = React.createClass({
     });
   },
 
+  upvoteThread(){
+    // make the call to backend which gives back the updated thread
+    // use that to update the state
+
+    axios.post('/vote/up/' + this.state.threadData._id, {},
+      { headers: {authorization: 'bearer ' + Auth.getToken()} })
+      .then((res) => {
+        console.log(res.data);
+
+        this.setState({threadData: res.data});
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  },
+
+  downvoteThread(){
+   
+    axios.post('/vote/down/' + this.state.threadData._id, {},
+      { headers: {authorization: 'bearer ' + Auth.getToken()} })
+      .then((res) => {
+        console.log(res.data);
+
+        this.setState({threadData: res.data});
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  },
+
   componentDidMount() {
     const url = '/posts/' + this.props.params.id + '/show';
     axios.get(url)
@@ -96,7 +124,9 @@ const ThreadPage = React.createClass({
     // FIX, render only if there's threadData
     return (
       <Card style={style}>
-        <ThreadItem data={this.state.threadData} showDesc={true} />
+        <ThreadItem data={this.state.threadData} showDesc={true} 
+                    onUpvote={this.upvoteThread} 
+                    onDownvote={this.downvoteThread} />
         <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
         <EditThreadForm title={this.state.threadData.title} 
                         desc={this.state.threadData.thread} 

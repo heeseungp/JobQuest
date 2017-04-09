@@ -77,6 +77,10 @@ const ThreadPage = React.createClass({
       .then(res => {
         console.log('the response went through', res.data);
         this.setState({threadData: res.data});
+      })
+      .catch(err => {
+        console.log('the error is, ', err);
+        this.context.router.replace('/forum');
       });
   },
 

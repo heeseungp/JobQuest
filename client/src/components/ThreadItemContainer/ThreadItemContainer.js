@@ -8,26 +8,6 @@ import update from 'immutability-helper';
 import './ThreadItemContainer.css';
 
 class ThreadItemContainer extends Component {
-
-  // should have two methods here where I can update the counts
-  // upvoteCount(idx) {
-  //   // update the thread's count
-  //   console.log('updating the count na mean');
-  //   const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x+1}}); 
-  //   let copy = this.state.threads.slice();
-  //   copy[idx] = updatedCount;
-
-  //   this.setState({threads: copy});
-  // }
-
-  // downvoteCount(idx) {
-  //   // update the thread's count
-  //   const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x-1}}); 
-  //   let copy = this.state.threads.slice();
-  //   copy[idx] = updatedCount;
-
-  //   this.setState({threads: copy});
-  // }
   
   render(){
 

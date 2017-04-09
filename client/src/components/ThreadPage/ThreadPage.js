@@ -93,6 +93,7 @@ const ThreadPage = React.createClass({
       display: 'inline-block'
     }
 
+    // FIX, render only if there's threadData
     return (
       <Card style={style}>
         <ThreadItem data={this.state.threadData} showDesc={true} />

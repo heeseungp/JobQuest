@@ -20,13 +20,14 @@ describe('ThreadListPage', () => {
     expect(ThreadItemContainer.props()['threads']).to.equal(undefined);
   });
 
-  // it('passes addComment to CommentBox', () => {
-  //   const wrapper = shallow(<ThreadPage/>);
-  //   const CommentBox = wrapper.find('CommentBox');
-  //   const addComment = wrapper.instance().addComment;
-  //   expect(CommentBox.prop('onSubmit')).to.eql(addComment);
-  // });
+  it('passes upvoteThread to ThreadItemContainer', () => {
+    const wrapper = shallow(<ThreadListPage/>);
+    const ThreadItemContainer = wrapper.find('ThreadItemContainer');
+    const upvoteThread = wrapper.instance().upvoteThread;
 
+    // passes at first, def fn to get it to fail
+    expect(ThreadItemContainer.prop('onUpvote')).to.eql(upvoteThread);
+  });
 
   // it('should pass editThread as a prop to EditThreadForm', () => {
   //   const wrapper = shallow(<ThreadPage/>);

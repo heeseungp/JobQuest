@@ -17,7 +17,7 @@ const ThreadListPage = React.createClass({
   },
 
   upvoteThread(id){
-
+    console.log('upvote has been triggered', id);
   },
 
   componentDidMount(){

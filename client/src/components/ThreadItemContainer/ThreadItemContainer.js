@@ -38,7 +38,10 @@ class ThreadItemContainer extends Component {
         {this.props.threads ? 
           this.props.threads.map((thread, idx) => {
             // re add upvote and downvote
-            return <ThreadItem key={idx} data={thread} />
+            // heard it is inefficient to create a fn everything
+            // the up/down prop is passed but leave until you find a better solution
+            return <ThreadItem key={idx} data={thread} 
+                               onUpvote={() => this.props.onUpvote(idx)} />
           })
           : null}
       </div>
@@ -48,7 +51,7 @@ class ThreadItemContainer extends Component {
 }
 
 ThreadItemContainer.PropTypes = {
-  items: React.PropTypes.array.isRequired
+  threads: React.PropTypes.array.isRequired
   // add two funcs, TODO
 };
 

@@ -14,24 +14,59 @@ class AppLogTable extends Component{
             
             displaySelectAll: false,
             adjustForCheckbox: true,
-            selected:'',
-            
+            selectId:'',
+            selectAll:'',
             //states are for post
-            company: '',
+            company:'',
             role:'',
-            status:''
+            status:'',
+            //state for edit 
+            edit:false
         };
        this.handleRowSelection=this.handleRowSelection.bind(this); 
        this.handleDelete=this.handleDelete.bind(this);
 
-
-       //states for post and update
+       //functions to post 
        this.handleCompany=this.handleCompany.bind(this);
        this.handleRole=this.handleRole.bind(this);
        this.handleStatus=this.handleStatus.bind(this);
        this.handleSubmit=this.handleSubmit.bind(this);
-       //this.handleModify=this.handleModify.bind(this);
+
+       //function to edit, BEWARE THIS CAN THROW AN ERROR IF NOT COMPLETE
+       this.handleModify=this.handleModify.bind(this);
     };
+    //states that are defined to set up post http request
+    handleCompany(event){this.setState({company:event.target.value});}
+    handleRole(event){this.setState({role:event.target.value});}
+    handleStatus(event){this.setState({status:event.target.value});}
+   
+    //state defined to handle edit  
+    handleModify(){
+        //PROTOTYPING 
+        console.log(this.selected);
+        if(this.state.selected != ''){
+            this.setState({
+                edit:true,
+                 company:this.state.selectAll.company,
+                 role:this.state.selectAll.role,
+                 status:this.state.selectAll.status
+            })
+        }
+        else{
+            console.log('edit is still false');
+        }
+
+     }
+
+    //state to handle when checkbox has been clicked
+    handleRowSelection(key){
+        this.setState({
+            selectId: this.state.applications[key]._id,
+            selectAll: this.state.applications[key]
+        });
+    }
+
+    //function for GET request
     componentDidMount(){
         const url='/applications/';
         axios.get(url)
@@ -39,56 +74,65 @@ class AppLogTable extends Component{
             this.setState({applications: res.data});
         });
     }
-    handleRowSelection(key){
-        this.setState({
-            selected: this.state.applications[key]._id
-        });
-    }
+
+   
+    //function for DELETE request
     handleDelete(){
         var idx = -1;
         for(let i=0; i < this.state.applications; i++){
-            if(this.state.applications[i]._id == this.state.selected){
-                idx=i;
-            }
+            if(this.state.applications[i]._id == this.state.selectId){idx=i;}
         }
         var copy = this.state.applications.slice();
         copy.splice(idx,1);
-
-        const url='/applications/' + this.state.selected + '/remove';
-
+        const url='/applications/' + this.state.selectId + '/remove';
         axios.delete(url)
         .then(res => {
-            this.setState({applications: copy, selected: ''})
+            this.setState({applications: copy, selectId: ''})
         });
     }
-    handleCompany(event){
-        this.setState({company:event.target.value});
-    }
-    handleRole(event){
-        this.setState({role:event.target.value});
-    }
-    handleStatus(event){
-        this.setState({status:event.target.value});
-    }
+
+    //function for POST request
     handleSubmit(event){
         var data = {company:this.state.company,role:this.state.role,status:this.state.status};
-        //figure out how to copy applications and insert new post
         var copy = this.state.applications.slice();
-        axios.post('/applications/create',data)
-        .then((res) => {
-            copy.push(res.data); 
-            this.setState({applications: copy})})
-        .catch(err => {console.log(err);});
-        event.preventDefault(); 
-    }   
-    // handleModify(){
+        //if edit is false, it will create a new submission else it will edit and submit
+        if(!this.state.edit){
+            axios.post('/applications/create',data)
+            .then((res) => {
+                copy.push(res.data); 
+                this.setState({
+                    applications: copy,
+                    company:'',
+                    role:'',
+                    status:''
+                })
+            })
+            .catch(err => {console.log(err);});
+            event.preventDefault();
+        }else{
+            axios.post('applications/'+this.state.selectId+'/edit',data)
+            .then((res) => {
+              copy.push(res.data);
+              this.setState({
+                    selected:'',
+                    edit:false,
+                    applications: copy,
+                    company:'',
+                    role:'',
+                    status:''
+               })
+            })
+       }
 
-    // }
+    }   
+
 
     render(){
         return(
          <div>
-            <Table onRowSelection={this.handleRowSelection} multiSelectable={this.state.multiSelectable}>
+            <Table 
+                onRowSelection={this.handleRowSelection}
+                multiSelectable={this.state.multiSelectable}>
                 <TableHeader displaySelectAll={this.state.displaySelectAll} adjustForCheckbox={this.state.adjustForCheckbox}>
                     <TableRow>
                         <TableHeaderColumn>Date</TableHeaderColumn>
@@ -127,7 +171,7 @@ class AppLogTable extends Component{
                 <br />
                 <FlatButton label="Submit" type="submit" />
                 <FlatButton label="Delete" onClick={this.handleDelete} />
-                <FlatButton label="Modify" />
+                <FlatButton label="Modify" onClick={this.handleModify}/>
             </form>
         </div>        
         );

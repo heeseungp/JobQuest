@@ -31,7 +31,7 @@ describe('VoteCounter', () => {
 
   it('should call downvote when clicked', () => {
     const downvoteSpy = spy();
-    const wrapper = shallow(<VoteCounter downvote={downvoteSpy}/>);
+    const wrapper = shallow(<VoteCounter onDownvote={downvoteSpy}/>);
     const downvoteButton = wrapper.find('.downvote');
 
     downvoteButton.simulate('click');

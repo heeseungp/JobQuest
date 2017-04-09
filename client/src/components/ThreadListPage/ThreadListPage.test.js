@@ -29,12 +29,14 @@ describe('ThreadListPage', () => {
     expect(ThreadItemContainer.prop('onUpvote')).to.eql(upvoteThread);
   });
 
-  // it('should pass editThread as a prop to EditThreadForm', () => {
-  //   const wrapper = shallow(<ThreadPage/>);
-  //   const EditThreadForm = wrapper.find('EditThreadForm');
+  it('passes downvoteThread to ThreadItemContainer', () => {
+    const wrapper = shallow(<ThreadListPage/>);
+    const ThreadItemContainer = wrapper.find('ThreadItemContainer');
+    const downvoteThread = wrapper.instance().downvoteThread;
 
-  //   const editThread = wrapper.instance().editThread;
-  //   expect(EditThreadForm.prop('handleEdit')).to.eql(editThread);
-  // });
+    // passes at first, def fn to get it to fail
+    expect(ThreadItemContainer.prop('onDownvote')).to.eql(downvoteThread);
+  });
+
 
 });

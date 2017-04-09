@@ -20,6 +20,10 @@ const ThreadListPage = React.createClass({
     console.log('upvote has been triggered', id);
   },
 
+  downvoteThread(id){
+    console.log('downvote has been triggered', id);
+  },
+
   componentDidMount(){
     // populate threads data
     
@@ -40,7 +44,8 @@ const ThreadListPage = React.createClass({
       <div style={style} >
 
         <ThreadItemContainer threads={this.state.threads}
-                             onUpvote={this.upvoteThread} />
+                             onUpvote={this.upvoteThread}
+                             onDownvote={this.downvoteThread} />
         
       </div>
     );

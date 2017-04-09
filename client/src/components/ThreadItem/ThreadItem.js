@@ -56,7 +56,8 @@ class ThreadItem extends Component {
           <div>
             {/*re add upvote and downvote props*/}
             <VoteCounter votes={this.props.data.votes}
-                         onUpvote={this.props.onUpvote} />
+                         onUpvote={this.props.onUpvote}
+                         onDownvote={this.props.onDownvote} />
 
             <div className="threadContent">
               <div className="title">

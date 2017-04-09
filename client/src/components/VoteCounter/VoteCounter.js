@@ -11,7 +11,7 @@ function VoteCounter(props){
 
       <div className="voteCount">{props.votes}</div>
 
-      <a className="downvote" href="#/" onClick={props.downvote}>
+      <a className="downvote" href="#/" onClick={props.onDownvote}>
         <i className="fa fa-chevron-down" aria-hidden="true"></i>
       </a>
     </div>

@@ -14,40 +14,46 @@ class Reddit extends Component {
     super(props);
 
     this.state = {
-      redditposts: []
+      redditposts: [],
     };
 
   }
 
-  componentDidMount() {
-
-    const url = '/reddit/cscareerquestions/hot/'; 
-    axios.get(url)
+  getPosts(value) {
+    const url = '/reddit/cscareerquestions/'; 
+    axios.get(url + value)
       .then(res => {
         console.log(res.data);
         this.setState({redditposts: res.data})
       });
   }
 
+  componentDidMount() {
+    this.getPosts('hot');
+  }
+
   render(){
 
     //wish there was a way to make these auto-wrap around the contents...
     const style = {
-      height: 765,
-      width: 600,
+      height: 800,
+      width: 750,
       margin: 20,
       padding: 10
     };
 
+    const maxLinkLength = 65;
+
     return (
        <Paper style={style} zDepth={1}>
          <h2>Hot posts from <a href="https://reddit.com/r/cscareerquestions" target="_blank">/r/cscareerquestions</a></h2>
+        
         {this.state.redditposts ? 
           this.state.redditposts.map((redditpost, idx) => {
             return (
               <div className="post">
                 <a href={redditpost.link} className="link" key={idx} title={redditpost.title} target="_blank">
-                  {redditpost.title.length <= 50 ? redditpost.title : redditpost.title.substring(0,50) + "...."}
+                  {redditpost.title.length <= maxLinkLength ? redditpost.title : redditpost.title.substring(0,maxLinkLength) + "...."}
                 </a>
                 <br />
                 <div className="info">

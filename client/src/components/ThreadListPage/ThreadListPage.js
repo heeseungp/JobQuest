@@ -3,6 +3,7 @@ import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer'
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 // import './ThreadListPage.css';
 
@@ -13,6 +14,17 @@ const ThreadListPage = React.createClass({
     return {
       threads: undefined
     }
+  },
+
+  componentDidMount(){
+    // populate threads data
+    
+    const url = '/posts/';
+    axios.get(url)
+      .then(res => {
+        console.log('got the data', res.data);
+        this.setState({threads: res.data})
+      });
   },
 
   render: function(){

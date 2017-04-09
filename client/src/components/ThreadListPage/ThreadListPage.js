@@ -9,8 +9,13 @@ import { Link } from 'react-router';
 
 const ThreadListPage = React.createClass({
 
-  render: function(){
+  getInitialState(){
+    return {
+      threads: undefined
+    }
+  },
 
+  render: function(){
     const style = {
       display: 'inline-block'
     };
@@ -18,7 +23,7 @@ const ThreadListPage = React.createClass({
     return (
       <div style={style} >
 
-        <ThreadItemContainer />
+        <ThreadItemContainer threads={this.state.threads} />
         
       </div>
     );

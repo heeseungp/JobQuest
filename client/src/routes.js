@@ -11,6 +11,8 @@ import ThreadListPage from './components/ThreadListPage/ThreadListPage';
 import AppLogContainer from './components/AppLogContainer/AppLogContainer';
 import InterviewItemContainer from './components/InterviewItemContainer/InterviewItemContainer';
 import InterviewForm from './components/InterviewForm/InterviewForm';
+import AboutPage from './components/AboutPage/AboutPage';
+import ResourcePage from './components/ResourcePage/ResourcePage';
 import Auth from './modules/Auth';
 
 
@@ -89,6 +91,16 @@ const routes = {
     {
       path: '/postNewInterview',
       component: InterviewForm
+    },
+
+    {
+      path: '/about',
+      component: AboutPage
+    },
+
+    {
+      path: '/resources',
+      component: ResourcePage
     }
 
   ]

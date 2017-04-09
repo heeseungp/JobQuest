@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn} from 'material-ui/Table';
+import {Card,CardHeader,CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
@@ -44,7 +45,7 @@ class AppLogTable extends Component{
     handleModify(){
         //PROTOTYPING 
         console.log(this.selected);
-        if(this.state.selected != ''){
+        if(this.state.selected !== ''){
             this.setState({
                 edit:true,
                  company:this.state.selectAll.company,
@@ -80,7 +81,7 @@ class AppLogTable extends Component{
     handleDelete(){
         var idx = -1;
         for(let i=0; i < this.state.applications; i++){
-            if(this.state.applications[i]._id == this.state.selectId){idx=i;}
+            if(this.state.applications[i]._id === this.state.selectId){idx=i;}
         }
         var copy = this.state.applications.slice();
         copy.splice(idx,1);
@@ -129,51 +130,54 @@ class AppLogTable extends Component{
 
     render(){
         return(
-         <div>
-            <Table 
-                onRowSelection={this.handleRowSelection}
-                multiSelectable={this.state.multiSelectable}>
-                <TableHeader displaySelectAll={this.state.displaySelectAll} adjustForCheckbox={this.state.adjustForCheckbox}>
-                    <TableRow>
-                        <TableHeaderColumn>Date</TableHeaderColumn>
-                        <TableHeaderColumn>Company</TableHeaderColumn>
-                        <TableHeaderColumn>Role</TableHeaderColumn>
-                        <TableHeaderColumn>Status</TableHeaderColumn>
-                    </TableRow>
-                </TableHeader>
-                    <TableBody>
-                    {this.state.applications ?  this.state.applications.map((application, idx) => {
-                            return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
-                                                company={application.company}
-                                                role={application.role}
-                                                status={application.status}
-                                                />
-                        })
-                            : null}
-                   </TableBody>
-            </Table>
-            <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
-                <TextField 
-                    hintText="Company"
-                    value={this.state.company} 
-                    onChange={this.handleCompany} 
-                    style={{width:80,margin:10}}/>
-                <TextField 
-                    hintText="Role" 
-                    value={this.state.role} 
-                    onChange={this.handleRole} 
-                    style={{width:80,margin:10}}/>
-                <TextField 
-                    hintText="Status" 
-                    value={this.state.status} 
-                    onChange={this.handleStatus} 
-                    style={{width:80,margin:10}}/>
-                <br />
-                <FlatButton label="Submit" type="submit" />
-                <FlatButton label="Delete" onClick={this.handleDelete} />
-                <FlatButton label="Modify" onClick={this.handleModify}/>
-            </form>
-        </div>        
+         <Card>
+             <CardHeader title="Application History" style={{textAlign:'center'}} />
+             <CardText>
+                <Table 
+                    onRowSelection={this.handleRowSelection}
+                    multiSelectable={this.state.multiSelectable}>
+                    <TableHeader displaySelectAll={this.state.displaySelectAll} adjustForCheckbox={this.state.adjustForCheckbox}>
+                        <TableRow>
+                            <TableHeaderColumn>Date</TableHeaderColumn>
+                            <TableHeaderColumn>Company</TableHeaderColumn>
+                            <TableHeaderColumn>Role</TableHeaderColumn>
+                            <TableHeaderColumn>Status</TableHeaderColumn>
+                        </TableRow>
+                    </TableHeader>
+                        <TableBody>
+                        {this.state.applications ?  this.state.applications.map((application, idx) => {
+                                return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
+                                                    company={application.company}
+                                                    role={application.role}
+                                                    status={application.status}
+                                                    />
+                            })
+                                : null}
+                    </TableBody>
+                </Table>
+                <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
+                    <TextField 
+                        hintText="Company"
+                        value={this.state.company} 
+                        onChange={this.handleCompany} 
+                        style={{width:80,margin:10}}/>
+                    <TextField 
+                        hintText="Role" 
+                        value={this.state.role} 
+                        onChange={this.handleRole} 
+                        style={{width:80,margin:10}}/>
+                    <TextField 
+                        hintText="Status" 
+                        value={this.state.status} 
+                        onChange={this.handleStatus} 
+                        style={{width:80,margin:10}}/>
+                    <br />
+                    <FlatButton label="Submit" type="submit" />
+                    <FlatButton label="Delete" onClick={this.handleDelete} />
+                    <FlatButton label="Modify" onClick={this.handleModify}/>
+                </form>
+               </CardText>
+            </Card>        
         );
     }
 }

@@ -1,34 +1,33 @@
-import {Card, CardHeader, CardActions, CardText} from 'material-ui/Card';
-import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
-import React from 'react';
+import React, { Component } from 'react';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
+class FutureEvents extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      eventData:[
+        {title:'April 28th', post:'CUNY Hackathon'},
+        {title:'May 4th', post: 'Job Fair at Crowed'},
+        {title:'June 2nd', post:'Job Fair at NYU'} 
+       ] 
+      } 
+     };
 
-var FutureEvents = React.createClass({
-  render:function(){
+  render(){
     return(
-      <Card> 
-        <CardHeader title="Upcoming Events" />
+      <Card>
+        <CardHeader title="Events" style={{textAlign:'center'}} />
         <CardText>
-          {this.props.data ? this.props.data.map(function(events){
-            return (
-                <Events data={events} />
-                );
-            })
-            : null}
-          </CardText>
+          {this.state.eventData ? this.state.eventData.map(function(events, idx){
+            return(
+              <div key={idx}>
+                <h5>{events.title}</h5>
+                <div>{events.post.slice(0,50)}</div>
+              </div>
+            );
+          }):null}
+        </CardText>
       </Card>
     );
   }
-});
-var Events = React.createClass({
-  render:function() {
-    return(
-      <div>
-        <h6>{this.props.data.title}</h6>
-        <div> {this.props.data.post.slice(0, 50)} </div>
-      </div>
-    );
-  }
-});
-
+}
 export default FutureEvents;

@@ -42,17 +42,17 @@ Note: Items in *italics* require user authentication.
 ### All requests that deal with interview questions
 * View all interview questions: GET /interviewQuestions
 * _Create a new interview question: POST /interviewQuestions/create_
-  * Requires topic, title and question 
+  * Requires topic, title, question and one originalAnswer
 * View specific interview question: GET /interviewQuestions/[QuestionId]/show
   * [QuestionId] is the unique 9 character ID of the question
 * _Edit an interview question: POST /interviewQuestions/[QuestionId]/edit_
-  * A new topic, title and question must be provided, otherwise old values will remain
+  * A new topic, title, question and originalAnswer must be provided, otherwise old values will remain
 * _Delete an interview question: DELETE /interviewQuestions/[QuestionId]/remove_
 
-### All requests that deal with answers to interview questions
+### All requests that deal with additional answers to any interview question
 * _Create a new answer: POST /interviewQuestions/[QuestionId]/answers/create_
   * Requires answerText 
-* _Edit a comment: POST /interviewQuestions/[QuestionId]/answers/[AnswerId]/edit_
+* _Edit an answer: POST /interviewQuestions/[QuestionId]/answers/[AnswerId]/edit_
   * [AnswerId] follows the same convention as [QuestionId]
-* _Remove a comment: DELETE /interviewQuestions/[QuestionId]/answers/[AnswerId]/remove_
+* _Remove an answer: DELETE /interviewQuestions/[QuestionId]/answers/[AnswerId]/remove_
 

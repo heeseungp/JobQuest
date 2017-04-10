@@ -9,47 +9,14 @@ import Auth from '../../modules/Auth';
 import './ThreadItem.css';
 
 class ThreadItem extends Component {
-  constructor(props){
-    super(props);
-
-    // still dont get this binding nonsense
-    // supposedly binds the instance
-    this.upVote = this.upVote.bind(this);
-    this.downVote = this.downVote.bind(this);
-  }
-
-  upVote(){
-    // first execute the post and then update the UI
-    // post fn is of the form - url, data, options
-    axios.post('/vote/up/' + this.props.data._id, {},
-      { headers: {authorization: 'bearer ' + Auth.getToken()} })
-      .then((res) => {
-        // console.log(res);
-        this.props.upvote();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  downVote(){
-    axios.post('/vote/down/' + this.props.data._id, {},
-      { headers: {authorization: 'bearer ' + Auth.getToken()} })
-    .then((res) => {
-      // console.log(res);
-      this.props.downvote();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
 
   render() {
     // make date contain only MM/DD/YYYY
 
+    // hacking the height for singular page
     const style = {
-      height: 90,
-      width: 850,
+      minHeight: this.props.showDesc ? 150 : 80,
+      width: 800,
       margin: 20,
     };
 
@@ -61,9 +28,9 @@ class ThreadItem extends Component {
 
         {this.props.data ? 
           <div>
-            <VoteCounter upvote={this.upVote} 
-                        downvote={this.downVote}
-                        votes={this.props.data.votes}/>
+            <VoteCounter votes={this.props.data.votes}
+                         onUpvote={this.props.onUpvote}
+                         onDownvote={this.props.onDownvote} />
 
             <div className="threadContent">
               <div className="title">

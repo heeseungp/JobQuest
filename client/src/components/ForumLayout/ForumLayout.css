@@ -1,0 +1,23 @@
+
+#rightColumn {
+  height: 640px;
+  width: 430px;
+  background-color: darkred;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+}
+
+#calendar {
+  height: 300px;
+  width: 400px;
+  background-color: teal;
+  margin: 10px;
+}
+
+#events {
+  height: 300px;
+  width: 400px;
+  background-color: teal;
+  margin: 10px;
+}

@@ -39,4 +39,20 @@ class Auth {
 
 }
 
+var axios = require('axios');
+/* The interceptor below will add the authorization header to all axios request.
+This should prevent issues where we do not add the header by mistake.*/
+axios.interceptors.request.use(function (config) {
+
+  var token = Auth.getToken();
+
+  if (token) {
+    config.headers['authorization'] = 'Bearer ' + token;
+  }
+  return config;
+}, function (err) {
+  return Promise.reject(err);
+});
+
 export default Auth;
+

@@ -21,7 +21,7 @@ describe('VoteCounter', () => {
   // repetitive tests, code smelllll
   it('should call upvote when clicked', () => {
     const upvoteSpy = spy();
-    const wrapper = shallow(<VoteCounter upvote={upvoteSpy}/>);
+    const wrapper = shallow(<VoteCounter onUpvote={upvoteSpy}/>);
     const upvoteButton = wrapper.find('.upvote');
 
     upvoteButton.simulate('click');
@@ -31,7 +31,7 @@ describe('VoteCounter', () => {
 
   it('should call downvote when clicked', () => {
     const downvoteSpy = spy();
-    const wrapper = shallow(<VoteCounter downvote={downvoteSpy}/>);
+    const wrapper = shallow(<VoteCounter onDownvote={downvoteSpy}/>);
     const downvoteButton = wrapper.find('.downvote');
 
     downvoteButton.simulate('click');

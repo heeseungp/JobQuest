@@ -14,9 +14,15 @@ describe('ThreadItemContainer', () => {
   });
 
   it('should render undefined items', () => {
-    const wrapper = shallow(<ThreadItemContainer items={undefined}/>);
+    const wrapper = shallow(<ThreadItemContainer threads={undefined}/>);
     expect(wrapper.find('ThreadItem')).to.have.length(0);  
   });
-  
+
+  it('should render some items', () => {
+    var data = [{}, {}, {}];
+    const wrapper = shallow(<ThreadItemContainer threads={data} />);
+    expect(wrapper.find('ThreadItem')).to.have.length(3);
+  })
+
 });
 

@@ -5,13 +5,13 @@ import './VoteCounter.css';
 function VoteCounter(props){
   return (
     <div className="counter">
-      <a className="upvote" href="#/" onClick={props.upvote}>
+      <a className="upvote" href="#/" onClick={props.onUpvote}>
         <i className="fa fa-chevron-up" aria-hidden="true"></i>
       </a>
 
       <div className="voteCount">{props.votes}</div>
 
-      <a className="downvote" href="#/" onClick={props.downvote}>
+      <a className="downvote" href="#/" onClick={props.onDownvote}>
         <i className="fa fa-chevron-down" aria-hidden="true"></i>
       </a>
     </div>
@@ -20,8 +20,8 @@ function VoteCounter(props){
 
 VoteCounter.propTypes = {
   votes: React.PropTypes.number.isRequired,
-  upvote: React.PropTypes.func.isRequired,
-  downvote: React.PropTypes.func.isRequired
+  onUpvote: React.PropTypes.func.isRequired,
+  onDownvote: React.PropTypes.func.isRequired
 };
 
 export default VoteCounter;

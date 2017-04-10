@@ -53,4 +53,6 @@ axios.interceptors.request.use(function (config) {
 }, function (err) {
   return Promise.reject(err);
 });
+
 export default Auth;
+

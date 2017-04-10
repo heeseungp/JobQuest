@@ -4,6 +4,12 @@ import ThreadItem from '../ThreadItem/ThreadItem';
 import InterviewItem from '../InterviewItem/InterviewItem'
 import axios from 'axios';
 import update from 'immutability-helper';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import {GridList, GridTile} from 'material-ui/GridList';
+// import './InterviewItemContainer.css';
+
+
 
 class InterviewItemContainer extends Component {
   // has to be switched back to a class Component
@@ -62,32 +68,92 @@ class InterviewItemContainer extends Component {
      });
   }
 
+
   render(){
+
+    const styleCard = {
+      left: {
+        marginUp: '50px',
+        marginLeft: '50px',
+        marginRight: '50px'
+      },
+
+      right: {
+        marginUp: '50px',
+        marginRight: '50px',
+        marginBottom: '50px' 
+      },
+    }
+
+    const styleFont = {
+      left: {
+        fontSize: '40px',
+        fontWeight: 'bold'
+      },
+
+      description: {
+        fontSize: '25px'
+      },
+
+      contributor: {
+        fontSize: '15px'
+      }
+
+    }
+
+
+
     return (
-      <div className="row">
-        <div className="col s8">
-          <div className="card-panel white z-depth-4"> 
-            <div className="card-action">
-              <h3>Interview Questions</h3> 
-            </div>
+        <GridList cols={12}>
+          <GridTile cols={8} rows={50}>
+            {/*Threads*/}
+            <Card zDepth={2} style={styleCard.left}>
+              <CardHeader title="Interview Questions" titleStyle={styleFont.left}/>
+              <CardText style={styleFont.description}>
+                {this.state.threads ? this.state.threads.map((thread, idx) => {
+                                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)} downvote={() => this.downvoteCount(idx)}/>
+                              })
+                              : null}
+              </CardText>
+            </Card>
+          </GridTile>
 
-            {this.state.threads ? 
-              this.state.threads.map((thread, idx) => {
-                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)}
-                                                           downvote={() => this.downvoteCount(idx)}/>
-              })
-              : null}
-          </div>
-        </div>
+          <GridTile cols={4} rows={50}>
 
-        <div className="col s4">
-          <div className="card-panel white z-depth-4"> 
-            <div className="card-action">
-              <Link to="/postNewInterview">Submit New Question</Link> 
-            </div>
-          </div>
-        </div>
-      </div>
+            {/*Button and Description*/}
+            <Card zDepth={2} style={styleCard.right}>
+              <Link to='/postNewInterview'>
+                <RaisedButton labelStyle={{fontSize: '25px', fontFamily:'<Sans-serif></Sans-serif>'}} label="Submit a New Question" primary={true} fullWidth={true}/>
+              </Link>
+              <CardText 
+                style={styleFont.description}>
+                <b>Welcome, one and all, to Interview Questions!</b>
+                <br />
+                <br />
+                Here we discuss interview questions in Computer Science, Computer Engineering, Software Engineering, 
+                and related fields. Please keep the conversation professional.
+                <br />
+                </CardText>
+            </Card>
+
+            {/*High score*/}
+            <Card zDepth={2} style={styleCard.right}>
+              <CardText style={styleFont.contributor}>
+                <h2>Top Contributors</h2>
+                <h3>1. Joseph Park</h3>
+                <h3>2. Joseph Park</h3>
+                <h3>3. Joseph Park</h3>
+                <br />
+                <h2>Recent Contributors</h2>
+                <h3>1. Joseph Park</h3>
+                <h3>2. Joseph Park</h3>
+                <h3>3. Joseph Park</h3>
+                <br />
+                </CardText>
+            </Card>
+          </GridTile>
+        </GridList>
+
     );
   }
 

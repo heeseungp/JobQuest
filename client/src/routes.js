@@ -13,6 +13,7 @@ import InterviewItemContainer from './components/InterviewItemContainer/Intervie
 import InterviewForm from './components/InterviewForm/InterviewForm';
 import AboutPage from './components/AboutPage/AboutPage';
 import ResourcePage from './components/ResourcePage/ResourcePage';
+import InterviewPage from './components/InterviewPage/InterviewPage';
 import Auth from './modules/Auth';
 
 
@@ -101,6 +102,11 @@ const routes = {
     {
       path: '/resources',
       component: ResourcePage
+    },
+
+    {
+      path: '/eachInterview',
+      component: InterviewPage
     }
 
   ]

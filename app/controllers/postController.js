@@ -178,9 +178,6 @@ exports.vote_on_post = function(req, res) {
 		return res.status(400).json(errors);
 
 	Post.findById(id, function(err, post) {
-
-		// post is an array of objects
-		var post = post[0];
 		if(err)
 			return res.status(500).send(err);
 		if(post == null) {

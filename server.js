@@ -39,12 +39,17 @@ var applications = require('./app/routes/applicationRoutes');
 var auth = require('./app/routes/authRoutes');
 var api = require('./app/routes/api');
 var reddit = require('./app/routes/redditRoutes');
+var interviewQuestions = require('./app/routes/questionRoutes');
+var answers = require('./app/routes/answerRoutes');
 
 posts(app);
 comments(app);
 applications(app);
 auth(app);
 reddit(app);
+interviewQuestions(app);
+answers(app);
+
 
 app.use('/api', api);
 

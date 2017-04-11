@@ -10,14 +10,14 @@ const Base = ({ children }) => (
         <IndexLink to="/">JobQuest</IndexLink> |
         <Link to="/forum">Forum</Link> |
         <Link to="/resources">Resources</Link> |
-        <Link to="/about">About</Link>
+        <Link to="/about">About</Link> |
         <Link to="/interview">Interview Questions</Link>
       </div>
 
       {Auth.isUserAuthenticated() ? (
         <div className="top-bar-right">
-          <Link to="/app-log">App-Log</Link>
-          <Link to="/profile">Profile</Link>
+          <Link to="/app-log">App-Log</Link> |
+          <Link to="/profile">Profile</Link> |
           <Link to="/logout">Log out</Link>
         </div>
       ) : (

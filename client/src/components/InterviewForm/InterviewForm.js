@@ -1,12 +1,11 @@
 import React, { PropTypes,Component } from 'react';
 import axios from 'axios';
-import {GridList, GridTile} from 'material-ui/GridList';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
-import {purple500, blue500, grey50} from 'material-ui/styles/colors';
+import {purple500, grey50} from 'material-ui/styles/colors';
 import './InterviewForm.css'
 
 
@@ -25,10 +24,13 @@ class InterviewForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   };
 
-  handleTopic(event) {
-    // still not too familiar with this event object
-    this.setState({topic: event.target.value});
-  }
+    // handleTopic(event) {
+    //   // still not too familiar with this event object
+    //   this.setState({topic: event.target.value});
+    // }
+
+  handleTopic = (event, index, value) => this.setState({value: value});
+
 
 
   handleTitle(event) {
@@ -89,10 +91,6 @@ class InterviewForm extends Component {
       width: '40%',
     }
 
-    const styleDropDown = {
-      width: 400
-    }
-
     const styleCustomWidth = {
       width: 400
     }
@@ -122,7 +120,7 @@ class InterviewForm extends Component {
             <form onSubmit={this.handleSubmit}>
 
             <div className="topic">
-                <DropDownMenu style={styleCustomWidth} value={this.state.topic} onChange={this.handleTopic} autoWidth={false}>
+                <DropDownMenu style={styleCustomWidth} value={this.state.topic} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
                   <MenuItem value={'Algorithm'} primaryText="Algorithm" />
                   <MenuItem value={'Database'} primaryText="Database" />
                   <MenuItem value={'Shell'} primaryText="Shell" />

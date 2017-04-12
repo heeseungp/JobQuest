@@ -2,7 +2,6 @@ import React, { PropTypes,Component } from 'react';
 import {Link} from 'react-router';
 import axios from 'axios';
 import './InterviewItem.css'
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
@@ -58,34 +57,6 @@ class InterviewItem extends Component {
 
     var linkToThread = this.props.data ? "interview/" + this.props.data._id:null;
 
-    const styleCard = {
-        item: {
-          marginLeft: '20px',   
-          marginBottom: '20px', 
-          marginRight: '10px',
-          width: '95%',
-          display: 'inline-block'
-      }
-    }
-
-    const styleCardHeader = {
-      title: {
-        margin: '5px',
-        fontSize: '30px',
-        fontWeight: 'bold'
-      },
-
-      subtitle: {
-        marginLeft: '6px',
-        fontSize: '20px'
-      }
-    }
-
-    const styleButton = {
-      votecounter: {
-        marginUp: '50 px'
-      }
-    }
 
     const stylePaper = {
       minHeight: this.props.showDesc ? 150 : 80,
@@ -117,29 +88,19 @@ class InterviewItem extends Component {
             </div>
             
             <div className="interviewTopic">
-              {/*You can add the coloring below*/}
               <Chip backgroundColor={this.color()} style={styles.chip}>
                 {this.props.data.topic}
               </Chip>
             </div>
 
             <div className="interviewInfo">
-              {this.subtitle()}
+              <i>{this.subtitle()}</i>
             </div>
 
             <div className="interviewQuestion">
-              <b>Question: </b>{this.props.data.question}
+              <strong>Question: </strong>{this.props.data.question}
             </div>
           </div>
-
-
-
-
-{/*
-
-          {this.subtitle()}
-
-          {this.props.data.question}*/}
 
         </Paper>
       </div>

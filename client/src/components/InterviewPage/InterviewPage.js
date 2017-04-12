@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
-import VoteCounter from '../VoteCounter/VoteCounter';
 import axios from 'axios';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
+import Chip from 'material-ui/Chip';
+import './InterviewPage.css';
+
+import {blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
+
+
 
 class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            thread: []
+            interview: []
         };
     }
 
@@ -19,8 +24,38 @@ class InterviewPage extends Component {
     axios.get(url)
       .then(res => {
         console.log('the response went through', res.data);
-        this.setState({thread: res.data});
+        this.setState({interview: res.data});
       });
+  }
+
+  color() {
+    var colorType;
+    switch(this.state.interview.topic) {
+      case 'Software Engineering':
+        colorType = blue300;
+        break;
+      case 'Algorithm':
+        colorType = pink300;
+        break;
+      case 'Database':
+        colorType = purple300;
+        break;
+      case 'Shell':
+        colorType = yellow300;
+        break;
+      case 'System Design':
+        colorType = orange300;
+        break;
+      default:
+        colorType = grey300;
+        break; 
+    }
+    return colorType;
+  }
+
+  subtitle(){
+    var temp = 'submitted at ' + this.state.interview.created_at + ' by ' + this.state.interview.author;
+    return temp;
   }
     
 
@@ -30,32 +65,48 @@ class InterviewPage extends Component {
             fontSize: '25px'
         }
 
+        const styles = {
+            chip: {
+                margin: 'auto', 
+                marginTop: '20px'
+            },
+            wrapper: {
+                display: 'flex',
+                flexWrap: 'wrap'
+            }
+        };
+
         return(
 
-
-            <Card>
-                <div className="container" >
-                    <br />
-                    <div className="title">
-                        <h2>{this.state.thread.title}</h2>
+            <div className="container">
+                <Paper>
+                    <div className="titlee">
+                        {this.state.interview.title}                    
                     </div>
+
+                    <div className="info">
+                        {this.subtitle()}                
+                    </div>
+
                     <div className="topic">
-                        <h4>{this.state.thread.topic}</h4>
+                        <Chip backgroundColor={this.color()} style={styles.chip}>
+                            {this.state.interview.topic}                                       
+                        </Chip>
                     </div>
-                </div>
 
-                <CardText>
                     <div className="question">
-                        <h3>Description:</h3>
-                        <p style={styleDescription}>{this.state.thread.question}</p>
+                        <strong>Question: </strong> {this.state.interview.question}                
                     </div>
-                    <div className="Answers">
-                        <h3>Answer:</h3>
-                          <p style={styleDescription}>{this.state.thread.originalAnswer}</p>
+
+                    <div className="answer">
+                        <strong>Answer: </strong> {this.state.interview.originalAnswer}                
                     </div>
-                </CardText>
-            </Card>
-        );
+
+                </Paper>
+            </div>
+
+
+       );
     }
 
 }

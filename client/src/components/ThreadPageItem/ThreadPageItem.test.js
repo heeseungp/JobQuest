@@ -54,5 +54,13 @@ describe('ThreadPageItem', () => {
     expect(deleteThreadSpy.calledOnce).to.equal(true);
   });
 
+  it('should toggle edit flag when toggleEdit is called', () => {
+    var original = wrapper.state('edit');
+    wrapper.instance().toggleEdit();
+
+    expect(original).to.not.equal(!original);
+  });
+
+
 
 });

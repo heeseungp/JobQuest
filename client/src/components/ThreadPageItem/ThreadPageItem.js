@@ -16,6 +16,10 @@ const ThreadPageItem = React.createClass({
     };
   },
 
+  toggleEdit() {
+    this.setState({edit: !this.state.edit})
+  },
+
   render() {
     // make date contain only MM/DD/YYYY
 
@@ -53,7 +57,7 @@ const ThreadPageItem = React.createClass({
                   </div>
 
                   <div style={style.modify} >
-                    <button id="editThread">Edit</button>
+                    <button id="editThread" onClick={this.toggleEdit}>Edit</button>
                     <button id="deleteThread" onClick={this.props.handleDelete}>Delete</button>
                   </div>           
 

@@ -8,7 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
-import {blue300, indigo900} from 'material-ui/styles/colors';
+import {blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
+
 
 
 
@@ -23,6 +24,31 @@ class InterviewItem extends Component {
   subtitle(){
     var temp = 'submitted at ' + this.props.data.created_at + ' by ' + this.props.data.author;
     return temp;
+  }
+
+  color() {
+    var colorType;
+    switch(this.props.data.topic) {
+      case 'Software Engineering':
+        colorType = blue300;
+        break;
+      case 'Algorithm':
+        colorType = pink300;
+        break;
+      case 'Database':
+        colorType = purple300;
+        break;
+      case 'Shell':
+        colorType = yellow300;
+        break;
+      case 'System Design':
+        colorType = orange300;
+        break;
+      default:
+        colorType = grey300;
+        break; 
+    }
+    return colorType;
   }
 
 
@@ -92,7 +118,7 @@ class InterviewItem extends Component {
             
             <div className="interviewTopic">
               {/*You can add the coloring below*/}
-              <Chip backgroundColor={blue300} style={styles.chip}>
+              <Chip backgroundColor={this.color()} style={styles.chip}>
                 {this.props.data.topic}
               </Chip>
             </div>
@@ -100,7 +126,12 @@ class InterviewItem extends Component {
             <div className="interviewInfo">
               {this.subtitle()}
             </div>
+
+            <div className="interviewQuestion">
+              <b>Question: </b>{this.props.data.question}
+            </div>
           </div>
+
 
 
 

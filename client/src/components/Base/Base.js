@@ -10,7 +10,7 @@ const Base = ({ children }) => (
         <IndexLink to="/">JobQuest</IndexLink> |
         <Link to="/forum">Forum</Link> |
         <Link to="/resources">Resources</Link> |
-        <Link to="/about">About</Link>
+        <Link to="/about">About</Link> |
         <Link to="/interview">Interview Questions</Link>
       </div>
 

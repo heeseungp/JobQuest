@@ -95,6 +95,11 @@ const routes = {
     },
 
     {
+      path: '/interview/:id',
+      component: InterviewPage
+    },
+
+    {
       path: '/about',
       component: AboutPage
     },

@@ -9,8 +9,20 @@ import FlatButton from 'material-ui/FlatButton';
 class InterviewPage extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            thread: []
+        };
     }
+
+    componentDidMount() {
+    const url = '/interviewQuestions/' + this.props.params.id + '/show';
+    axios.get(url)
+      .then(res => {
+        console.log('the response went through', res.data);
+        this.setState({thread: res.data});
+      });
+  }
+    
 
     render() {
         
@@ -19,33 +31,27 @@ class InterviewPage extends Component {
         }
 
         return(
+
+
             <Card>
                 <div className="container" >
                     <br />
-                    <div className="question">
-                        <h2>Sample Question</h2>
+                    <div className="title">
+                        <h2>{this.state.thread.title}</h2>
                     </div>
-                    <div className="detail">
-                        <h4>Sample Detail</h4>
+                    <div className="topic">
+                        <h4>{this.state.thread.topic}</h4>
                     </div>
                 </div>
 
                 <CardText>
-                    <div className="description">
+                    <div className="question">
                         <h3>Description:</h3>
-                        <p style={styleDescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                            Excepteur sint occaecat cupidatat non proident,
-                            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <p style={styleDescription}>{this.state.thread.question}</p>
                     </div>
                     <div className="Answers">
                         <h3>Answer:</h3>
-                          <p style={styleDescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                            Excepteur sint occaecat cupidatat non proident,
-                            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                          <p style={styleDescription}>{this.state.thread.originalAnswer}</p>
                     </div>
                 </CardText>
             </Card>

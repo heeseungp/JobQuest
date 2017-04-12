@@ -7,13 +7,10 @@ import update from 'immutability-helper';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {GridList, GridTile} from 'material-ui/GridList';
-// import './InterviewItemContainer.css';
-
+import {purple500, blue500, grey50} from 'material-ui/styles/colors';
 
 
 class InterviewItemContainer extends Component {
-  // has to be switched back to a class Component
-  // this container will contain the two methods
 
   constructor(props){
     super(props);
@@ -21,51 +18,18 @@ class InterviewItemContainer extends Component {
     this.state = {
       threads: []
     };
-
-    // without these, instances don't have these methods
-    this.upvoteCount = this.upvoteCount.bind(this);
-    this.downvoteCount = this.downvoteCount.bind(this);
-  }
-
-  // should have two methods here where I can update the counts
-  upvoteCount(idx) {
-    // update the thread's count
-    console.log('updating the count na mean');
-    const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x+1}}); 
-    let copy = this.state.threads.slice();
-    copy[idx] = updatedCount;
-
-    this.setState({threads: copy});
-  }
-
-  downvoteCount(idx) {
-    // update the thread's count
-    const updatedCount = update(this.state.threads[idx], {votes: {$apply: (x) => x-1}}); 
-    let copy = this.state.threads.slice();
-    copy[idx] = updatedCount;
-
-    this.setState({threads: copy});
-  }
+}
 
   componentDidMount() {
     // const url = 'http://rest.learncode.academy/api/am/friends'; 
 
-    const url = '/posts/'; 
+    const url = '/interviewQuestions/'; 
     axios.get(url)
       .then(res => {
         console.log(res.data);
         console.log(res.data[0]._id);
         this.setState({threads: res.data})
       });
-
-    // mongo jobquest --eval "db.dropDatabase()" => to reset DB
-
-     const dummy = {title: 'new stuff brahh', thread: 'Nonsense bahh'};
-     axios.post('/posts/', dummy)
-     .then((res) => {console.log('the res is, ', res)})
-     .catch(err => {
-       console.log(err);
-     });
   }
 
 
@@ -88,7 +52,9 @@ class InterviewItemContainer extends Component {
     const styleFont = {
       left: {
         fontSize: '40px',
-        fontWeight: 'bold'
+        fontWeight: 'bold', 
+        color: 'purple',
+        marginLeft: '15px'
       },
 
       description: {
@@ -101,29 +67,35 @@ class InterviewItemContainer extends Component {
 
     }
 
+    const styleLabel = {
+      fontSize: '25px', 
+      fontFamily:'<Sans-serif></Sans-serif>',
+      color: grey50
+    }
+
 
 
     return (
         <GridList cols={12}>
-          <GridTile cols={8} rows={50}>
+          <GridTile cols={8} rows={'auto'}>
             {/*Threads*/}
             <Card zDepth={2} style={styleCard.left}>
               <CardHeader title="Interview Questions" titleStyle={styleFont.left}/>
               <CardText style={styleFont.description}>
                 {this.state.threads ? this.state.threads.map((thread, idx) => {
-                                return <InterviewItem key={idx} data={thread} upvote={() => this.upvoteCount(idx)} downvote={() => this.downvoteCount(idx)}/>
+                                return <InterviewItem key={idx} data={thread}/>
                               })
                               : null}
               </CardText>
             </Card>
           </GridTile>
 
-          <GridTile cols={4} rows={50}>
+          <GridTile cols={4} rows={'auto'}>
 
             {/*Button and Description*/}
             <Card zDepth={2} style={styleCard.right}>
               <Link to='/postNewInterview'>
-                <RaisedButton labelStyle={{fontSize: '25px', fontFamily:'<Sans-serif></Sans-serif>'}} label="Submit a New Question" primary={true} fullWidth={true}/>
+                <RaisedButton backgroundColor={purple500} labelStyle={styleLabel} label="Submit a New Question" fullWidth={true}/>
               </Link>
               <CardText 
                 style={styleFont.description}>
@@ -152,7 +124,7 @@ class InterviewItemContainer extends Component {
                 </CardText>
             </Card>
           </GridTile>
-        </GridList>
+        </GridList> 
 
     );
   }

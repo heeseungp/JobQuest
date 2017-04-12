@@ -74,7 +74,7 @@ exports.show_a_question = function(req, res) {
 		return res.status(400).json(errors);
 	}
 
-	Post.findById(id, function(err, newQuestion) {
+	Question.findById(id, function(err, newQuestion) {
 		if (err)
 			return res.status(500).send(err);
 		if(newQuestion == null){

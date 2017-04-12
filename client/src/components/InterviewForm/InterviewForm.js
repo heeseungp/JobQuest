@@ -55,7 +55,7 @@ class InterviewForm extends Component {
     // create a new thread on db
 
     if(newQuestion.title == '' || newQuestion.question == '' || newQuestion.answer == ''){
-      alert('All fields is required');
+      alert('All fields are required');
     }
 
     axios.post('/interviewQuestions/create', newQuestion)

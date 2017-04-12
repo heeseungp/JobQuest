@@ -41,14 +41,6 @@ describe('ThreadItem', () => {
     expect(wrapper.find('.desc')).to.have.length(0);
   });
 
-  it('should display description when showDesc is passed', () => {
-    var threadData = {title: 'Study Guide', author: 'Daniel Chia', thread: 'hello how are you',
-                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
-    const wrapper = shallow(<ThreadItem data={threadData} showDesc={true} />);
-    
-    expect(wrapper.find('.desc')).to.have.length(1);
-  });
-
   it('pass votes to VoteCounter', () => {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
                       comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
@@ -81,25 +73,5 @@ describe('ThreadItem', () => {
     expect(wrapper.find('.date').exists()).to.equal(true);
   });
 
-  it('should not contain edit and delete buttons', () => {
-    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
-    const wrapper = shallow(<ThreadItem data={threadData}/>);
-    expect(wrapper.containsAllMatchingElements([
-      <button id="editThread">Edit</button>,
-      <button id="deleteThread">Delete</button>,
-    ])).to.equal(false);
-  });
-
-  it('should contain edit and delete buttons when it showDesc is true', () => {
-    var threadData = {title: 'Study Guide', author: 'Daniel Chia',
-                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)',
-                      votes: 1};
-    const wrapper = shallow(<ThreadItem data={threadData} showDesc={true}/>);
-    expect(wrapper.containsAllMatchingElements([
-      <button id="editThread">Edit</button>,
-      <button id="deleteThread">Delete</button>,
-    ])).to.equal(true);
-  });
 
 });

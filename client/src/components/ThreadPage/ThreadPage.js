@@ -127,10 +127,6 @@ const ThreadPage = React.createClass({
       <Card style={style}>
         {this.state.threadData ? 
           <div>
-            <ThreadItem data={this.state.threadData} showDesc={true} 
-                        onUpvote={this.upvoteThread} 
-                        onDownvote={this.downvoteThread} />
-
             <ThreadPageItem data={this.state.threadData}
                             onUpvote={this.upvoteThread} 
                             onDownvote={this.downvoteThread} />

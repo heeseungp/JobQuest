@@ -18,6 +18,10 @@ const ThreadPageItem = React.createClass({
       minHeight: this.props.showDesc ? 150 : 80,
       width: 800,
       margin: 20,
+      modify: {
+        display: 'inline-block',
+        margin: 5
+      }
     };
 
     var linkToThread = this.props.data ? "thread/" + this.props.data._id
@@ -36,7 +40,7 @@ const ThreadPageItem = React.createClass({
               <div className="title">
                 <Link to={linkToThread}>{this.props.data.title}</Link>
 
-                <div>
+                <div style={style.modify} >
                   <button id="editThread">Edit</button>
                   <button id="deleteThread">Delete</button>
                 </div>                

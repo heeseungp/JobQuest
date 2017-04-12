@@ -76,13 +76,6 @@ describe('ThreadPage', () => {
   //   expect(CommentBox.prop('comments')).to.not.eql(undefined);
   // })
 
-  it('should pass editThread as a prop to EditThreadForm', () => {
-    const EditThreadForm = wrapper.find('EditThreadForm');
-
-    const editThread = wrapper.instance().editThread;
-    expect(EditThreadForm.prop('handleEdit')).to.eql(editThread);
-  });
-
   it('passes upvoteThread to ThreadPageItem', () => {
     const ThreadPageItem = wrapper.find('ThreadPageItem');
     const upvoteThread = wrapper.instance().upvoteThread;

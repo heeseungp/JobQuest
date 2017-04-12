@@ -64,13 +64,18 @@ describe('EditThreadForm', () => {
   });
 
   it('should call onEdit prop when save is clicked', () => {
+    // was failing when the since the click is now calling another function as well
+    // this is weird
     const editPostSpy = spy();
-    const wrapper = shallow(<EditThreadForm handleEdit={editPostSpy} />);
+    const toggleSpy = spy();
+    const wrapper = shallow(<EditThreadForm handleEdit={editPostSpy} 
+                                            handleToggle={toggleSpy} />);
     const addButton = wrapper.find('button');
 
     addButton.simulate('click');
 
     expect(editPostSpy.calledOnce).to.equal(true);
+    expect(toggleSpy.calledOnce).to.equal(true);
   });
 
 });

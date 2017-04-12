@@ -24,6 +24,7 @@ var EditThreadForm = React.createClass({
     // pack title and desc into an obj
     var newPost = {title: this.state.titleInput, thread: this.state.descInput}
     this.props.handleEdit(newPost);
+    this.props.handleToggle();
   },
 
   render(){
@@ -43,7 +44,8 @@ var EditThreadForm = React.createClass({
 EditThreadForm.PropTypes = {
   title: React.PropTypes.string.isRequired,
   desc: React.PropTypes.string.isRequired,
-  handleEdit: React.PropTypes.func.isRequired
+  handleEdit: React.PropTypes.func.isRequired,
+  handleToggle: React.PropTypes.func.isRequired
 }
 
 export default EditThreadForm;

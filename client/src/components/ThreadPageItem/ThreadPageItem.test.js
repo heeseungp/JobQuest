@@ -68,4 +68,12 @@ describe('ThreadPageItem', () => {
     expect(form).to.have.length(1);
   });
 
+  it('passes handleToggle to EditThreadForm', () => {
+    wrapper.setState({edit: true});
+    var form = wrapper.find('EditThreadForm');
+    var handleToggle = wrapper.instance().toggleEdit;
+
+    expect(form.prop('handleToggle')).to.eql(handleToggle);
+  });
+
 });

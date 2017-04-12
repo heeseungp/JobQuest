@@ -133,10 +133,8 @@ const ThreadPage = React.createClass({
                             handleEdit={this.editThread}
                             handleDelete={this.deleteThread} />
 
-            <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
-            <EditThreadForm title={this.state.threadData.title} 
-                            desc={this.state.threadData.thread} 
-                            handleEdit={this.editThread} />
+            <CommentBox comments={this.state.threadData.comments} 
+                        onSubmit={this.addComment} />
           </div>
         : null}
       </Card>

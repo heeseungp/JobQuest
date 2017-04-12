@@ -50,7 +50,10 @@ const ThreadPageItem = React.createClass({
             <div className="threadContent">
 
               {this.state.edit ? 
-                <EditThreadForm />
+                <EditThreadForm  title={this.props.data.title} 
+                                 desc={this.props.data.thread} 
+                                 handleEdit={this.props.handleEdit} 
+                                 handleToggle={this.toggleEdit} />
                 :
                 <div> 
                   <div className="title">

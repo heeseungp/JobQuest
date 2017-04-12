@@ -61,6 +61,11 @@ describe('ThreadPageItem', () => {
     expect(original).to.not.equal(!original);
   });
 
+  it('should have an EditThreadForm when edit is true', () => {
+    wrapper.setState({edit: true});
+    var form = wrapper.find('EditThreadForm');
 
+    expect(form).to.have.length(1);
+  });
 
 });

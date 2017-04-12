@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import VoteCounter from '../VoteCounter/VoteCounter';
 import Paper from 'material-ui/Paper'
 import { Link } from 'react-router';
+import EditThreadForm from '../EditThreadForm/EditThreadForm';
 import axios from 'axios';
 import Auth from '../../modules/Auth';
 
@@ -49,7 +50,7 @@ const ThreadPageItem = React.createClass({
             <div className="threadContent">
 
               {this.state.edit ? 
-                <p>edit mode!</p>
+                <EditThreadForm />
                 :
                 <div> 
                   <div className="title">

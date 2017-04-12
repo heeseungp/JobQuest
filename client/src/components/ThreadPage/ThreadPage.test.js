@@ -107,4 +107,12 @@ describe('ThreadPage', () => {
     expect(ThreadPageItem.prop('handleDelete')).to.eql(deleteThread);
   });
 
+  it('passes editThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
+    const editThread = wrapper.instance().editThread;
+
+    // passes at first, def fn to get it to fail
+    expect(ThreadPageItem.prop('handleEdit')).to.eql(editThread);
+  });
+
 });

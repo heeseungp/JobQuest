@@ -1,6 +1,6 @@
 'use strict';
 
-//Requires mongoose and our schemas
+//Requires mongoose and our schemas 
 var mongoose = require('mongoose'); 
 var Question = mongoose.model('InterviewQuestions'); 
 var Answer = mongoose.model('Answers');
@@ -14,7 +14,7 @@ exports.add_an_answer = function(req, res) {
 	}
 
 	var questionid = req.params.QuestionId;
-	var answer = req.body.answerText; // possible change
+	var answer = req.body.answerText; 
 	var errors = {};
 
 	//Error checking on all required parameters
@@ -27,7 +27,7 @@ exports.add_an_answer = function(req, res) {
 	if(Object.keys(errors).length > 0)
 		return res.status(400).json(errors);
 
-	Question.findOne({_id:questionid}, function(err, question) {
+	Question.findById(questionid, function(err, question) {
 		if(err)
 			return res.status(500).send(err);
 		if(question == null){
@@ -69,7 +69,7 @@ exports.edit_an_answer = function(req, res) {
 	if(Object.keys(errors).length > 0)
 		return res.status(400).json(errors);
 
-	Question.findOne({_id: questionid}, function(err, question) {
+	Question.findById(questionid, function(err, question) {
 		if(err)
 			return res.status(500).send(err);
 		if(question == null){
@@ -82,12 +82,15 @@ exports.edit_an_answer = function(req, res) {
 			if(answerid == question.otherAnswers[i]._id){
 				foundAnswer = true;
 				//If the user requests an answer which he/she did not create
-				if(req.user._id != question.otherAnswers[i].authorID){
+				//Only allow users to edit if they made the answer or the user is an admin
+				if(req.user._id == question.otherAnswers[i].authorID || req.user.isAdmin){
+					question.otherAnswers[i].answerText = answer;
+					break;
+				}
+				else {
 					errors.userid = 'User does not have permission to modify answer with id:'+answerid;
 					return res.status(401).json(errors);
 				}
-				question.otherAnswers[i].answerText = answer; 
-				break;
 			}
 		}
 		if(!foundAnswer){
@@ -124,7 +127,7 @@ exports.remove_an_answer = function(req, res) {
 	if(Object.keys(errors).length > 0)
 		return res.status(400).json(errors);
 
-	Question.findOne({_id: questionid}, function(err, question) {
+	Question.findById(questionid, function(err, question) {
 		if(err)
 			return res.status(500).send(err);
 		if(question == null){
@@ -137,13 +140,15 @@ exports.remove_an_answer = function(req, res) {
 			if(answerid == question.otherAnswers[i]._id){
 				foundAnswer = true;
 				//If the user requests an answer which he/she did not create
-				if(req.user._id != question.otherAnswers[i].authorID){
+				if(req.user._id == question.otherAnswers[i].authorID || req.user.isAdmin){
+					//Removes 1 element from array with index at i, returns modified array
+					question.otherAnswers.splice(i, 1);
+					break;
+				}
+				else {
 					errors.userid = 'User does not have permission to modify answer with id:'+answerid;
 					return res.status(401).json(errors);
 				}
-				//Removes 1 element from array with index at i, returns modified array
-				question.otherAnswers.splice(i, 1);
-				break;
 			}
 		}
 		if(!foundAnswer){

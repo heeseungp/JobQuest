@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItem from '../ThreadItem/ThreadItem';
+import ThreadPageItem from '../ThreadPageItem/ThreadPageItem';
 import CommentBox from '../CommentBox/CommentBox';
 import EditThreadForm from '../EditThreadForm/EditThreadForm';
 import Auth from '../../modules/Auth';
@@ -129,6 +130,11 @@ const ThreadPage = React.createClass({
             <ThreadItem data={this.state.threadData} showDesc={true} 
                         onUpvote={this.upvoteThread} 
                         onDownvote={this.downvoteThread} />
+
+            <ThreadPageItem data={this.state.threadData}
+                            onUpvote={this.upvoteThread} 
+                            onDownvote={this.downvoteThread} />
+
             <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
             <EditThreadForm title={this.state.threadData.title} 
                             desc={this.state.threadData.thread} 

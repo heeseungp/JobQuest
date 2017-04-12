@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import ThreadPage from './ThreadPage';
 import ThreadItem from '../ThreadItem/ThreadItem';
+import ThreadPageItem from '../ThreadPageItem/ThreadPageItem';
 import CommentBox from '../CommentBox/CommentBox';
 
 // setup -> action -> assertion
@@ -31,7 +32,7 @@ describe('ThreadPage', () => {
   it('should render ThreadItem and CommentBox', () => {
     // const wrapper = shallow(<ThreadPage />);
     expect(wrapper.containsAllMatchingElements([
-      <ThreadItem />,
+      <ThreadPageItem />,
       <CommentBox />
     ])).to.equal(true);
   });
@@ -82,20 +83,20 @@ describe('ThreadPage', () => {
     expect(EditThreadForm.prop('handleEdit')).to.eql(editThread);
   });
 
-  it('passes upvoteThread to ThreadItem', () => {
-    const ThreadItem = wrapper.find('ThreadItem');
+  it('passes upvoteThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
     const upvoteThread = wrapper.instance().upvoteThread;
 
     // passes at first, def fn to get it to fail
-    expect(ThreadItem.prop('onUpvote')).to.eql(upvoteThread);
+    expect(ThreadPageItem.prop('onUpvote')).to.eql(upvoteThread);
   });
 
-  it('passes downvoteThread to ThreadItem', () => {
-    const ThreadItem = wrapper.find('ThreadItem');
+  it('passes downvoteThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
     const downvoteThread = wrapper.instance().downvoteThread;
 
     // passes at first, def fn to get it to fail
-    expect(ThreadItem.prop('onDownvote')).to.eql(downvoteThread);
+    expect(ThreadPageItem.prop('onDownvote')).to.eql(downvoteThread);
   });
 
 });

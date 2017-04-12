@@ -17,7 +17,7 @@ const ThreadPage = React.createClass({
   getInitialState() {
     return {
       // this whole object gets replaced when the AJAX call goes through
-      threadData: ''
+      threadData: null
     };
   },
 
@@ -122,15 +122,20 @@ const ThreadPage = React.createClass({
 
     // FIX, render only if there's threadData
     return (
+
       <Card style={style}>
-        <ThreadItem data={this.state.threadData} showDesc={true} 
-                    onUpvote={this.upvoteThread} 
-                    onDownvote={this.downvoteThread} />
-        <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
-        <EditThreadForm title={this.state.threadData.title} 
-                        desc={this.state.threadData.thread} 
-                        handleEdit={this.editThread} />
-        <button onClick={this.deleteThread}>Delete</button>
+        {this.state.threadData ? 
+          <div>
+            <ThreadItem data={this.state.threadData} showDesc={true} 
+                        onUpvote={this.upvoteThread} 
+                        onDownvote={this.downvoteThread} />
+            <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
+            <EditThreadForm title={this.state.threadData.title} 
+                            desc={this.state.threadData.thread} 
+                            handleEdit={this.editThread} />
+            <button onClick={this.deleteThread}>Delete</button>
+          </div>
+        : null}
       </Card>
     )
   }

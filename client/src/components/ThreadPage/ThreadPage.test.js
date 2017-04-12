@@ -8,12 +8,28 @@ import CommentBox from '../CommentBox/CommentBox';
 
 // setup -> action -> assertion
 describe('ThreadPage', () => {
-  
-  // TODO
-  // threaditem and a comment box are rendered
+
+  var wrapper = shallow(<ThreadPage />);
+
+  beforeEach(() => {
+    // set the state for the page
+    var data = {
+      title: 'a title',
+      thread: 'a description',
+      author: 'Daniel',
+      _id: '1',
+      authorID: '1',
+      votedOn: [],
+      comment: [],
+      votes: 14,
+      created_at: '2017-04-11'
+    };
+
+    wrapper.setState({threadData: data});
+  });
 
   it('should render ThreadItem and CommentBox', () => {
-    const wrapper = shallow(<ThreadPage />);
+    // const wrapper = shallow(<ThreadPage />);
     expect(wrapper.containsAllMatchingElements([
       <ThreadItem />,
       <CommentBox />
@@ -37,7 +53,6 @@ describe('ThreadPage', () => {
   // and a list of the current comments in a list
 
   it('passes addComment to CommentBox', () => {
-    const wrapper = shallow(<ThreadPage/>);
     const CommentBox = wrapper.find('CommentBox');
     const addComment = wrapper.instance().addComment;
     expect(CommentBox.prop('onSubmit')).to.eql(addComment);
@@ -61,7 +76,6 @@ describe('ThreadPage', () => {
   // })
 
   it('should pass editThread as a prop to EditThreadForm', () => {
-    const wrapper = shallow(<ThreadPage/>);
     const EditThreadForm = wrapper.find('EditThreadForm');
 
     const editThread = wrapper.instance().editThread;
@@ -69,7 +83,6 @@ describe('ThreadPage', () => {
   });
 
   it('passes upvoteThread to ThreadItem', () => {
-    const wrapper = shallow(<ThreadPage/>);
     const ThreadItem = wrapper.find('ThreadItem');
     const upvoteThread = wrapper.instance().upvoteThread;
 
@@ -78,7 +91,6 @@ describe('ThreadPage', () => {
   });
 
   it('passes downvoteThread to ThreadItem', () => {
-    const wrapper = shallow(<ThreadPage/>);
     const ThreadItem = wrapper.find('ThreadItem');
     const downvoteThread = wrapper.instance().downvoteThread;
 

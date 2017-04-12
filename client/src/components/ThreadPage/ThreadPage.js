@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItem from '../ThreadItem/ThreadItem';
+import ThreadPageItem from '../ThreadPageItem/ThreadPageItem';
 import CommentBox from '../CommentBox/CommentBox';
 import EditThreadForm from '../EditThreadForm/EditThreadForm';
 import Auth from '../../modules/Auth';
@@ -17,7 +18,7 @@ const ThreadPage = React.createClass({
   getInitialState() {
     return {
       // this whole object gets replaced when the AJAX call goes through
-      threadData: ''
+      threadData: null
     };
   },
 
@@ -122,15 +123,20 @@ const ThreadPage = React.createClass({
 
     // FIX, render only if there's threadData
     return (
+
       <Card style={style}>
-        <ThreadItem data={this.state.threadData} showDesc={true} 
-                    onUpvote={this.upvoteThread} 
-                    onDownvote={this.downvoteThread} />
-        <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
-        <EditThreadForm title={this.state.threadData.title} 
-                        desc={this.state.threadData.thread} 
-                        handleEdit={this.editThread} />
-        <button onClick={this.deleteThread}>Delete</button>
+        {this.state.threadData ? 
+          <div>
+            <ThreadPageItem data={this.state.threadData}
+                            onUpvote={this.upvoteThread} 
+                            onDownvote={this.downvoteThread} 
+                            handleEdit={this.editThread}
+                            handleDelete={this.deleteThread} />
+
+            <CommentBox comments={this.state.threadData.comments} 
+                        onSubmit={this.addComment} />
+          </div>
+        : null}
       </Card>
     )
   }

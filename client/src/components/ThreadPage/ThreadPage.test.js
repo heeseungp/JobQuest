@@ -4,18 +4,35 @@ import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import ThreadPage from './ThreadPage';
 import ThreadItem from '../ThreadItem/ThreadItem';
+import ThreadPageItem from '../ThreadPageItem/ThreadPageItem';
 import CommentBox from '../CommentBox/CommentBox';
 
 // setup -> action -> assertion
 describe('ThreadPage', () => {
-  
-  // TODO
-  // threaditem and a comment box are rendered
+
+  var wrapper = shallow(<ThreadPage />);
+
+  beforeEach(() => {
+    // set the state for the page
+    var data = {
+      title: 'a title',
+      thread: 'a description',
+      author: 'Daniel',
+      _id: '1',
+      authorID: '1',
+      votedOn: [],
+      comment: [],
+      votes: 14,
+      created_at: '2017-04-11'
+    };
+
+    wrapper.setState({threadData: data});
+  });
 
   it('should render ThreadItem and CommentBox', () => {
-    const wrapper = shallow(<ThreadPage />);
+    // const wrapper = shallow(<ThreadPage />);
     expect(wrapper.containsAllMatchingElements([
-      <ThreadItem />,
+      <ThreadPageItem />,
       <CommentBox />
     ])).to.equal(true);
   });
@@ -37,7 +54,6 @@ describe('ThreadPage', () => {
   // and a list of the current comments in a list
 
   it('passes addComment to CommentBox', () => {
-    const wrapper = shallow(<ThreadPage/>);
     const CommentBox = wrapper.find('CommentBox');
     const addComment = wrapper.instance().addComment;
     expect(CommentBox.prop('onSubmit')).to.eql(addComment);
@@ -60,30 +76,36 @@ describe('ThreadPage', () => {
   //   expect(CommentBox.prop('comments')).to.not.eql(undefined);
   // })
 
-  it('should pass editThread as a prop to EditThreadForm', () => {
-    const wrapper = shallow(<ThreadPage/>);
-    const EditThreadForm = wrapper.find('EditThreadForm');
-
-    const editThread = wrapper.instance().editThread;
-    expect(EditThreadForm.prop('handleEdit')).to.eql(editThread);
-  });
-
-  it('passes upvoteThread to ThreadItem', () => {
-    const wrapper = shallow(<ThreadPage/>);
-    const ThreadItem = wrapper.find('ThreadItem');
+  it('passes upvoteThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
     const upvoteThread = wrapper.instance().upvoteThread;
 
     // passes at first, def fn to get it to fail
-    expect(ThreadItem.prop('onUpvote')).to.eql(upvoteThread);
+    expect(ThreadPageItem.prop('onUpvote')).to.eql(upvoteThread);
   });
 
-  it('passes downvoteThread to ThreadItem', () => {
-    const wrapper = shallow(<ThreadPage/>);
-    const ThreadItem = wrapper.find('ThreadItem');
+  it('passes downvoteThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
     const downvoteThread = wrapper.instance().downvoteThread;
 
     // passes at first, def fn to get it to fail
-    expect(ThreadItem.prop('onDownvote')).to.eql(downvoteThread);
+    expect(ThreadPageItem.prop('onDownvote')).to.eql(downvoteThread);
+  });
+
+  it('passes deleteThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
+    const deleteThread = wrapper.instance().deleteThread;
+
+    // passes at first, def fn to get it to fail
+    expect(ThreadPageItem.prop('handleDelete')).to.eql(deleteThread);
+  });
+
+  it('passes editThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
+    const editThread = wrapper.instance().editThread;
+
+    // passes at first, def fn to get it to fail
+    expect(ThreadPageItem.prop('handleEdit')).to.eql(editThread);
   });
 
 });

@@ -41,14 +41,6 @@ describe('ThreadItem', () => {
     expect(wrapper.find('.desc')).to.have.length(0);
   });
 
-  it('should display description when showDesc is passed', () => {
-    var threadData = {title: 'Study Guide', author: 'Daniel Chia', thread: 'hello how are you',
-                      comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
-    const wrapper = shallow(<ThreadItem data={threadData} showDesc={true} />);
-    
-    expect(wrapper.find('.desc')).to.have.length(1);
-  });
-
   it('pass votes to VoteCounter', () => {
     var threadData = {title: 'Study Guide', author: 'Daniel Chia',
                       comments: [], created_at: 'Sun Mar 05 2017 18:37:03 GMT-0500 (EST)', votes: 1};
@@ -80,4 +72,6 @@ describe('ThreadItem', () => {
     expect(wrapper.find('.numOfComments').exists()).to.equal(true);
     expect(wrapper.find('.date').exists()).to.equal(true);
   });
+
+
 });

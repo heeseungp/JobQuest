@@ -34,7 +34,8 @@ var EditThreadForm = React.createClass({
                value={this.state.titleInput} onChange={this.handleChange} />
         <input type="text" id="editDesc" name="descInput"
                value={this.state.descInput} onChange={this.handleChange} />
-        <button onClick={this.handleClick} >Save</button>
+        <button id="saveEdit" onClick={this.handleClick} >Save</button>
+        <button onClick={this.props.handleToggle} >Cancel</button>
       </div>
     );
   }

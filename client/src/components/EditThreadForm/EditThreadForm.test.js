@@ -70,7 +70,7 @@ describe('EditThreadForm', () => {
     const toggleSpy = spy();
     const wrapper = shallow(<EditThreadForm handleEdit={editPostSpy} 
                                             handleToggle={toggleSpy} />);
-    const addButton = wrapper.find('button');
+    const addButton = wrapper.find('#saveEdit');
 
     addButton.simulate('click');
 

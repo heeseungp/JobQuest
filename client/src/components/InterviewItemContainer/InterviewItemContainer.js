@@ -7,6 +7,7 @@ import update from 'immutability-helper';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {GridList, GridTile} from 'material-ui/GridList';
+import {purple500, blue500, grey50} from 'material-ui/styles/colors';
 
 
 class InterviewItemContainer extends Component {
@@ -51,7 +52,9 @@ class InterviewItemContainer extends Component {
     const styleFont = {
       left: {
         fontSize: '40px',
-        fontWeight: 'bold'
+        fontWeight: 'bold', 
+        color: 'purple',
+        marginLeft: '15px'
       },
 
       description: {
@@ -62,6 +65,12 @@ class InterviewItemContainer extends Component {
         fontSize: '15px'
       }
 
+    }
+
+    const styleLabel = {
+      fontSize: '25px', 
+      fontFamily:'<Sans-serif></Sans-serif>',
+      color: grey50
     }
 
 
@@ -86,7 +95,7 @@ class InterviewItemContainer extends Component {
             {/*Button and Description*/}
             <Card zDepth={2} style={styleCard.right}>
               <Link to='/postNewInterview'>
-                <RaisedButton labelStyle={{fontSize: '25px', fontFamily:'<Sans-serif></Sans-serif>'}} label="Submit a New Question" primary={true} fullWidth={true}/>
+                <RaisedButton backgroundColor={purple500} labelStyle={styleLabel} label="Submit a New Question" fullWidth={true}/>
               </Link>
               <CardText 
                 style={styleFont.description}>

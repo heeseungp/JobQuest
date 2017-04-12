@@ -129,13 +129,13 @@ const ThreadPage = React.createClass({
           <div>
             <ThreadPageItem data={this.state.threadData}
                             onUpvote={this.upvoteThread} 
-                            onDownvote={this.downvoteThread} />
+                            onDownvote={this.downvoteThread} 
+                            handleDelete={this.deleteThread} />
 
             <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
             <EditThreadForm title={this.state.threadData.title} 
                             desc={this.state.threadData.thread} 
                             handleEdit={this.editThread} />
-            <button onClick={this.deleteThread}>Delete</button>
           </div>
         : null}
       </Card>

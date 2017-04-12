@@ -99,4 +99,12 @@ describe('ThreadPage', () => {
     expect(ThreadPageItem.prop('onDownvote')).to.eql(downvoteThread);
   });
 
+  it('passes deleteThread to ThreadPageItem', () => {
+    const ThreadPageItem = wrapper.find('ThreadPageItem');
+    const deleteThread = wrapper.instance().deleteThread;
+
+    // passes at first, def fn to get it to fail
+    expect(ThreadPageItem.prop('handleDelete')).to.eql(deleteThread);
+  });
+
 });

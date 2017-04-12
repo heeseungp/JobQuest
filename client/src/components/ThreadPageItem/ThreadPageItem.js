@@ -38,13 +38,13 @@ const ThreadPageItem = React.createClass({
 
             <div className="threadContent">
               <div className="title">
-                <Link to={linkToThread}>{this.props.data.title}</Link>
-
-                <div style={style.modify} >
-                  <button id="editThread">Edit</button>
-                  <button id="deleteThread">Delete</button>
-                </div>                
+                <Link to={linkToThread}>{this.props.data.title}</Link>     
               </div>
+
+              <div style={style.modify} >
+                <button id="editThread">Edit</button>
+                <button id="deleteThread" onClick={this.props.handleDelete} >Delete</button>
+              </div>           
 
               <div className="desc">
                 <div> {this.props.data.thread} </div>

@@ -27,15 +27,32 @@ describe('ThreadPageItem', () => {
     wrapper.setProps({data: data});
   });
 
+  // set up -> action -> assert
+  it('should hide title, buttons and desc when edit flag is true', () => {
+
+    wrapper.setState({edit: true});
+
+    var title = wrapper.find('.title');
+    var buttons = wrapper.find('#editBtns');
+    var desc = wrapper.find('.desc');
+
+    expect(title).to.have.length(0);
+    expect(buttons).to.have.length(0);
+    expect(desc).to.have.length(0);
+  });
+
   it('should call handleDelete when delete button is pressed', () => {
-    console.log(wrapper.state());
+    // test above is setting the wrapper to true...
+    wrapper.setState({edit: false});
+
     const deleteThreadSpy = spy();
     wrapper.setProps({handleDelete: deleteThreadSpy});
     const deleteBtn = wrapper.find('#deleteThread');
-    
+
     deleteBtn.simulate('click');
 
     expect(deleteThreadSpy.calledOnce).to.equal(true);
   });
+
 
 });

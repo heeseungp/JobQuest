@@ -10,6 +10,12 @@ import '../ThreadItem/ThreadItem.css';
 
 const ThreadPageItem = React.createClass({
 
+  getInitialState() {
+    return {
+      edit: false
+    };
+  },
+
   render() {
     // make date contain only MM/DD/YYYY
 
@@ -37,18 +43,25 @@ const ThreadPageItem = React.createClass({
                           onDownvote={this.props.onDownvote} />
 
             <div className="threadContent">
-              <div className="title">
-                <Link to={linkToThread}>{this.props.data.title}</Link>     
-              </div>
 
-              <div style={style.modify} >
-                <button id="editThread">Edit</button>
-                <button id="deleteThread" onClick={this.props.handleDelete} >Delete</button>
-              </div>           
+              {this.state.edit ? 
+                <p>edit mode!</p>
+                :
+                <div> 
+                  <div className="title">
+                    <Link to={linkToThread}>{this.props.data.title}</Link>     
+                  </div>
 
-              <div className="desc">
-                <div> {this.props.data.thread} </div>
-              </div>
+                  <div style={style.modify} >
+                    <button id="editThread">Edit</button>
+                    <button id="deleteThread" onClick={this.props.handleDelete}>Delete</button>
+                  </div>           
+
+                  <div className="desc">
+                    <div> {this.props.data.thread} </div>
+                  </div>
+                </div>
+              }
               
               <div className="details">
                 <span className="author">Author - {this.props.data.author}</span> |

@@ -115,10 +115,8 @@ const ThreadPage = React.createClass({
   render() {
 
     const style = {
-      width: 850,
       padding: 10,
-      margin: 10,
-      display: 'inline-block'
+      margin: 10
     }
 
     // FIX, render only if there's threadData

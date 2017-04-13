@@ -1,21 +1,6 @@
 
-#rightColumn {
-  min-height: 100px;
-  width: 430px;
-  background-color: #6f1889;
-  display: inline-block;
-  vertical-align: top;
-  margin: 5px;
-}
-
 #calendar {
   height: 300px;
-  width: 400px;
-  background-color: teal;
   margin: 10px;
-}
-
-#events {
-  width: 400px;
-  margin: 10px;
+  background-color: white;
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-//Requires mongoose and our schemas
+//Requires mongoose and our schemas 
 var mongoose = require('mongoose');
 var Question = mongoose.model('InterviewQuestions');
 var Answer = mongoose.model('Answers');
@@ -74,7 +74,7 @@ exports.show_a_question = function(req, res) {
 		return res.status(400).json(errors);
 	}
 
-	Post.findById(id, function(err, newQuestion) {
+	Question.findById(id, function(err, newQuestion) {
 		if (err)
 			return res.status(500).send(err);
 		if(newQuestion == null){
@@ -103,29 +103,21 @@ exports.edit_a_question = function(req, res) {
 		return res.status(400).json(errors);
 	}
 	
-	Question.findOne({_id:id, authorID:req.user._id}, function(err, newQuestion) {
+	Question.findById(id, function(err, newQuestion) {
 		if (err)
 			return res.status(500).send(err);
 		if(newQuestion == null) {
-			
-			//No matching question was found, so perform one more query to check if question exists
-			//This determines what error message is sent back to the client
-			Question.count({_id:id}, function(err, count) { 
-				if(count > 0) {	//Question exists, so issue must be due to lack of permissions
-					return res.status(401).send('User does not have permission to modify this question');
-				}
-				else {	//Question does not exist, so that is the issue
-					return res.status(404).send('Question id:'+id+' not found');
-				}
-			});
+			return res.status(404).json({error:'Question id:'+id+' not found'});
+
 		}
-		else {
+		if(newQuestion.authorID == req.user.id || req.userisAdmin){
+				
 			//Sets a new value to the topic/title/thread ONLY if a new topic/title/thread value is provided.
 			//Otherwise, it will retain its old value
 			newQuestion.topic = req.body.topic || newQuestion.topic;
 			newQuestion.title = req.body.title || newQuestion.title;
 			newQuestion.question = req.body.question || newQuestion.question;
-			newQuestion.originalAnswer = req.body.originalAnswer || newQuestion.originalAnswer;
+			newQuestion.originalAnswer = req.body.originalAnswer || newQuestion.originalAnswer;	
 
 			newQuestion.save(function(err, newQuestion) {
 				if(err)
@@ -133,7 +125,15 @@ exports.edit_a_question = function(req, res) {
 				console.log('Question id:'+id+' successfully updated');
 				return res.json(newQuestion);
 			});
+
 		}
+
+		else {
+			console.log('User requested to modify question made by '+newQuestion.authorID+' but has id '+req.user._id);
+			return res.status(401).json({error:'User does not have permission to modify this question'});
+
+		}
+
 	});
 };
 
@@ -153,26 +153,22 @@ exports.remove_a_question = function(req, res) {
 		return res.status(400).json(errors);
 	}
 
-	Question.findOne({_id:id, authorID:req.user._id}, function(err, newQuestion) {
+	Question.findById(id, function(err, newQuestion) {
 		if (err)
 			return res.status(500).send(err);
 		if(newQuestion == null) {
-			Question.count({_id:id}, function(err, count) { 
-				if(count > 0) {
-					errors.userid = 'User does not have permission to modify this question';
-					return res.status(401).json(errors);
-				}
-				else {
-					errors.postid = 'Question id:'+id+' not found';
-					return res.status(404).json(errors);
-				}
-			});
+			return res.status(404).json({error:'Question id:'+id+' not found'});
+
+		}
+		if(newQuestion.authorID == req.user._id || req.user.isAdmin){
+			//Removes the question
+			question.remove();
+			console.log('Question id:'+id+' successfully removed');
+			return res.json({result:'Question removed'});
 		}
 		else {
-			//Removes the question
-			newQuestion.remove();
-			console.log('question id:'+id+' successfully removed');
-			return res.json({result:'Question removed'});
+			console.log('User requested to modify question made by '+newQuestion.authorID+' but has id '+req.user._id);
+			return res.status(401).json({error:'User does not have permission to modify this question'});
 		}
 	});
 };

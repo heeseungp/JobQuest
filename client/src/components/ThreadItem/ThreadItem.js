@@ -35,6 +35,15 @@ class ThreadItem extends Component {
             <div className="threadContent">
               <div className="title">
                 <Link to={linkToThread}>{this.props.data.title}</Link>
+
+                {this.props.showDesc ?
+                  <div>
+                    <button id="editThread">Edit</button>
+                    <button id="deleteThread">Delete</button>
+                  </div>
+                  : null
+                }
+                
               </div>
 
               {this.props.showDesc ? 

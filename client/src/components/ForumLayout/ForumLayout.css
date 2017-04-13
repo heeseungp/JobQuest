@@ -1,8 +1,8 @@
 
 #rightColumn {
-  height: 640px;
+  min-height: 100px;
   width: 430px;
-  background-color: darkred;
+  background-color: #6f1889;
   display: inline-block;
   vertical-align: top;
   margin: 5px;
@@ -16,8 +16,6 @@
 }
 
 #events {
-  height: 300px;
   width: 400px;
-  background-color: teal;
   margin: 10px;
 }

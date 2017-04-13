@@ -1,3 +1,33 @@
-.paragraph {
-    font-size: '50px'
+.interviewItem {
+    padding: 15px;
+}
+
+.interviewContent {
+    padding: 10px;
+    max-width: 700px;
+}
+
+.interviewTitle {
+    font-size: 30px;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 100px;
+}
+
+.interviewTopic {
+    display: inline-block;
+}
+
+.interviewInfo {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 2px;
+    margin-left: 1px;
+}
+
+.interviewQuestion {
+    font-size: 15px;
+    margin-left: 1px;
+    margin-top: 10px;
+    
 }

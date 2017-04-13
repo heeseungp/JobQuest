@@ -3,7 +3,8 @@ import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItemContainer from '../ThreadItemContainer/ThreadItemContainer'
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import ThreadForm from '../ThreadForm/ThreadForm'
+import ThreadForm from '../ThreadForm/ThreadForm';
+import FutureEvents from '../Events/FutureEvents'
 
 import './ForumLayout.css';
 
@@ -28,7 +29,9 @@ const ForumLayout = React.createClass({
         
         <div id="rightColumn">
           <div id="calendar"> Calendar here </div>
-          <div id="events"> Events here </div>
+          <div id="events">
+            <FutureEvents />
+          </div>
         </div>
         
       </div>

@@ -1,52 +1,53 @@
-
-// now create a lists of threads
-import React, { Component } from 'react';
+import React, { PropTypes,Component } from 'react';
 import {Link} from 'react-router';
-import VoteCounter from '../VoteCounter/VoteCounter';
 import axios from 'axios';
 import './InterviewItem.css'
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
+import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
+import {blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
+
+
+
 
 
 class InterviewItem extends Component {
   constructor(props){
     super(props);
 
-    // still dont get this binding nonsense
-    // supposedly binds the instance
-    this.upVote = this.upVote.bind(this);
-    this.downVote = this.downVote.bind(this);
     this.subtitle = this.subtitle.bind(this);
   }
 
-  upVote(){
-    // first execute the post and then update the UI
-    axios.post('/vote/up/' + this.props.data._id, {})
-    .then((res) => {
-      // console.log(res);
-      this.props.upvote();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  downVote(){
-    axios.post('/vote/down/' + this.props.data._id, {})
-    .then((res) => {
-      // console.log(res);
-      this.props.downvote();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
   subtitle(){
-    var temp = 'Created by ' + this.props.data.author  + ' at ' + this.props.data.created_at;
+    var temp = 'submitted at ' + this.props.data.created_at + ' by ' + this.props.data.author;
     return temp;
+  }
+
+  color() {
+    var colorType;
+    switch(this.props.data.topic) {
+      case 'Software Engineering':
+        colorType = blue300;
+        break;
+      case 'Algorithm':
+        colorType = pink300;
+        break;
+      case 'Database':
+        colorType = purple300;
+        break;
+      case 'Shell':
+        colorType = yellow300;
+        break;
+      case 'System Design':
+        colorType = orange300;
+        break;
+      default:
+        colorType = grey300;
+        break; 
+    }
+    return colorType;
   }
 
 
@@ -54,73 +55,68 @@ class InterviewItem extends Component {
   render() {
     // make date contain only MM/DD/YYYY
 
-    const styleCard = {
-        item: {
-          marginLeft: '20px',   
-          marginBottom: '20px', 
-          marginRight: '10px',
-          width: '95%',
-          display: 'inline-block'
-      }
+    var linkToThread = this.props.data ? "interview/" + this.props.data._id:null;
+
+
+    const stylePaper = {
+      minHeight: this.props.showDesc ? 150 : 80,
+      width: 1200,
+      margin: 10
     }
 
-    const styleCardHeader = {
-      title: {
-        margin: '5px',
-        fontSize: '30px',
-        fontWeight: 'bold'
+    const styles = {
+      chip: {
+        margin: 4,
       },
-
-      subtitle: {
-        marginLeft: '6px',
-        fontSize: '20px'
-      }
-    }
-
-    const styleButton = {
-      votecounter: {
-        marginUp: '50 px'
-      }
-    }
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+    };
 
   
 
     return (
 
-      <div>
-        <VoteCounter style={styleButton.votecounter} upvote={this.upVote} downvote={this.downVote} votes={this.props.data.votes} />            
-        <Card style={styleCard.item}>
-            <CardHeader
-              title={this.props.data.title}
-              titleStyle={styleCardHeader.title}
-              subtitle={this.subtitle()}
-              subtitleStyle={styleCardHeader.subtitle}
-              actAsExpander={true}
-              showExpandableButton={true}/>
-              
-          <CardActions>
-            <Link to='/eachInterview'>
-              <FlatButton labelStyle={{fontSize: '15px'}} label="View Solution"/>
-              <FlatButton labelStyle={{fontSize: '15px'}} label="Comment"/>
-            </Link>
-            
-          </CardActions>
 
-          <CardText expandable={true}>
-            <p style={{fontSize: '20px'}}>{this.props.data.thread}</p>
-          </CardText>
-        
-        </Card>
+      <div>            
+        <Paper className="interviewItem" style={stylePaper} zDepth={3}>
+
+          <div className="interviewContent">
+            <div className="interviewTitle">
+              <Link to={linkToThread}>{this.props.data.title}</Link>
+            </div>
+            
+            <div className="interviewTopic">
+              <Chip backgroundColor={this.color()} style={styles.chip}>
+                {this.props.data.topic}
+              </Chip>
+            </div>
+
+            <div className="interviewInfo">
+              <i>{this.subtitle()}</i>
+            </div>
+
+            <div className="interviewQuestion">
+              <strong>Question: </strong>{this.props.data.question}
+            </div>
+          </div>
+
+        </Paper>
       </div>
+
+
+
       
 
 
-    );
+    );  
   }
 }
 
 InterviewItem.propTypes = {
-  data: React.PropTypes.object.isRequired
+  data: React.PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 };
 
 export default InterviewItem;

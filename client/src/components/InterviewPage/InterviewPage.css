@@ -1,0 +1,35 @@
+.titlee {
+    padding-top: 20px;
+    font-size: 2vw;
+    font-weight: bold; 
+    color: purple;  
+}
+
+.topic {
+    margin: auto;
+}
+
+.question {
+    margin-top: 20px;
+    font-weight: normal;
+    font-size: 1vw;
+}
+
+.info {
+    margin-top: 5px;
+    font-size: 0.9vw;
+    font-weight: normal;
+    font-style: italic;
+    color: rebeccapurple;
+}
+
+.answer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: normal;
+    font-weight: normal;
+    font-size: 1vw;
+}
+
+.comment {
+}

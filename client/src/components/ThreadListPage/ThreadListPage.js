@@ -67,18 +67,11 @@ const ThreadListPage = React.createClass({
   },
 
   render: function(){
-    const style = {
-      display: 'inline-block'
-    };
 
     return (
-      <div style={style} >
-
         <ThreadItemContainer threads={this.state.threads}
                              onUpvote={this.upvoteThread}
                              onDownvote={this.downvoteThread} />
-        
-      </div>
     );
   }
 }); 

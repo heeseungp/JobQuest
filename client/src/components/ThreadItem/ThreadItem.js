@@ -15,8 +15,7 @@ class ThreadItem extends Component {
 
     // hacking the height for singular page
     const style = {
-      minHeight: this.props.showDesc ? 150 : 80,
-      width: 800,
+      minHeight: 80,
       margin: 20,
     };
 
@@ -35,24 +34,7 @@ class ThreadItem extends Component {
             <div className="threadContent">
               <div className="title">
                 <Link to={linkToThread}>{this.props.data.title}</Link>
-
-                {this.props.showDesc ?
-                  <div>
-                    <button id="editThread">Edit</button>
-                    <button id="deleteThread">Delete</button>
-                  </div>
-                  : null
-                }
-                
               </div>
-
-              {this.props.showDesc ? 
-                // this is pretty ugly but eh
-                <div className="desc">
-                  <div> {this.props.data.thread} </div>
-                </div>
-                : null
-              }
               
               <div className="details">
                 <span className="author">Author - {this.props.data.author}</span> |

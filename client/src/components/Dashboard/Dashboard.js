@@ -30,13 +30,14 @@ const Dashboard = ({ secretData }) => (
     />
 
     {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>{secretData}</CardText>}
+    
     // I LOVE FLEX CONTAINERS!
     <div className="flexcontainer">
-    {renderIcon('icons/ForumIcon.png','Forums','/forum')}
-    {renderIcon('icons/ApplicationIcon.png','Applications','/app-log')}
-    {renderIcon('icons/InterviewIcon.png','Interview Questions','/interview')}
-    {renderIcon('icons/ProfileIcon.png','Profile','/profile')}
-    {renderIcon('icons/ResourcesIcon.png','Resources','/resources')}
+      {renderIcon('icons/ForumIcon.png','Forums','/forum')}
+      {renderIcon('icons/ApplicationIcon.png','Applications','/app-log')}
+      {renderIcon('icons/InterviewIcon.png','Interview Questions','/interview')}
+      {renderIcon('icons/ProfileIcon.png','Profile','/profile')}
+      {renderIcon('icons/ResourcesIcon.png','Resources','/resources')}
     </div>
 
   </Card>

@@ -38,7 +38,7 @@ var RenderAllTabs = (props) => {
 }
 
 const Base = ({ children }) => (
-  <div className="flexnavbar">
+  <div>
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
       <div>
         <AppBar

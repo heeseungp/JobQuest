@@ -1,7 +1,10 @@
  .flex-container {
+   display: -webkit-flex;
    display: flex;
-   margin-right: auto;
-   margin-left: auto;
+   flex-wrap: nowrap;
+   justify-content: center;
+   -webkit-flex-direction: row;
+   flex-direction: row;
  }
 
  .mainbar {

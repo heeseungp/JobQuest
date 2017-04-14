@@ -1,7 +1,0 @@
-.flexnavbar {
-   display: -webkit-flex;
-   display: flex;
-   justify-content: center;
-   -webkit-flex-direction: column;
-   flex-direction: column;
-}

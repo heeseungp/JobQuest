@@ -10,3 +10,11 @@
 .link {
   font-size: 20px;
 }
+
+.truncate {
+  padding:0px;
+  margin:0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

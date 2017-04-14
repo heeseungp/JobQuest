@@ -10,7 +10,7 @@ const style = {
     padding: 0
   },
   tile: {
-    margin: '0 auto'
+    // margin: '0 auto'
   },
   paper: {
     margin: 5
@@ -23,82 +23,55 @@ const style = {
     height: 100,
     fontSize: 100,
     textAlign: 'center',
-    marginBottom: 150
+    marginTop: 30
   },
-  checkFeatures: {
-    fontSize: 60,
-    padding: 30,
-    textAlign: 'center',
-    backgroundColor: 'grey'
-  }
+  featDesc: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    content: {
+      padding: 60,
+      backgroundColor: 'white'
+    },
+    title: {
+      fontSize: 30
+    },
+    desc: {
+      fontSize: 25
+    }
+  },
 }
 
 const HomePage = () => (
 
   <div>
-    <GridList cols={12} padding={0} cellHeight={650} >
+    <GridList cols={12} padding={0} cellHeight={750} >
       <GridTile
         cols={12} style={style.tile} 
-        title={'Welcome to JobQuest'} titlePosition={'bottom'}
-        titleStyle={style.title} titleBackground={'rgba(0, 0, 0, 0)'} >
+        title={'Welcome to JobQuest'} titlePosition={'top'}
+        titleStyle={style.title} titleBackground={'rgba(0, 0, 0, 0)'}
+        subtitle={'Your one stop website to help you find a programming job'} >
         <img src={'/backgrounds/code_wp1.jpg'}/>
       </GridTile>
     </GridList>
 
-    <GridList cols={12} padding={10} cellHeight={'auto'} style={style.checkFeatures} >
-      <GridTile
-        cols={12} style={style.tile} >
-        Check out some of our features!
-      </GridTile>
-    </GridList>
-
     <GridList cols={12} padding={0} cellHeight={'auto'} style={style.gridListFeatures} >
       <GridTile
-        rows={3} cols={6} style={style.tile} >
-        <Paper style={style.paper} zDepth={2} >
-          Forum description
-        </Paper>
+        cols={6} style={style.featDesc} >
+        <div style={style.featDesc.content} >
+          <div style={style.featDesc.title} > Forum </div> 
+          <div style={style.featDesc.desc} > 
+            A place to ask career related questions
+          </div>
+        </div>
       </GridTile>
 
-      <GridTile cols={6} style={style.tile} >
-        <Paper style={style.paper} zDepth={2} >
-          <img src="http://placehold.it/550x350" />
-        </Paper>
-      </GridTile>
-    </GridList>
-
-    <GridList cols={12} padding={0} cellHeight={'auto'} style={style.gridListFeatures} >
-      <GridTile
-        rows={3} cols={6} style={style.tile} >
-        <Paper style={style.paper} zDepth={2} >
-          Application Log description
-        </Paper>
-      </GridTile>
-
-      <GridTile cols={6} style={style.tile} >
-        <Paper style={style.paper} zDepth={2} >
-          <img src="http://placehold.it/550x350" />
-        </Paper>
-      </GridTile>
-    </GridList>
-
-    <GridList cols={12} padding={0} cellHeight={'auto'} style={style.gridListFeatures} >
-      <GridTile
-        rows={3} cols={6} style={style.tile} >
-        <Paper style={style.paper} zDepth={2} >
-          Interview questions description
-        </Paper>
-      </GridTile>
-
-      <GridTile cols={6} style={style.tile} >
-        <Paper style={style.paper} zDepth={2} >
-          <img src="http://placehold.it/550x350" />
-        </Paper>
+      <GridTile cols={6} >
+        <img src="http://placehold.it/450x250" />
       </GridTile>
     </GridList>
 
   </div>
-
 );
 
 export default HomePage;

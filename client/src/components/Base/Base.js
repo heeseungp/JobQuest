@@ -47,7 +47,7 @@ const Base = ({ children }) => (
           iconElementRight={<RenderAllTabs auth={Auth.isUserAuthenticated()} />}
           style={{position:"fixed"}} />
 
-        <div style={{paddingTop: 120}}>
+        <div>
           {children}
         </div>
       </div>

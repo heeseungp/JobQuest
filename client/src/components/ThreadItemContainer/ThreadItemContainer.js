@@ -14,7 +14,7 @@ class ThreadItemContainer extends Component {
     // back to the issue of making each up/down button attach to its proper ThreadItem
 
     return (
-      <div id="threadContainer"> 
+      <div> 
         {this.props.threads ? 
           this.props.threads.map((thread, idx) => {
             // re add upvote and downvote

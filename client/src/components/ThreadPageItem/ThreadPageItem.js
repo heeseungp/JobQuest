@@ -26,12 +26,17 @@ const ThreadPageItem = React.createClass({
 
     // hacking the height for singular page
     const style = {
-      minHeight: this.props.showDesc ? 150 : 80,
-      width: 800,
+      minHeight: 80,
+      padding: 15,
       margin: 20,
       modify: {
         display: 'inline-block',
         margin: 5
+      },
+      content: {
+        padding: 3,
+        display: 'inline-block',
+        width: '95%'
       }
     };
 
@@ -39,7 +44,7 @@ const ThreadPageItem = React.createClass({
                                         : null;
 
     return (
-      <Paper className="threadItem" style={style} zDepth={1}>
+      <Paper style={style} zDepth={1}>
 
         {this.props.data ? 
           <div>
@@ -47,7 +52,7 @@ const ThreadPageItem = React.createClass({
                           onUpvote={this.props.onUpvote}
                           onDownvote={this.props.onDownvote} />
 
-            <div className="threadContent">
+            <div style={style.content} >
 
               {this.state.edit ? 
                 <EditThreadForm  title={this.props.data.title} 

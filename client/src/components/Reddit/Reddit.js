@@ -36,13 +36,10 @@ class Reddit extends Component {
 
     //wish there was a way to make these auto-wrap around the contents...
     const style = {
-      height: 800,
-      width: 750,
+      width: 580,
       margin: 20,
       padding: 10
     };
-
-    const maxLinkLength = 65;
 
     return (
        <Paper style={style} zDepth={1}>
@@ -53,9 +50,8 @@ class Reddit extends Component {
             return (
               <div className="post">
                 <a href={redditpost.link} className="link" key={idx} title={redditpost.title} target="_blank">
-                  {redditpost.title.length <= maxLinkLength ? redditpost.title : redditpost.title.substring(0,maxLinkLength) + "...."}
+                  <p className="truncate">{redditpost.title}</p>
                 </a>
-                <br />
                 <div className="info">
                   <span>Votes: {redditpost.votes} | </span>
                   <span>Posted: {redditpost.created_at.substring(0,10)}</span>
@@ -72,7 +68,6 @@ class Reddit extends Component {
 
 Reddit.PropTypes = {
   items: React.PropTypes.array.isRequired
-  // add two funcs, TODO
 };
 
 export default Reddit;

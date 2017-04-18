@@ -23,7 +23,8 @@ class FutureEvents extends Component{
     const style = {
       card: {
         minHeight: 180,
-        padding: 5
+        padding: 5,
+        margin: 10
       },
       title: {
         textAlign: 'center',

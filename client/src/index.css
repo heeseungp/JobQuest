@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-size: 16px;
-  background-color: #a58caf;
+  background-color: #eeeeee;
 }
 
 a {
@@ -21,7 +21,6 @@ a:hover {
 
 .top-bar {
   padding: 10px 15px;
-  margin-bottom: 50px;
 }
 .top-bar::after {
   content: '';

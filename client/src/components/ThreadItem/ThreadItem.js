@@ -15,16 +15,20 @@ class ThreadItem extends Component {
 
     // hacking the height for singular page
     const style = {
-      minHeight: this.props.showDesc ? 150 : 80,
-      width: 800,
+      minHeight: 80,
+      padding: 15,
       margin: 20,
+      content: {
+        padding: 3,
+        display: 'inline-block'
+      },
     };
 
     var linkToThread = this.props.data ? "thread/" + this.props.data._id
                                        : null;
 
     return (
-      <Paper className="threadItem" style={style} zDepth={1}>
+      <Paper style={style} zDepth={1}>
 
         {this.props.data ? 
           <div>
@@ -32,27 +36,14 @@ class ThreadItem extends Component {
                          onUpvote={this.props.onUpvote}
                          onDownvote={this.props.onDownvote} />
 
-            <div className="threadContent">
+            <div style={style.content} >
               <div className="title">
-                <Link to={linkToThread}>{this.props.data.title}</Link>
-
-                {this.props.showDesc ?
-                  <div>
-                    <button id="editThread">Edit</button>
-                    <button id="deleteThread">Delete</button>
-                  </div>
-                  : null
+                {this.props.showDesc ? 
+                // so it doesn't show a link to the thread on the thread page itself
+                this.props.data.title
+                : <Link to={linkToThread}>{this.props.data.title}</Link>
                 }
-                
               </div>
-
-              {this.props.showDesc ? 
-                // this is pretty ugly but eh
-                <div className="desc">
-                  <div> {this.props.data.thread} </div>
-                </div>
-                : null
-              }
               
               <div className="details">
                 <span className="author">Author - {this.props.data.author}</span> |

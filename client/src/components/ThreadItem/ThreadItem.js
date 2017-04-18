@@ -34,7 +34,11 @@ class ThreadItem extends Component {
 
             <div className="threadContent">
               <div className="title">
-                <Link to={linkToThread}>{this.props.data.title}</Link>
+                {this.props.showDesc ? 
+                // so it doesn't show a link to the thread on the thread page itself
+                this.props.data.title
+                : <Link to={linkToThread}>{this.props.data.title}</Link>
+                }
               </div>
 
               {this.props.showDesc ? 

@@ -26,6 +26,9 @@ app.use(function (req, res, next) {
 }, function (req, res, next) {
   console.log('Request Type:', req.method);
   next();
+}, function(req, res, next) {
+	console.log('Request Body:', req.body);
+	next();	
 });
 
 // pass the authenticaion checker middleware

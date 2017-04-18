@@ -1,0 +1,17 @@
+.page-break {
+    width:500px;
+   display: -webkit-flex;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+ }
+
+ .mainbar {
+   flex-basis: 66.667%;
+ }
+
+.sidebar {
+   flex-basis: 33.333%;
+ }

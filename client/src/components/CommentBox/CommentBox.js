@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import CommentList from '../CommentList/CommentList';
-
+import RaisedButton from 'material-ui/RaisedButton';
+import './CommentBox.css';
 
 class CommentBox extends Component {
 
@@ -35,12 +36,13 @@ class CommentBox extends Component {
       <div>
         <h3> Comments </h3>
 
-        <input type="text" className="inputComment"
+        <textarea rows="5" cols="50"
                onChange={this.handleChange} value={this.state.text} />
-        <input type="button" id="addComment"
-               onClick={this.handleClick} value="Add Comment" />
+        <div onClick={this.handleClick}>
+          <RaisedButton label="Add Comment" labelStyle={{fontSize:10}} primary />
+        </div>
 
-        <CommentList comments={this.props.comments} />
+        <CommentList comments={this.props.comments} onEdit={this.props.onEdit} onDelete={this.props.onDelete} />
       </div>
     );
   }
@@ -49,7 +51,8 @@ class CommentBox extends Component {
 
 CommentBox.PropTypes = {
   comments: React.PropTypes.array.isRequired,
-  onSubmit: React.PropTypes.func.isRequired
+  onSubmit: React.PropTypes.func.isRequired,
+  onEdit: React.PropTypes.func.isRequired
 };
 
 export default CommentBox;

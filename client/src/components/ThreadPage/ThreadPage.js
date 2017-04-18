@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import ThreadItem from '../ThreadItem/ThreadItem';
@@ -6,6 +5,7 @@ import CommentBox from '../CommentBox/CommentBox';
 import EditThreadForm from '../EditThreadForm/EditThreadForm';
 import Auth from '../../modules/Auth';
 import axios from 'axios';
+import './ThreadPage.css'
 
 const ThreadPage = React.createClass({
 
@@ -35,6 +35,30 @@ const ThreadPage = React.createClass({
       console.log('success', res);
 
       this.setState({threadData: updated});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
+  editComment(data) {
+    axios.post('/posts/' + this.props.params.id + '/comments/' + data.commentid + '/edit', {text:data.comment}, 
+               { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    .then((res) => {
+      console.log('success', res);
+      this.setState({threadData: res.data})
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
+    deleteComment(data) {
+    axios.delete('/posts/' + this.props.params.id + '/comments/' + data.commentid + '/remove', 
+               { headers: {authorization: 'bearer ' + Auth.getToken()} })
+    .then((res) => {
+      console.log('success', res);
+      this.setState({threadData: res.data})
     })
     .catch((err) => {
       console.log(err);
@@ -126,7 +150,7 @@ const ThreadPage = React.createClass({
         <ThreadItem data={this.state.threadData} showDesc={true} 
                     onUpvote={this.upvoteThread} 
                     onDownvote={this.downvoteThread} />
-        <CommentBox comments={this.state.threadData.comments} onSubmit={this.addComment} />
+        <CommentBox comments={this.state.threadData.comments} onEdit={this.editComment} onDelete={this.deleteComment} onSubmit={this.addComment} />
         <EditThreadForm title={this.state.threadData.title} 
                         desc={this.state.threadData.thread} 
                         handleEdit={this.editThread} />

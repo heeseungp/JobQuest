@@ -1,10 +1,11 @@
- .flex-container {
+.page-break {
+    width:500px;
    display: -webkit-flex;
    display: flex;
-   flex-wrap: nowrap;
+   flex-wrap: wrap;
    justify-content: center;
-   -webkit-flex-direction: row;
-   flex-direction: row;
+   -webkit-flex-direction: column;
+   flex-direction: column;
  }
 
  .mainbar {

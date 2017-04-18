@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn} from 'material-ui/Table';
 import {Card,CardHeader,CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import UserProfile from '../UserProfile/UserProfile';
@@ -95,7 +95,6 @@ class AppLogTable extends Component{
     //function for POST request
     handleSubmit(event){
         var data = {company:this.state.company,role:this.state.role,status:this.state.status};
-        var copy = this.state.applications.slice();
         //if edit is false, it will create a new submission else it will edit and submit
         if(!this.state.edit){
             axios.post('/applications/create',data)
@@ -111,9 +110,16 @@ class AppLogTable extends Component{
             .catch(err => {console.log(err);});
             event.preventDefault();
         }else{
+            var copy = this.state.applications.slice();
             axios.post('applications/'+this.state.selectId+'/edit',data)
             .then((res) => {
               copy.push(res.data);
+              var idx = -1;
+              for(let i=0; i < this.state.applications.length; i++){
+                  console.log(this.state.applications[i]);
+                if(this.state.applications[i]._id === this.state.selectId){idx=i;}
+              }
+              copy.splice(idx,1);
               this.setState({
                     selected:'',
                     edit:false,
@@ -123,6 +129,8 @@ class AppLogTable extends Component{
                     status:''
                })
             })
+            .catch(err => {console.log(err);});
+            event.preventDefault();
        }
 
     }   
@@ -172,9 +180,9 @@ class AppLogTable extends Component{
                         onChange={this.handleStatus} 
                         style={{width:80,margin:10}}/>
                     <br />
-                    <FlatButton label="Submit" type="submit" />
-                    <FlatButton label="Delete" onClick={this.handleDelete} />
-                    <FlatButton label="Modify" onClick={this.handleModify}/>
+                    <RaisedButton label="Submit" type="submit" />
+                    <RaisedButton label="Delete" onClick={this.handleDelete} />
+                    <RaisedButton label="Modify" onClick={this.handleModify}/>
                 </form>
                </CardText>
             </Card>        

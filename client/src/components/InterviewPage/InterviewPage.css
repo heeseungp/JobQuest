@@ -3,6 +3,7 @@
     font-size: 2vw;
     font-weight: bold; 
     color: purple;  
+    display: inline-block;
 }
 
 .topic {
@@ -31,5 +32,14 @@
     font-size: 1vw;
 }
 
-.comment {
+.newAnswer {
+    
+}
+
+.answerList {
+    
+}
+
+.menu {
+ display: inline-block;
 }

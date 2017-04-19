@@ -1,28 +1,31 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router';
-import axios from 'axios';
-import {GridList, GridTile} from 'material-ui/GridList';
-import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
-import Chip from 'material-ui/Chip';
-import TextField from 'material-ui/TextField';
-import CommentBox from '../CommentBox/CommentBox';
-import AnswerBox from '../AnswerBox/AnswerBox';
-import RaisedButton from 'material-ui/RaisedButton';
 import './InterviewPage.css';
+import Auth from '../../modules/Auth';
+import AnswerBox from '../AnswerBox/AnswerBox';
+import AnswerList from '../AnswerList/AnswerList';
+import axios from 'axios';
+import Chip from 'material-ui/Chip';
+import FlatButton from 'material-ui/FlatButton';
+import {GridList, GridTile} from 'material-ui/GridList';
+import {Link} from 'react-router';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import React, { Component } from 'react';
 import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
-
 
 
 class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            interview: [],
-            comment:''
+            interview: []
         };
 
-        this.addComment = this.addComment.bind(this);
+        this.addAnswer = this.addAnswer.bind(this);
     }
 
     componentDidMount() {
@@ -34,78 +37,48 @@ class InterviewPage extends Component {
         });
     }
 
-  color() {
-    var colorType;
-    switch(this.state.interview.topic) {
-      case 'Software Engineering':
-        colorType = blue300;
-        break;
-      case 'Algorithm':
-        colorType = pink300;
-        break;
-      case 'Database':
-        colorType = purple300;
-        break;
-      case 'Shell':
-        colorType = yellow300;
-        break;
-      case 'System Design':
-        colorType = orange300;
-        break;
-      default:
-        colorType = grey300;
-        break; 
+    color() {
+        var colorType;
+        switch(this.state.interview.topic) {
+        case 'Software Engineering':
+            colorType = blue300;
+            break;
+        case 'Algorithm':
+            colorType = pink300;
+            break;
+        case 'Database':
+            colorType = purple300;
+            break;
+        case 'Shell':
+            colorType = yellow300;
+            break;
+        case 'System Design':
+            colorType = orange300;
+            break;
+        default:
+            colorType = grey300;
+            break; 
+        }
+        return colorType;
     }
-    return colorType;
-  }
 
-  subtitle(){
-    var temp = 'submitted at ' + this.state.interview.created_at + ' by ' + this.state.interview.author;
-    return temp;
-  }
+    subtitle(){
+        var temp = 'submitted at ' + this.state.interview.created_at + ' by ' + this.state.interview.author;
+        return temp;
+    }
 
-//   handleComment(event) {
-//       this.setState({comment: event.target.value});
-//   }
+    
 
-//   handleSubmit(event) {
-//     var newComment = {answer: this.state.comment, QuestionId: this.props.params.id};
-//     // create a new thread on db
-
-//     if(this.state.comment == ''){
-//       alert('Comment field is required');
-//     }
-
-//     const url = '/interviewQuestions/' + this.props.params.id + '/answers/create';
-//     axios.post(url, newComment)
-//     .then((res) => {
-//       // no way to update the UI here, need to rework the app architecture
-
-//           console.log("HELLO" + this.props.params.id);
-
-//       console.log('success', res);
-
-//       // make it redirect to the page of the post
-//       const replaceURL = '/interviewQuestions/' + this.props.params.id + '/show';
-
-//     //   this.context.router.replace(replaceURL);
-
-
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       console.log("hello" + this.props.params.id);
-//     });
-
-//     // don't know what this does either
-//     event.preventDefault(); 
-//   }
-
-    addComment(comment) {
+    addAnswer(comment) {
         // might need to do an update on that whole object
         var newComments = this.state.interview.otherAnswers.slice();
         newComments.push({answerText: comment});
+
         var updated = Object.assign({}, this.state.interview, {otherAnswers: newComments});
+        
+
+        console.log(comment);
+
         const url = '/interviewQuestions/' + this.props.params.id + '/answers/create';
         axios.post(url, {answerText: comment})
         .then((res) => {
@@ -151,7 +124,17 @@ class InterviewPage extends Component {
             <div className="container">
                 <Paper>
                     <div className="titlee">
-                        {this.state.interview.title}                    
+                        {this.state.interview.title}   
+                        <div className="menu">
+                            <IconMenu
+                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                            >
+                                <MenuItem primaryText="Edit" />
+                                <MenuItem primaryText="Delete" />
+                            </IconMenu>
+                        </div>                 
                     </div>
 
                     <div className="info">
@@ -174,11 +157,18 @@ class InterviewPage extends Component {
                 </Paper>
                     
                 <Paper style={stylePaper.comment}>
-                    <div className="comment">
-                        <CommentBox comments={this.state.interview.otherAnswers} onSubmit={this.addComment} />
+                    <div className="newAnswer">
+                        <AnswerBox onSubmit={this.addAnswer} />
                     </div>
                 </Paper>
 
+                <Paper style={stylePaper.comment}>
+                    <div className="answerList">    
+                        {this.state.interview.otherAnswers ? this.state.interview.otherAnswers.map((individualAnswer, idx) => {
+                            return <AnswerList key={idx} data={individualAnswer} />
+                        }) : null}
+                    </div>
+                </Paper>
 
             </div>
 

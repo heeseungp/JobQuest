@@ -1,6 +1,5 @@
 import { Link, IndexLink } from 'react-router';
 import React, { Component } from 'react';
-import ThreadItem from '../ThreadItem/ThreadItem';
 import InterviewItem from '../InterviewItem/InterviewItem'
 import axios from 'axios';
 import update from 'immutability-helper';

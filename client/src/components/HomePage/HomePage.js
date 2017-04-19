@@ -2,8 +2,9 @@ import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
-
 import './HomePage.css';
+
+
 
 // goal is to create a scrolling site
 
@@ -12,7 +13,9 @@ const HomePage = () => (
     {/*Big image*/}
     <div className="features">
       <figure className="homepageImg">
-        <img src="http://wallresolution.com/wp-content/uploads/2016/09/Fine-Job-Keyboard-Funny-Wallpaper-HD.jpg" />
+        <div className="testing">
+          <img src="backgrounds/jobquest_logo.png" />
+        </div>
       </figure>
     </div>
     

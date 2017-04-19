@@ -4,6 +4,8 @@ import AnswerBox from '../AnswerBox/AnswerBox';
 import AnswerList from '../AnswerList/AnswerList';
 import axios from 'axios';
 import Chip from 'material-ui/Chip';
+import Dialog from 'material-ui/Dialog';
+import DropDownMenu from 'material-ui/DropDownMenu';
 import FlatButton from 'material-ui/FlatButton';
 import {GridList, GridTile} from 'material-ui/GridList';
 import {Link} from 'react-router';
@@ -22,10 +24,34 @@ class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            interview: []
+            interview: [],
+            editopen: false,
+            deleteopen: false,
+            
+            value: '', 
+            title: '', 
+            question:'', 
+            originalAnswer:''
+
         };
 
+        this.handleAnswer = this.handleAnswer.bind(this);
+        this.handleTitle = this.handleTitle.bind(this);
+        this.handleQuestion = this.handleQuestion.bind(this);
+
         this.addAnswer = this.addAnswer.bind(this);
+
+        //just changing the state to true
+        this.handleDeleteInterviewOpen = this.handleDeleteInterviewOpen.bind(this);
+        this.handleEditInterviewOpen = this.handleEditInterviewOpen.bind(this);
+
+        //just changing the state to false
+        this.handleDeleteInterviewClose = this.handleDeleteInterviewClose.bind(this);
+        this.handleEditInterviewClose = this.handleEditInterviewClose.bind(this);
+
+        //last stage in editing or deleting
+        this.editInterview = this.editInterview.bind(this);
+        this.deleteInterview = this.deleteInterview.bind(this);
     }
 
     componentDidMount() {
@@ -68,7 +94,78 @@ class InterviewPage extends Component {
     }
 
     
+    //for current interview thread
 
+    handleTopic = (event, index, value) => this.setState({value});
+
+    handleTitle(event) {
+        this.setState({title: event.target.value});
+    }
+
+    handleQuestion(event) {
+        this.setState({question: event.target.value});
+    }
+
+    handleAnswer(event) {
+        this.setState({originalAnswer: event.target.value});
+    }
+
+
+
+    handleEditInterviewOpen () {
+        this.setState({editopen: true});
+    }
+
+    handleDeleteInterviewOpen () {
+        this.setState({deleteopen: true});
+    }
+
+    handleEditInterviewClose () {
+        this.setState({editopen: false});
+    }
+
+    handleDeleteInterviewClose () {
+        this.setState({deleteopen: false});
+    }
+
+
+    editInterview() {
+        
+        this.setState({editopen: false});
+        var newEditSubmit = {topic: this.state.value, title: this.state.title, question: this.state.question, originalAnswer: this.state.originalAnswer};
+
+        const editURL = '/interviewQuestions/' + this.props.params.id + '/edit';
+        axios.post(editURL, newEditSubmit, {headers: {authorization: 'bearer ' + Auth.getToken()} })
+        .then((res) => {
+            console.log('sucess, edited', res);
+            this.setState({interview: res.data});
+            this.context.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    deleteInterview() {
+
+        this.setState({deleteopen: false});
+        
+        const deleteURL = '/interviewQuestions/' + this.props.params.id + '/remove';
+        axios.delete(deleteURL, {headers: {authorization: 'bearer ' + Auth.getToken()} })
+        .then((res) => {
+            console.log('sucess, deleted', res);
+            // the problem arises here 
+            this.context.router.replace('/interview');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+    }
+
+
+    //for additional answers
+    
     addAnswer(comment) {
         // might need to do an update on that whole object
         var newComments = this.state.interview.otherAnswers.slice();
@@ -95,9 +192,33 @@ class InterviewPage extends Component {
     
 
     render() {
-        
-        const styleDescription = {
-            fontSize: '25px'
+        const styleHeading = {
+        color: 'purple'
+        }
+
+        const styleButton = {
+        marginTop: '50px',
+        marginBottom: '50px',
+        width: '40%',
+        }
+
+        const styleCustomWidth = {
+        width: 400
+        }
+
+        const styleTextField = {
+        errorStyle: {
+            color: purple500,
+        },
+        underlineStyle: {
+            borderColor: purple500,
+        },
+        hintStyle: {
+            color: purple500,
+        },
+        floatingLabelFocusStyle: {
+            color: purple500,
+        }
         }
 
         const styles = {
@@ -118,6 +239,73 @@ class InterviewPage extends Component {
             }
         }
 
+        const actions = [
+            //title, topic, question, answer
+                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
+                  <MenuItem value={'Algorithm'} primaryText="Algorithm" />
+                  <MenuItem value={'Database'} primaryText="Database" />
+                  <MenuItem value={'Shell'} primaryText="Shell" />
+                  <MenuItem value={'Software Engineering'} primaryText="Software Engineering" />
+                  <MenuItem value={'System Design'} primaryText="System Design" />
+                </DropDownMenu>,
+
+                <TextField value={this.state.title} 
+                            onChange={this.handleTitle} 
+                            fullWidth={true} 
+                            hintText="Title" 
+                            hintStyle={styleTextField.hintStyle}
+                            underlineFocusStyle={styleTextField.underlineStyle}
+                            multiLine={true} rows={1}
+                            />,
+
+                <TextField value={this.state.question} 
+                            onChange={this.handleQuestion} 
+                            fullWidth={true} 
+                            hintText="Question" 
+                            hintStyle={styleTextField.hintStyle}
+                            underlineFocusStyle={styleTextField.underlineStyle}
+                            multiLine={true} rows={2}
+                            />,
+
+                <TextField value={this.state.originalAnswer} 
+                            onChange={this.handleAnswer} 
+                            fullWidth={true} 
+                            hintText="Answer" 
+                            hintStyle={styleTextField.hintStyle}
+                            underlineFocusStyle={styleTextField.underlineStyle}
+                            multiLine={true} rows={3}
+                            />,                 
+                
+                <FlatButton
+                    label="Cancel"
+                    primary={true}
+                    onTouchTap={this.handleEditInterviewClose}
+                />,
+
+                <FlatButton
+                    label="Submit"
+                    primary={true}
+                    keyboardFocused={true}
+                    onTouchTap={this.editInterview}
+                />,
+            ];
+
+            const disactions = [
+                <FlatButton
+                    label="Cancel"
+                    primary={true}
+                    onTouchTap={this.handleDeleteInterviewClose}
+                />,
+
+                <FlatButton
+                    label="Delete"
+                    primary={true}
+                    onTouchTap={this.deleteInterview}
+                />
+
+            ];
+
+
 
         return(
 
@@ -131,11 +319,34 @@ class InterviewPage extends Component {
                                 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
                             >
-                                <MenuItem primaryText="Edit" />
-                                <MenuItem primaryText="Delete" />
+                                <MenuItem onClick={this.handleEditInterviewOpen} primaryText="Edit" />
+                                <MenuItem onClick={this.handleDeleteInterviewOpen} primaryText="Delete" />
                             </IconMenu>
                         </div>                 
                     </div>
+
+                    <div>
+                        <Dialog
+                            title="Edit your Interview Question"
+                            actions={actions}
+                            modal={false}
+                            open={this.state.editopen}
+                            onRequestClose={this.handleEditInterviewClose}>
+                        </Dialog>
+                    </div>
+
+                    <div>
+                        <Dialog
+                            actions={disactions}
+                            modal={false}
+                            open={this.state.deleteopen}
+                            onRequestClose={this.handleDeleteInterviewClose}
+                            >
+                            Are you sure about deleting?
+                        </Dialog>
+                    </div>
+
+
 
                     <div className="info">
                         {this.subtitle()}                

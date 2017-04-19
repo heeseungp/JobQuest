@@ -162,7 +162,7 @@ exports.remove_a_question = function(req, res) {
 		}
 		if(newQuestion.authorID == req.user._id || req.user.isAdmin){
 			//Removes the question
-			question.remove();
+			newQuestion.remove();
 			console.log('Question id:'+id+' successfully removed');
 			return res.json({result:'Question removed'});
 		}

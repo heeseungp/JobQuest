@@ -57,7 +57,7 @@ const HomePage = () => (
       </div>
     </div>
     
-      <div className="features">
+    <div className="features">
       <div className="featContent">
         <div className="block">
           <figure className="homepageImg">

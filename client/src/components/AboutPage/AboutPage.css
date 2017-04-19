@@ -1,13 +1,11 @@
-p {
-  text-align: left;
-}
 
 .title {
    font-weight: bold;
 }
 
-.container {
+.aboutContainer {
   margin: 0 auto;
+  margin-top: 20px;
   padding:10px;
   text-align: center;
   width: 1000px;

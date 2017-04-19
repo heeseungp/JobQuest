@@ -95,6 +95,7 @@ class AppLogTable extends Component{
     //function for POST request
     handleSubmit(event){
         var data = {company:this.state.company,role:this.state.role,status:this.state.status};
+        var copy = this.state.applications.slice();
         //if edit is false, it will create a new submission else it will edit and submit
         if(!this.state.edit){
             axios.post('/applications/create',data)
@@ -110,7 +111,6 @@ class AppLogTable extends Component{
             .catch(err => {console.log(err);});
             event.preventDefault();
         }else{
-            var copy = this.state.applications.slice();
             axios.post('applications/'+this.state.selectId+'/edit',data)
             .then((res) => {
               copy.push(res.data);

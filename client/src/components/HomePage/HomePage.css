@@ -6,10 +6,6 @@
   margin: 0;
 }
 
-.features {
-  background-color: grey;
-}
-
 .featContent {
   display: flex;
   flex-direction: row;
@@ -32,6 +28,11 @@
 
 .feature-desc > p, h1 {
   margin: 0;
+  font-size: 35px;
+}
+
+.feat-title {
+  font-size: 65px;
 }
 
 .homepageImg {
@@ -55,7 +56,8 @@
 #homepageInfo {
   display: flex;
   justify-content: space-between;
-  padding: 5px;
-  margin: 3px;
+  padding: 8px;
+  color: white;
+  background-color: #4A148C;
 }
 

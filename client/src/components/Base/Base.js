@@ -44,10 +44,9 @@ const Base = ({ children }) => (
         <AppBar
           title="JobQuest"
           showMenuIconButton={false}
-          iconElementRight={<RenderAllTabs auth={Auth.isUserAuthenticated()} />}
-          style={{position:"fixed"}} />
+          iconElementRight={<RenderAllTabs auth={Auth.isUserAuthenticated()} />} />
 
-        <div style={{paddingTop: 120}}>
+        <div>
           {children}
         </div>
       </div>

@@ -35,7 +35,7 @@ const ForumLayout = React.createClass({
 
           {/*right column*/}
           <GridTile cols={4} rows={'auto'} >
-            <div id="calendar"> Calendar here </div>
+            <div id="calendar"></div>
             <FutureEvents />
           </GridTile>
         </GridList>

@@ -17,61 +17,61 @@ const HomePage = () => (
     </div>
     
     {/*Forum*/}
-    <div className="features">
+    <div className="features" id="forum-feat" >
       <div className="featContent">
         <div className="block feature-desc">
           <h1 className="feat-title">Forum</h1>
-          <p>A place where you can ask questions regarding a career in Computer Science</p>
+          <p>A place to ask Computer Science related questions</p>
         </div>
         <div className="block">
           <figure className="homepageImg">
-          <img src="http://wallresolution.com/wp-content/uploads/2016/09/Fine-Job-Keyboard-Funny-Wallpaper-HD.jpg" />
+          <img src="features/jq-forum.png" />
           </figure>
         </div>
       </div>
     </div>
     
     {/*Application history*/}
-    <div className="features">
+    <div className="features" id="applog-feat">
       <div className="featContent">
         <div className="block">
           <figure className="homepageImg">
-          <img src="http://wallresolution.com/wp-content/uploads/2016/09/Fine-Job-Keyboard-Funny-Wallpaper-HD.jpg" />
+          <img src="features/jq-applog.png" />
           </figure>
         </div>
         <div className="block feature-desc">
           <h1 className="feat-title">Application History</h1>
-          <p>Keep a detailed log of all your submitted applications</p>
+          <p>A detailed log of all your submitted applications</p>
         </div>
       </div>
     </div>
 
     {/*Interview Questions*/}
-    <div className="features">
+    <div className="features" id="interview-feat">
       <div className="featContent">
         <div className="block feature-desc">
           <h1 className="feat-title">Interview Questions</h1>
-          <p>Check our list of popular interview questions</p>
+          <p>A list of popular interview questions</p>
         </div>
         <div className="block">
           <figure className="homepageImg">
-          <img src="http://wallresolution.com/wp-content/uploads/2016/09/Fine-Job-Keyboard-Funny-Wallpaper-HD.jpg" />
+          <img src="features/jq-interview-qs.png" />
           </figure>
         </div>
       </div>
     </div>
     
     {/*Resources*/}
-    <div className="features">
+    <div className="features" id="resources-feat">
       <div className="featContent">
         <div className="block">
           <figure className="homepageImg">
-          <img src="http://wallresolution.com/wp-content/uploads/2016/09/Fine-Job-Keyboard-Funny-Wallpaper-HD.jpg" />
+          <img src="features/jq-resources.png" />
           </figure>
         </div>
         <div className="block feature-desc">
           <h1 className="feat-title">Resources</h1>
-          <p>Check our list of resources to aid you in your job search</p>
+          <p>A list of resources to aid you in your job search</p>
         </div>
       </div>
     </div>

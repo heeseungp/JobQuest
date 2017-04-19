@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: row;
   flex: 1;
+  margin: 35px;
 }
 
 .block {
@@ -24,6 +25,8 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  background-color: transparent;
+  color: darkslategrey;
 }
 
 .feature-desc > p, h1 {
@@ -61,3 +64,18 @@
   background-color: #4A148C;
 }
 
+#forum-feat {
+  background-color: #BA68C8;
+}
+
+#applog-feat {
+  background-color: #CE93D8;
+}
+
+#interview-feat {
+  background-color: #E1BEE7;
+}
+
+#resources-feat {
+  background-color: #F3E5F5;
+}

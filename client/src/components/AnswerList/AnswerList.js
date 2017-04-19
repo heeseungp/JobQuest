@@ -24,6 +24,11 @@ class AnswerList extends Component {
         
         this.handleEditInterviewClose = this.handleEditInterviewClose.bind(this);
         this.handleDeleteInterviewClose = this.handleDeleteInterviewClose.bind(this);
+
+        this.handleAnswer = this.handleAnswer.bind(this);
+
+        this.editInterview = this.editInterview.bind(this);
+        this.deleteInterview = this.deleteInterview.bind(this);
     }
 
     handleEditInterviewOpen() {
@@ -45,7 +50,38 @@ class AnswerList extends Component {
     handleAnswer(e) {
         this.setState({youranswer: e.target.value});
     }
+    
 
+
+    editInterview() {
+        this.setState({editopen: false});
+        // console.log(this.props.params.id);
+        console.log(this.props.data._id);
+        // console.log(this.props.data.id);
+        // const editURL = '/interviewQuestions/' + this.props.params.id + '/answers' +  + '/edit';
+        // axios.post(editURL, this.state.youranswer, {headers: {authorization: 'bearer ' + Auth.getToken()} })
+        // .then((res) => {
+        //     console.log('sucess, edited', res);
+        //     this.setState({interview: res.data});
+        //     this.context.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        // });
+
+    // app.route('/interviewQuestions/:QuestionId/answers/:AnswerId/edit')
+	// 	.post(controller.edit_an_answer);
+
+    }
+
+
+    deleteInterview() {
+        this.setState({deleteopen: false});
+	// // DELETE REQUESTS
+	// app.route('/interviewQuestions/:QuestionId/answers/:AnswerId/remove')
+	// 	.delete(controller.remove_an_answer);
+
+    }
 
 
     render() {

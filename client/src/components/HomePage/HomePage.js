@@ -2,75 +2,87 @@ import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
+import './HomePage.css';
+
+
 
 // goal is to create a scrolling site
 
-const style = {
-  gridList: {
-    padding: 0
-  },
-  tile: {
-    // margin: '0 auto'
-  },
-  paper: {
-    margin: 5
-  },
-  gridListFeatures: {
-    margin: 15
-  },
-  title: {
-    padding: 30,
-    height: 100,
-    fontSize: 100,
-    textAlign: 'center',
-    marginTop: 30
-  },
-  featDesc: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    content: {
-      padding: 60,
-      backgroundColor: 'white'
-    },
-    title: {
-      fontSize: 30
-    },
-    desc: {
-      fontSize: 25
-    }
-  },
-}
-
 const HomePage = () => (
-
-  <div>
-    <GridList cols={12} padding={0} cellHeight={750} >
-      <GridTile
-        cols={12} style={style.tile} 
-        title={'Welcome to JobQuest'} titlePosition={'top'}
-        titleStyle={style.title} titleBackground={'rgba(0, 0, 0, 0)'}
-        subtitle={'Your one stop website to help you find a programming job'} >
-        <img src={'/backgrounds/code_wp1.jpg'}/>
-      </GridTile>
-    </GridList>
-
-    <GridList cols={12} padding={0} cellHeight={'auto'} style={style.gridListFeatures} >
-      <GridTile
-        cols={6} style={style.featDesc} >
-        <div style={style.featDesc.content} >
-          <div style={style.featDesc.title} > Forum </div> 
-          <div style={style.featDesc.desc} > 
-            A place to ask career related questions
-          </div>
+  <div id="homepage">
+    {/*Big image*/}
+    <div className="features">
+      <figure className="homepageImg">
+        <div className="testing">
+          <img src="backgrounds/jobquest_logo.png" />
         </div>
-      </GridTile>
+      </figure>
+    </div>
+    
+    {/*Forum*/}
+    <div className="features" id="forum-feat" >
+      <div className="featContent">
+        <div className="block feature-desc">
+          <h1 className="feat-title">Forum</h1>
+          <p>A place to ask Computer Science related questions</p>
+        </div>
+        <div className="block">
+          <figure className="homepageImg">
+          <img src="features/jq-forum.png" />
+          </figure>
+        </div>
+      </div>
+    </div>
+    
+    {/*Application history*/}
+    <div className="features" id="applog-feat">
+      <div className="featContent">
+        <div className="block">
+          <figure className="homepageImg">
+          <img src="features/jq-applog.png" />
+          </figure>
+        </div>
+        <div className="block feature-desc">
+          <h1 className="feat-title">Application History</h1>
+          <p>A detailed log of all your submitted applications</p>
+        </div>
+      </div>
+    </div>
 
-      <GridTile cols={6} >
-        <img src="http://placehold.it/450x250" />
-      </GridTile>
-    </GridList>
-
+    {/*Interview Questions*/}
+    <div className="features" id="interview-feat">
+      <div className="featContent">
+        <div className="block feature-desc">
+          <h1 className="feat-title">Interview Questions</h1>
+          <p>A list of popular interview questions</p>
+        </div>
+        <div className="block">
+          <figure className="homepageImg">
+          <img src="features/jq-interview-qs.png" />
+          </figure>
+        </div>
+      </div>
+    </div>
+    
+    {/*Resources*/}
+    <div className="features" id="resources-feat">
+      <div className="featContent">
+        <div className="block">
+          <figure className="homepageImg">
+          <img src="features/jq-resources.png" />
+          </figure>
+        </div>
+        <div className="block feature-desc">
+          <h1 className="feat-title">Resources</h1>
+          <p>A list of resources to aid you in your job search</p>
+        </div>
+      </div>
+    </div>
+    
+    <footer id="homepageInfo">
+      <span>© JobQuest 2017</span>
+      <span>Made with ♥ at CUNYCodes Spring 2017</span>
+    </footer>
   </div>
 );
 

@@ -4,7 +4,7 @@ import './AboutPage.css';
 
 
 const AboutPage = () => (
-  <Card className='container'>
+  <Card className='aboutContainer'>
     <CardTitle title="About JobQuest" className="title"/>
     <div>
       <p>

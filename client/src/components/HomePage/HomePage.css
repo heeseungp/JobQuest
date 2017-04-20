@@ -1,0 +1,81 @@
+
+#homepage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+}
+
+.featContent {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin: 35px;
+}
+
+.block {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
+}
+
+.feature-desc {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: transparent;
+  color: darkslategrey;
+}
+
+.feature-desc > p, h1 {
+  margin: 0;
+  font-size: 35px;
+}
+
+.feat-title {
+  font-size: 65px;
+}
+
+.homepageImg {
+  background: #eee;
+  display: block;
+  padding-top: 45%;
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+.homepageImg img {
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+#homepageInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  color: white;
+  background-color: #4A148C;
+}
+
+#forum-feat {
+  background-color: #BA68C8;
+}
+
+#applog-feat {
+  background-color: #CE93D8;
+}
+
+#interview-feat {
+  background-color: #E1BEE7;
+}
+
+#resources-feat {
+  background-color: #F3E5F5;
+}

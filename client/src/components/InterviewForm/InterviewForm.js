@@ -8,33 +8,23 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import {purple500, grey50} from 'material-ui/styles/colors';
 import './InterviewForm.css'
 
-
-
 class InterviewForm extends Component {
 
   constructor(props){
     super(props);
 
-    this.state = {topic: 'Algorithm', title: '', question:'', originalAnswer:'', errorText: ''};
-    // I hate writing these bindings
+    this.state = {value: '', title: '', question:'', originalAnswer:'', errorText: ''};
     this.handleAnswer = this.handleAnswer.bind(this);
-    this.handleTopic = this.handleTopic.bind(this);
+    // this.handleTopic = this.handleTopic.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
     this.handleQuestion = this.handleQuestion.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   };
 
-    // handleTopic(event) {
-    //   // still not too familiar with this event object
-    //   this.setState({topic: event.target.value});
-    // }
 
-  handleTopic = (event, index, value) => this.setState({value: value});
-
-
+  handleTopic = (event, index, value) => this.setState({value});
 
   handleTitle(event) {
-    // still not too familiar with this event object
     this.setState({title: event.target.value});
   }
 
@@ -50,8 +40,7 @@ class InterviewForm extends Component {
 
 
   handleSubmit(event) {
-
-    var newQuestion = {topic: this.state.topic, title: this.state.title, question: this.state.question, originalAnswer: this.state.originalAnswer};
+    var newQuestion = {topic: this.state.value, title: this.state.title, question: this.state.question, originalAnswer: this.state.originalAnswer};
     // create a new thread on db
 
     if(newQuestion.title == '' || newQuestion.question == '' || newQuestion.answer == ''){
@@ -60,21 +49,14 @@ class InterviewForm extends Component {
 
     axios.post('/interviewQuestions/create', newQuestion)
     .then((res) => {
-      // no way to update the UI here, need to rework the app architecture
       console.log('success', res);
-
-      // make it redirect to the page of the post
       this.context.router.replace('/interview');
     })
     .catch((err) => {
       console.log(err);
     });
-
-    // don't know what this does either
     event.preventDefault(); 
   }
-
-
 
 
 
@@ -120,7 +102,7 @@ class InterviewForm extends Component {
             <form onSubmit={this.handleSubmit}>
 
             <div className="topic">
-                <DropDownMenu style={styleCustomWidth} value={this.state.topic} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
+                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
                   <MenuItem value={'Algorithm'} primaryText="Algorithm" />
                   <MenuItem value={'Database'} primaryText="Database" />
                   <MenuItem value={'Shell'} primaryText="Shell" />
@@ -128,7 +110,6 @@ class InterviewForm extends Component {
                   <MenuItem value={'System Design'} primaryText="System Design" />
                 </DropDownMenu>
               </div>
-
 
               <div className="titlee">
                 <TextField value={this.state.title} 

@@ -6,11 +6,7 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
-import Avatar from 'material-ui/Avatar';
 import {blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
-
-
-
 
 
 class InterviewItem extends Component {
@@ -21,7 +17,7 @@ class InterviewItem extends Component {
   }
 
   subtitle(){
-    var temp = 'submitted at ' + this.props.data.created_at + ' by ' + this.props.data.author;
+    var temp = 'submitted at ' + this.props.data.created_at.slice(0, 10) + ' by ' + this.props.data.author;
     return temp;
   }
 
@@ -57,7 +53,6 @@ class InterviewItem extends Component {
 
     var linkToThread = this.props.data ? "interview/" + this.props.data._id:null;
 
-
     const stylePaper = {
       minHeight: this.props.showDesc ? 150 : 80,
       width: 1200,
@@ -79,7 +74,7 @@ class InterviewItem extends Component {
     return (
 
 
-      <div>            
+      <div>        
         <Paper className="interviewItem" style={stylePaper} zDepth={3}>
 
           <div className="interviewContent">
@@ -101,7 +96,6 @@ class InterviewItem extends Component {
               <strong>Question: </strong>{this.props.data.question}
             </div>
           </div>
-
         </Paper>
       </div>
 

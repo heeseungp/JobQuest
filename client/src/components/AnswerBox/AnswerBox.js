@@ -1,44 +1,45 @@
 import React, { Component } from 'react';
 import CommentList from '../CommentList/CommentList';
-
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import './AnswerBox.css';
 
 class AnswerBox extends Component {
-
-  // this component will receive comments list from parent to render
-  // in addition it'll also get a function
-  // will test that the add function has been clicked once
 
   constructor(props){
     super(props);
 
     this.state = {  
-      answerText: ''
+      newAnswer: ''
     }
-
-    this.handleChange = this.handleChange.bind(this);
+    
+    this.handleAnswer = this.handleAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(e){
-    this.setState({answerText: e.target.value});
+  handleAnswer(e) {
+    this.setState({newAnswer: e.target.value});
   }
 
   handleClick(){
-    this.props.onSubmit(this.state.text);
-    this.setState({answerText: ''});
+    this.props.onSubmit(this.state.newAnswer);
+    this.setState({newAnswer: ''});
   }
 
   render() {
     return (
       <div>
-        <h3> Add Additional Answers </h3>
+        <div className="additional">
+          <h3> Add Additional Answers </h3>
+        </div>
 
-        <input type="text" className="inputComment"
-               onChange={this.handleChange} value={this.state.text} />
-        <input type="button" id="addComment"
-               onClick={this.handleClick} value="Add Comment" />
+        <div className="answer">
+          <TextField value={this.state.newAnswer} onChange={this.handleAnswer} multiLine={true} fullWidth={true}/>
+        </div>
 
-        <CommentList comments={this.props.comments} />
+        <div className="answerButton">
+          <RaisedButton label="Submit" onClick={this.handleClick} />
+        </div>
       </div>
     );
   }
@@ -46,10 +47,7 @@ class AnswerBox extends Component {
 }
 
 AnswerBox.PropTypes = {
-  comments: React.PropTypes.array.isRequired,
   onSubmit: React.PropTypes.func.isRequired
 };
 
 export default AnswerBox;
-
-

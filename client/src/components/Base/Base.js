@@ -13,7 +13,6 @@ var RenderAllTabs = (props) => {
     <div style={{paddingTop: 5}} >
       {props.auth ? (
           <div>
-            <FlatButton label="Home" containerElement={<Link to="/"/>}/> 
             <FlatButton label="Forum" containerElement={<Link to="/forum"/>}/>
             <FlatButton label="Resources" containerElement={<Link to="/resources" />}/>
             <FlatButton label="Interview" containerElement={<Link to="/interview" />}/>
@@ -24,7 +23,6 @@ var RenderAllTabs = (props) => {
           </div>
         ) : (
           <div>
-            <FlatButton label="Home" containerElement={<Link to="/"/>}/>
             <FlatButton label="Forum" containerElement={<Link to="/forum"/>}/>
             <FlatButton label="Resources" containerElement={<Link to="/resources" />}/>
             <FlatButton label="Interview" containerElement={<Link to="/interview" />}/>
@@ -42,7 +40,7 @@ const Base = ({ children }) => (
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
       <div>
         <AppBar
-          title="JobQuest"
+          title={<Link to="/"><img src="icons/JobquestLogo.png" style={{width:200,height:50}} /></Link>}
           showMenuIconButton={false}
           iconElementRight={<RenderAllTabs auth={Auth.isUserAuthenticated()} />} />
 

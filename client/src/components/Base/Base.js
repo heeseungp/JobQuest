@@ -40,7 +40,7 @@ const Base = ({ children }) => (
     <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
       <div>
         <AppBar
-          title={<Link to="/"><img src="icons/JobquestLogo.png" style={{width:200,height:50}} /></Link>}
+          title={<Link to="/"><img src="JobquestLogo.png" style={{width:200,height:50}} /></Link>}
           showMenuIconButton={false}
           iconElementRight={<RenderAllTabs auth={Auth.isUserAuthenticated()} />} />
 

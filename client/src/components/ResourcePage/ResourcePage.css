@@ -14,3 +14,8 @@
 .sidebar {
    flex-basis: 33.333%;
  }
+
+ .resourcelink {
+  padding-bottom: 18px;
+  font-size: 20px;
+}

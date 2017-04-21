@@ -34,19 +34,11 @@ const ThreadPage = React.createClass({
   },
 
   addComment(comment) {
-    // might need to do an update on that whole object
-    var newComments = this.state.threadData.comments.slice();
-    newComments.push({text: comment});
-
-    var updated = Object.assign({}, this.state.threadData, {comments: newComments});
-
     const url = '/posts/' + this.props.params.id + '/comments/create';
     axios.post(url, {text: comment})
     .then((res) => {
-      // no way to update the UI here, need to rework the app architecture
-      console.log('success', res);
-
-      this.setState({threadData: updated});
+      //Update threadData
+      this.setState({threadData: res.data});
     })
     .catch((err) => {
       console.log(err);

@@ -2,14 +2,14 @@
 class Response {
 
     constructor(){
-        this.ErrorTitle = '';
-        this.ErrorMsg = '';
+        this.ErrorTitle = undefined;
+        this.ErrorMsg = undefined;
     }
 
     /**
-     * Authenticate a user. Save a token stringand timestamp in Local Storage
+     * Sets the error title and message. Takes the error json returned by axios as an input.
      *
-     * @param {string} token
+     * @param {object} error
      */
     static setError(error) {
         console.log('Intercepted an error');
@@ -17,22 +17,32 @@ class Response {
         this.ErrorMsg = JSON.stringify(error.response.data);
     }
 
+    /**
+     * Returns the error title and message as a JSON.
+     *
+     */
     static getError() {
         console.log('Got the error info');
-       // return {title: localStorage.getItem('ErrorTitle'), text: localStorage.getItem('ErrorMsg')};
        return {title: this.ErrorTitle, text: this.ErrorMsg};
     }
 
+    /**
+     * Checks to see whether or not the error is set.
+     *
+     */
     static isErrorSet() {
         console.log('Error ',this.ErrorTitle,this.ErrorMsg);
+        console.log((this.ErrorTitle !== undefined) && (this.ErrorMsg !== undefined));
         return (this.ErrorTitle !== undefined) && (this.ErrorMsg !== undefined);
     }
 
+    /**
+     * Resets the error title and message to its initial value (undefined)
+     *
+     */
     static resetError() {
-        //localStorage.removeItem('ErrorTitle');
-        //localStorage.removeItem('ErrorMsg');
-        this.ErrorTitle = '';
-        this.ErrorMsg = '';
+        this.ErrorTitle = undefined;
+        this.ErrorMsg = undefined;
     }
 
 }

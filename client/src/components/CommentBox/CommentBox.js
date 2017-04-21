@@ -24,6 +24,7 @@ class CommentBox extends Component {
   }
 
   handleChange(e){
+    this.setState({error: ''});
     this.setState({text: e.target.value});
   }
 
@@ -45,6 +46,7 @@ class CommentBox extends Component {
         <TextField
           id="AddComment"
           name="AddComment"
+          floatingLabelText="Enter a comment"
           fullWidth={true}
           errorText={this.state.error}
           multiLine={true}
@@ -52,8 +54,8 @@ class CommentBox extends Component {
           value={this.state.text}
           onChange={this.handleChange}
         />
-        <div onClick={this.handleClick}>
-          <RaisedButton label="Add Comment" labelStyle={{fontSize:10}} primary />
+        <div>
+          <RaisedButton label="Add Comment" onClick={this.handleClick} primary />
         </div>
 
         <CommentList comments={this.props.comments} onEdit={this.props.onEdit} onDelete={this.props.onDelete} />

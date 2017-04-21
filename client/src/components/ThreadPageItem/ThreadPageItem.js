@@ -33,7 +33,6 @@ const ThreadPageItem = React.createClass({
       margin: 20,
       modify: {
         display: 'inline-block',
-        margin: 5,
         float:'right'
       },
       content: {

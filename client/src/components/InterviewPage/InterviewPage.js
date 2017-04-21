@@ -24,7 +24,8 @@ class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            interview: [],
+            thisQuestion: {},
+
             editopen: false,
             deleteopen: false,
             
@@ -59,13 +60,13 @@ class InterviewPage extends Component {
         axios.get(url)
         .then(res => {
             console.log('the response went through', res.data);
-            this.setState({interview: res.data});
+            this.setState({thisQuestion: res.data});
         });
     }
 
     color() {
         var colorType;
-        switch(this.state.interview.topic) {
+        switch(this.state.thisQuestion.topic) {
         case 'Software Engineering':
             colorType = blue300;
             break;
@@ -89,7 +90,7 @@ class InterviewPage extends Component {
     }
 
     subtitle(){
-        var temp = 'submitted at ' + this.state.interview.created_at + ' by ' + this.state.interview.author;
+        var temp = 'submitted at ' + this.state.thisQuestion.created_at + ' by ' + this.state.thisQuestion.author;
         return temp;
     }
 
@@ -114,6 +115,10 @@ class InterviewPage extends Component {
 
     handleEditInterviewOpen () {
         this.setState({editopen: true});
+        this.setState({value: this.state.thisQuestion.value});
+        this.setState({title: this.state.thisQuestion.title});
+        this.setState({question: this.state.thisQuestion.question});
+        this.setState({originalAnswer: this.state.thisQuestion.originalAnswer});
     }
 
     handleDeleteInterviewOpen () {
@@ -138,7 +143,7 @@ class InterviewPage extends Component {
         axios.post(editURL, newEditSubmit, {headers: {authorization: 'bearer ' + Auth.getToken()} })
         .then((res) => {
             console.log('sucess, edited', res);
-            this.setState({interview: res.data});
+            this.setState({thisQuestion: res.data});
             this.context.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
         })
         .catch((err) => {
@@ -152,12 +157,12 @@ class InterviewPage extends Component {
         
         const deleteURL = '/interviewQuestions/' + this.props.params.id + '/remove';
         axios.delete(deleteURL, {headers: {authorization: 'bearer ' + Auth.getToken()} })
-        .then((res) => {
+        .then(res => {
             console.log('sucess, deleted', res);
             // the problem arises here 
             this.context.router.replace('/interview');
         })
-        .catch((err) => {
+        .catch(err => {
             console.log(err);
         });
 
@@ -168,10 +173,10 @@ class InterviewPage extends Component {
     
     addAnswer(comment) {
         // might need to do an update on that whole object
-        var newComments = this.state.interview.otherAnswers.slice();
+        var newComments = this.state.thisQuestion.otherAnswers.slice();
         newComments.push({answerText: comment});
 
-        var updated = Object.assign({}, this.state.interview, {otherAnswers: newComments});
+        var updated = Object.assign({}, this.state.thisQuestion, {otherAnswers: newComments});
         
 
         console.log(comment);
@@ -182,7 +187,7 @@ class InterviewPage extends Component {
         // no way to update the UI here, need to rework the app architecture
         console.log('success', res);
 
-        this.setState({interview: updated});
+        this.setState({thisQuestion: updated});
         })
         .catch((err) => {
         console.log(err);
@@ -312,7 +317,7 @@ class InterviewPage extends Component {
             <div className="container">
                 <Paper>
                     <div className="titlee">
-                        {this.state.interview.title}   
+                        {this.state.thisQuestion.title}   
                         <div className="menu">
                             <IconMenu
                                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -354,16 +359,16 @@ class InterviewPage extends Component {
 
                     <div className="topic">
                         <Chip backgroundColor={this.color()} style={styles.chip}>
-                            {this.state.interview.topic}                                       
+                            {this.state.thisQuestion.topic}                                       
                         </Chip>
                     </div>
 
                     <div className="question">
-                        <strong>Question: </strong> {this.state.interview.question}                
+                        <strong>Question: </strong> {this.state.thisQuestion.question}                
                     </div>
 
                     <div className="answer">
-                        <strong>Answer: </strong> {this.state.interview.originalAnswer}                
+                        <strong>Answer: </strong> {this.state.thisQuestion.originalAnswer}                
                     </div>
                 </Paper>
                     
@@ -375,7 +380,7 @@ class InterviewPage extends Component {
 
                 <Paper style={stylePaper.comment}>
                     <div className="answerList">    
-                        {this.state.interview.otherAnswers ? this.state.interview.otherAnswers.map((individualAnswer, idx) => {
+                        {this.state.thisQuestion.otherAnswers ? this.state.thisQuestion.otherAnswers.map((individualAnswer, idx) => {
                             return <AnswerList key={idx} data={individualAnswer} />
                         }) : null}
                     </div>
@@ -389,8 +394,9 @@ class InterviewPage extends Component {
 
 }
 
-InterviewPage.propTypes = {
-    data: React.PropTypes.object.isRequired
+InterviewPage.PropTypes = {
+    // data: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
 };
 
 export default InterviewPage;

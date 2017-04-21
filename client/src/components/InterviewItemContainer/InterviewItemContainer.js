@@ -1,33 +1,32 @@
-import { Link, IndexLink } from 'react-router';
-import React, { Component } from 'react';
-import InterviewItem from '../InterviewItem/InterviewItem'
 import axios from 'axios';
-import update from 'immutability-helper';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Link, IndexLink } from 'react-router';
 import {GridList, GridTile} from 'material-ui/GridList';
+import InterviewItem from '../InterviewItem/InterviewItem'
+import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import update from 'immutability-helper';
 import {purple500, blue500, grey50} from 'material-ui/styles/colors';
 
 
-class InterviewItemContainer extends Component {
+export default class InterviewItemContainer extends Component {
 
   constructor(props){
     super(props);
 
     this.state = {
-      threads: []
+      interviewQuestion: []
     };
 }
 
   componentDidMount() {
     // const url = 'http://rest.learncode.academy/api/am/friends'; 
-
     const url = '/interviewQuestions/'; 
     axios.get(url)
       .then(res => {
-        console.log(res.data);
-        console.log(res.data[0]._id);
-        this.setState({threads: res.data})
+        //all interview questions: res.data
+        //the first interview question: res.data[0]
+        this.setState({interviewQuestion: res.data});
       });
   }
 
@@ -81,8 +80,8 @@ class InterviewItemContainer extends Component {
             <Card zDepth={2} style={styleCard.left}>
               <CardHeader title="Interview Questions" titleStyle={styleFont.left}/>
               <CardText style={styleFont.description}>
-                {this.state.threads ? this.state.threads.map((thread, idx) => {
-                                return <InterviewItem key={idx} data={thread}/>
+                {this.state.interviewQuestion ? this.state.interviewQuestion.map((question, idx) => {
+                                return <InterviewItem key={idx} data={question}/>
                               })
                               : null}
               </CardText>
@@ -130,9 +129,9 @@ class InterviewItemContainer extends Component {
 
 }
 
-InterviewItemContainer.PropTypes = {
-  items: React.PropTypes.array.isRequired
-  // add two funcs, TODO
-};
+// InterviewItemContainer.PropTypes = {
+//   items: React.PropTypes.array.isRequired
+//   // add two funcs, TODO
+// };
 
-export default InterviewItemContainer;
+// export default InterviewItemContainer;

@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Auth from '../../modules/Auth';
 import { AppBar, FlatButton } from 'material-ui';
+import Response from '../../modules/Response';
+import AlertDialog from '../AlertDialog/AlertDialog';
 
 // I wanted to seperate the non-authenticaton required tabs from the authentication ones
 // But the stupid parent <div> requirement prevented me from doing that as it messes up the layout

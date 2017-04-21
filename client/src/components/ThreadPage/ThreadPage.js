@@ -7,6 +7,8 @@ import EditThreadForm from '../EditThreadForm/EditThreadForm';
 import Auth from '../../modules/Auth';
 import axios from 'axios';
 import './ThreadPage.css'
+import Response from '../../modules/Response';
+import AlertDialog from '../AlertDialog/AlertDialog';
 
 const ThreadPage = React.createClass({
 
@@ -20,6 +22,15 @@ const ThreadPage = React.createClass({
       // this whole object gets replaced when the AJAX call goes through
       threadData: null
     };
+  },
+
+  interceptError(err){
+      Response.setError(err);
+      //Force rerendering components
+      //Apparently one forceUpdate is not enough to show the dialog on the first call
+      //This is a dirty hack to get it to work the first time
+      this.forceUpdate();
+      this.forceUpdate();
   },
 
   addComment(comment) {
@@ -39,6 +50,7 @@ const ThreadPage = React.createClass({
     })
     .catch((err) => {
       console.log(err);
+      this.interceptError(err);
     });
   },
 
@@ -51,6 +63,7 @@ const ThreadPage = React.createClass({
     })
     .catch((err) => {
       console.log(err);
+      this.interceptError(err);
     });
   },
 
@@ -63,6 +76,7 @@ const ThreadPage = React.createClass({
     })
     .catch((err) => {
       console.log(err);
+      this.interceptError(err);
     });
   },
 
@@ -76,6 +90,7 @@ const ThreadPage = React.createClass({
     })
     .catch((err) => {
       console.log(err);
+      this.interceptError(err);
     });
   },
 
@@ -90,6 +105,7 @@ const ThreadPage = React.createClass({
     })
     .catch((err) => {
       console.log(err);
+      this.interceptError(err);
     });
   },
 
@@ -106,6 +122,7 @@ const ThreadPage = React.createClass({
       })
       .catch((err) => {
         console.log(err);
+        this.interceptError(err);
       })
   },
 
@@ -120,6 +137,7 @@ const ThreadPage = React.createClass({
       })
       .catch((err) => {
         console.log(err);
+        this.interceptError(err);
       })
   },
 
@@ -149,6 +167,7 @@ const ThreadPage = React.createClass({
       <Card style={style}>
         {this.state.threadData ? 
           <div>
+             <AlertDialog errorMsg={Response.getError()} open={Response.isErrorSet()} />
             <ThreadPageItem data={this.state.threadData}
                             onUpvote={this.upvoteThread} 
                             onDownvote={this.downvoteThread} 

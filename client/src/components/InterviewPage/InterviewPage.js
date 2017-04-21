@@ -18,6 +18,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
+import Response from '../../modules/Response';
+import AlertDialog from '../AlertDialog/AlertDialog';
 
 
 class InterviewPage extends Component {
@@ -138,6 +140,7 @@ class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            Response.setError(err);
         });
     }
 
@@ -154,6 +157,7 @@ class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            Response.setError(err);
         });
 
     }
@@ -181,6 +185,7 @@ class InterviewPage extends Component {
         })
         .catch((err) => {
         console.log(err);
+        Response.setError(err);
         });
     }
 
@@ -305,6 +310,7 @@ class InterviewPage extends Component {
         return(
 
             <div className="container">
+                <AlertDialog errorMsg={Response.getError()} isOpen={Response.isErrorSet()} />
                 <Paper>
                     <div className="titlee">
                         {this.state.interview.title}   

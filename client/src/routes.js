@@ -71,12 +71,24 @@ const routes = {
     
     {
       path: '/new_post',
-      component: ThreadForm
+      getComponent: (location, callback) => {
+        if (Auth.isUserAuthenticated()) {
+          callback(null, ThreadForm);
+        } else {
+          callback(null, LoginPage);
+        }
+      }
     },
 
     {
       path: '/app-log',
-      component: AppLogContainer
+      getComponent: (location, callback) => {
+        if (Auth.isUserAuthenticated()) {
+          callback(null, AppLogContainer);
+        } else {
+          callback(null, LoginPage);
+        }
+      }
     }, 
 
     {
@@ -86,7 +98,13 @@ const routes = {
 
     {
       path: '/postNewInterview',
-      component: InterviewForm
+      getComponent: (location, callback) => {
+        if (Auth.isUserAuthenticated()) {
+          callback(null, InterviewForm);
+        } else {
+          callback(null, LoginPage);
+        }
+      }
     },
 
     {

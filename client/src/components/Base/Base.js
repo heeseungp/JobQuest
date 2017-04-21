@@ -18,7 +18,6 @@ var RenderAllTabs = (props) => {
             <FlatButton label="Interview" containerElement={<Link to="/interview" />}/>
             <FlatButton label="About" containerElement={<Link to="/about" />}/>
             <FlatButton label="App Log" containerElement={<Link to="/app-log" />}/>
-            <FlatButton label="Profile" containerElement={<Link to="/profile" />}/>
             <FlatButton label="Logout" containerElement={<Link to="/logout" />}/>
           </div>
         ) : (

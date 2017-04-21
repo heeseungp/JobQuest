@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
+import { Paper, TextField } from 'material-ui';
 import CommentList from '../CommentList/CommentList';
 import RaisedButton from 'material-ui/RaisedButton';
 import './CommentBox.css';
@@ -15,7 +15,8 @@ class CommentBox extends Component {
     super(props);
 
     this.state = {
-      text: ''
+      text: '',
+      error: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,8 +28,13 @@ class CommentBox extends Component {
   }
 
   handleClick(){
-    this.props.onSubmit(this.state.text);
-    this.setState({text: ''}); // clear input
+    if(this.state.text === ''){
+      this.setState({error: 'This field cannot be blank.'});
+    }
+    else{
+      this.props.onSubmit(this.state.text);
+      this.setState({text: ''}); // clear input
+    }
   }
 
   render() {
@@ -36,8 +42,16 @@ class CommentBox extends Component {
       <div>
         <h3> Comments </h3>
 
-        <textarea rows="5" cols="50"
-               onChange={this.handleChange} value={this.state.text} />
+        <TextField
+          id="AddComment"
+          name="AddComment"
+          fullWidth={true}
+          errorText={this.state.error}
+          multiLine={true}
+          rows={3}
+          value={this.state.text}
+          onChange={this.handleChange}
+        />
         <div onClick={this.handleClick}>
           <RaisedButton label="Add Comment" labelStyle={{fontSize:10}} primary />
         </div>

@@ -88,11 +88,6 @@ class InterviewPage extends Component {
         return colorType;
     }
 
-    subtitle(){
-        var temp = 'submitted at ' + this.state.interview.created_at + ' by ' + this.state.interview.author;
-        return temp;
-    }
-
     
     //for current interview thread
 
@@ -349,7 +344,7 @@ class InterviewPage extends Component {
 
 
                     <div className="info">
-                        {this.subtitle()}                
+                        submitted at {this.state.interview.created_at} by {this.state.interview.author}
                     </div>
 
                     <div className="topic">

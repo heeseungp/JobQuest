@@ -20,7 +20,7 @@ import React, { Component } from 'react';
 import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
 
 
-class InterviewPage extends Component {
+export default class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -144,7 +144,7 @@ class InterviewPage extends Component {
         .then((res) => {
             console.log('sucess, edited', res);
             this.setState({thisQuestion: res.data});
-            this.context.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
+            this.props.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
         })
         .catch((err) => {
             console.log(err);
@@ -160,7 +160,7 @@ class InterviewPage extends Component {
         .then(res => {
             console.log('sucess, deleted', res);
             // the problem arises here 
-            this.context.router.replace('/interview');
+            this.props.router.replace('/interview');
         })
         .catch(err => {
             console.log(err);
@@ -173,24 +173,16 @@ class InterviewPage extends Component {
     
     addAnswer(comment) {
         // might need to do an update on that whole object
-        var newComments = this.state.thisQuestion.otherAnswers.slice();
-        newComments.push({answerText: comment});
-
-        var updated = Object.assign({}, this.state.thisQuestion, {otherAnswers: newComments});
-        
-
-        console.log(comment);
-
         const url = '/interviewQuestions/' + this.props.params.id + '/answers/create';
+        
         axios.post(url, {answerText: comment})
         .then((res) => {
         // no way to update the UI here, need to rework the app architecture
-        console.log('success', res);
-
-        this.setState({thisQuestion: updated});
+            console.log('success', res);
+            window.location.reload();
         })
         .catch((err) => {
-        console.log(err);
+            console.log(err);
         });
     }
 
@@ -381,7 +373,7 @@ class InterviewPage extends Component {
                 <Paper style={stylePaper.comment}>
                     <div className="answerList">    
                         {this.state.thisQuestion.otherAnswers ? this.state.thisQuestion.otherAnswers.map((individualAnswer, idx) => {
-                            return <AnswerList key={idx} data={individualAnswer} />
+                            return <AnswerList key={idx} answer={individualAnswer} question={this.props.params.id}/>
                         }) : null}
                     </div>
                 </Paper>
@@ -395,8 +387,5 @@ class InterviewPage extends Component {
 }
 
 InterviewPage.PropTypes = {
-    // data: React.PropTypes.object.isRequired
     router: React.PropTypes.object.isRequired
 };
-
-export default InterviewPage;

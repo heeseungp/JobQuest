@@ -1,3 +1,4 @@
+import Auth from '../../modules/Auth';
 import React, { PropTypes,Component } from 'react';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -47,7 +48,7 @@ class InterviewForm extends Component {
       alert('All fields are required');
     }
 
-    axios.post('/interviewQuestions/create', newQuestion)
+    axios.post('/interviewQuestions/create', newQuestion, {headers: {authorization: 'bearer ' + Auth.getToken()} })
     .then((res) => {
       console.log('success', res);
       this.context.router.replace('/interview');

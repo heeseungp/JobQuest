@@ -20,13 +20,10 @@ export default class InterviewItemContainer extends Component {
 }
 
   componentDidMount() {
-    // const url = 'http://rest.learncode.academy/api/am/friends'; 
     const url = '/interviewQuestions/'; 
     axios.get(url)
       .then(res => {
-        //all interview questions: res.data
-        //the first interview question: res.data[0]
-        this.setState({interviewQuestion: res.data});
+        this.setState({interviewQuestion: res.data.reverse()});
       });
   }
 
@@ -128,10 +125,3 @@ export default class InterviewItemContainer extends Component {
   }
 
 }
-
-// InterviewItemContainer.PropTypes = {
-//   items: React.PropTypes.array.isRequired
-//   // add two funcs, TODO
-// };
-
-// export default InterviewItemContainer;

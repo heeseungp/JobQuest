@@ -201,9 +201,7 @@ exports.vote_on_post = function(req, res) {
 			//console.log('i is',i);
 			var length = post.votedOn.length;
 			post.votedOn.push({userID:req.user._id, value:0});
-			if(length != 0){	//Only increment index if array was previously non-empty, otherwise we would have an index of 1 in an array of size 1.
-				i = length;
-			}
+			i = length;
 		}
 
 		//console.log(post.votedOn);

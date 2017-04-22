@@ -33,7 +33,6 @@ export default class InterviewPage extends Component {
             title: '', 
             question:'', 
             originalAnswer:''
-
         };
 
         this.handleAnswer = this.handleAnswer.bind(this);
@@ -41,6 +40,9 @@ export default class InterviewPage extends Component {
         this.handleQuestion = this.handleQuestion.bind(this);
 
         this.addAnswer = this.addAnswer.bind(this);
+
+        this.editAnswer = this.editAnswer.bind(this);
+        this.deleteAnswer = this.deleteAnswer.bind(this);
 
         //just changing the state to true
         this.handleDeleteInterviewOpen = this.handleDeleteInterviewOpen.bind(this);
@@ -179,12 +181,41 @@ export default class InterviewPage extends Component {
         .then((res) => {
         // no way to update the UI here, need to rework the app architecture
             console.log('success', res);
-            window.location.reload();
+            this.setState({thisQuestion: res.data});
         })
         .catch((err) => {
             console.log(err);
         });
     }
+
+
+    //properties of comments
+
+    editAnswer(obj) {
+        const editURL = '/interviewQuestions/' + this.props.params.id + '/answers/' + obj.answerID + '/edit';
+        axios.post(editURL, {answerText: obj.editedText}, {headers: {authorization: 'bearer ' + Auth.getToken()} })
+        .then((res) => {
+            console.log('sucess, edited', res);
+            this.setState({thisQuestion: res.data});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    deleteAnswer(answerid) {
+        const deleteURL = '/interviewQuestions/' + this.props.params.id + '/answers/' + answerid + '/remove';
+        axios.delete(deleteURL, {headers: {authorization: 'bearer ' + Auth.getToken()} })
+        .then(res => {
+            console.log('sucess, deleted.', res);
+            this.setState({thisQuestion: res.data});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+
 
     
 
@@ -373,7 +404,7 @@ export default class InterviewPage extends Component {
                 <Paper style={stylePaper.comment}>
                     <div className="answerList">    
                         {this.state.thisQuestion.otherAnswers ? this.state.thisQuestion.otherAnswers.map((individualAnswer, idx) => {
-                            return <AnswerList key={idx} answer={individualAnswer} question={this.props.params.id}/>
+                            return <AnswerList editAnswer={this.editAnswer} deleteAnswer={this.deleteAnswer} answer={individualAnswer} question={this.props.params.id}/>
                         }) : null}
                     </div>
                 </Paper>

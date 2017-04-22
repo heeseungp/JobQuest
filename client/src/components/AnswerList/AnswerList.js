@@ -18,25 +18,36 @@ export default class AnswerList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            originalAnswerData: this.props.answer,
             editopen:false,
             deleteopen:false,
+            originalAnswerData: this.props.answer,
             youranswer: this.props.answer.answerText,
-            displayAnswer: this.props.answer.answerText
         }
         
+        //handle open
         this.handleEditInterviewOpen = this.handleEditInterviewOpen.bind(this);
         this.handleDeleteInterviewOpen = this.handleDeleteInterviewOpen.bind(this);
         
+        //handle close
         this.handleEditInterviewClose = this.handleEditInterviewClose.bind(this);
         this.handleDeleteInterviewClose = this.handleDeleteInterviewClose.bind(this);
 
+        //handle answer
         this.handleAnswer = this.handleAnswer.bind(this);
 
+        //going to parent call
         this.editInterview = this.editInterview.bind(this);
         this.deleteInterview = this.deleteInterview.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.answer != this.props.answer) {
+            this.setState({originalAnswerData: nextProps.answer});
+        }
+
+    }
+
+    //handle open
     handleEditInterviewOpen() {
         this.setState({editopen: true});
     }
@@ -45,6 +56,8 @@ export default class AnswerList extends Component {
         this.setState({deleteopen: true});
     }
 
+
+    //handle close
     handleEditInterviewClose() {
         this.setState({editopen: false});
     }
@@ -53,6 +66,8 @@ export default class AnswerList extends Component {
         this.setState({deleteopen: false});
     }
 
+
+    //handle input
     handleAnswer(e) {
         this.setState({youranswer: e.target.value});
     }
@@ -61,30 +76,17 @@ export default class AnswerList extends Component {
 
     editInterview() {
         this.setState({editopen: false});
-        const editURL = '/interviewQuestions/' + this.props.question + '/answers/' + this.props.answer._id + '/edit';
-        axios.post(editURL, {answerText: this.state.youranswer}, {headers: {authorization: 'bearer ' + Auth.getToken()} })
-        .then((res) => {
-            console.log('sucess, edited', res);
-            this.setState({originalAnswerData: res.data});
-            this.setState({displayAnswer: this.state.youranswer});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        var finalObject = {
+            answerID: this.props.answer._id,
+            editedText: this.state.youranswer
+        }
+        this.props.editAnswer(finalObject);
     }
 
 
     deleteInterview() {
         this.setState({deleteopen: false});
-        const deleteURL = '/interviewQuestions/' + this.props.question + '/answers/' + this.props.answer._id + '/remove';
-        axios.delete(deleteURL, {headers: {authorization: 'bearer ' + Auth.getToken()} })
-        .then(res => {
-            console.log('sucess, deleted.', res);
-            this.setState({originalAnswerData: res.data});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        this.props.deleteAnswer(this.props.answer._id);
     }
 
 
@@ -135,7 +137,7 @@ export default class AnswerList extends Component {
                 <Card>
                     <CardTitle title={this.state.originalAnswerData.author} subtitle= {this.state.originalAnswerData.created_at.slice(0,10)} />
                     <CardText>
-                        {this.state.displayAnswer}
+                        {this.state.originalAnswerData.answerText}
                     </CardText>
 
                     <div className="menu">
@@ -181,6 +183,7 @@ export default class AnswerList extends Component {
 
 AnswerList.propTypes = {
     answer: React.PropTypes.object.isRequired,
-    question: React.PropTypes.string.isRequired,
-    router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired,
+    editAnswer: React.PropTypes.func.isRequired,
+    deleteAnswer: React.PropTypes.func.isRequired
 };

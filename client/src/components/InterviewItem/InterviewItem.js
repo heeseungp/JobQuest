@@ -51,7 +51,7 @@ export default class InterviewItem extends Component {
   render() {
     // make date contain only MM/DD/YYYY
 
-    var linkToThread = this.props.data ? "interview/" + this.props.data._id:null;
+    var linkToThread = this.props.data ? "interview/" + this.props.data._id : null;
 
     const stylePaper = {
       minHeight: this.props.showDesc ? 150 : 80,

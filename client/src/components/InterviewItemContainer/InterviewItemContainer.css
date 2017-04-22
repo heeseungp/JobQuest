@@ -1,3 +1,12 @@
 #shell {
     padding-top: 50px; 
 }
+
+#filter {
+    margin-left: 35px;
+    padding-right: 10px;
+}
+
+.filter_gap {
+    margin-right: 20px;
+}

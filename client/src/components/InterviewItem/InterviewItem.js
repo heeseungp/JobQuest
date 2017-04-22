@@ -39,6 +39,9 @@ export default class InterviewItem extends Component {
       case 'System Design':
         colorType = orange300;
         break;
+      case 'Miscellaneous':
+        colorType = grey300;
+        break;
       default:
         colorType = grey300;
         break; 

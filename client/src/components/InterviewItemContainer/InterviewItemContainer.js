@@ -1,6 +1,7 @@
 import './InterviewItemContainer.css'
 import axios from 'axios';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Chip from 'material-ui/Chip';
 import { Link, IndexLink } from 'react-router';
 import {GridList, GridTile} from 'material-ui/GridList';
 import InterviewItem from '../InterviewItem/InterviewItem'
@@ -8,7 +9,7 @@ import Paper from 'material-ui/Paper';
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import update from 'immutability-helper';
-import {purple500, blue500, grey50} from 'material-ui/styles/colors';
+import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300, indigo900, grey900} from 'material-ui/styles/colors';
 
 
 export default class InterviewItemContainer extends Component {
@@ -18,6 +19,13 @@ export default class InterviewItemContainer extends Component {
     this.state = {
       interviewQuestion: []
     };
+
+    this.handleTopicAlgorithm = this.handleTopicAlgorithm.bind(this);
+    this.handleTopicDatabase = this.handleTopicDatabase.bind(this);
+    this.handleTopicShell = this.handleTopicShell.bind(this);
+    this.handleTopicSoftwareEngineering = this.handleTopicSoftwareEngineering.bind(this);
+    this.handleTopicSystemDesign = this.handleTopicSystemDesign.bind(this);
+    this.handleTopicMiscellaneous = this.handleTopicMiscellaneous.bind(this);
 }
 
   componentDidMount() {
@@ -26,6 +34,36 @@ export default class InterviewItemContainer extends Component {
       .then(res => {
         this.setState({interviewQuestion: res.data.reverse()});
       });
+  }
+
+  handleTopicAlgorithm() {
+    function isAlgorithm(value) {
+      return value == "Algorithm";
+    }
+
+    // let filtered = this.state.interviewQuestion.topic.filter(isAlgorithm);
+    // console.log(filtered);
+
+  }
+
+  handleTopicDatabase() {
+
+  }
+
+  handleTopicShell() {
+
+  }
+
+  handleTopicSoftwareEngineering() {
+
+  }
+
+  handleTopicSystemDesign() {
+
+  }
+
+  handleTopicMiscellaneous() {
+
   }
 
 
@@ -73,6 +111,41 @@ export default class InterviewItemContainer extends Component {
       color: grey50
     }
 
+    const styleFilter = {
+      display: 'flex',
+      flexWrap: 'wrap'
+    }
+
+    const styleChip = {
+      algorithm: {
+        backgroundColor: pink300
+      },
+
+      database: {
+        backgroundColor: purple300
+      },
+
+      shell: {
+        backgroundColor: yellow300      
+
+      },
+
+      softwareengineering: {
+        backgroundColor: blue300
+
+      },
+
+      systemdesign: {
+        backgroundColor: orange300
+
+      },
+
+      miscellaneous: {
+        backgroundColor: grey300
+
+      }
+    }
+
 
 
     return (
@@ -81,6 +154,26 @@ export default class InterviewItemContainer extends Component {
           <GridTile cols={8} rows={'auto'}>
             <Card zDepth={2} style={styleCard.left}>
               <CardTitle title="Technical Interview Preparation Questions" titleStyle={styleFont.left} style={styleCard.title} />
+              <div style={styleFilter} id="filter">
+                <div className="filter_gap">
+                  <Chip style={styleChip.algorithm} onTouchTap={this.handleTopicAlgorithm} labelColor={grey900}>Algorithm</Chip>
+                </div>
+                <div className="filter_gap">        
+                  <Chip style={styleChip.database} onTouchTap={this.handleTopicDatabase} labelColor={grey900}>Database</Chip>
+                </div>
+                <div className="filter_gap">
+                  <Chip style={styleChip.shell} onTouchTap={this.handleTopicShell} labelColor={grey900}>Shell</Chip>
+                </div>
+                <div className="filter_gap">
+                  <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900}>Software Engineering</Chip>
+                </div>
+                <div className="filter_gap">
+                  <Chip style={styleChip.systemdesign} onTouchTap={this.handleTopicSystemDesign} labelColor={grey900}>System Design</Chip>
+                </div>
+                <div className="filter_gap">  
+                  <Chip style={styleChip.miscellaneous} onTouchTap={this.handleTopicMiscellaneous} labelColor={grey900}>Miscellaneous</Chip>
+                </div>
+                </div>              
               <CardText style={styleFont.description}>
                 {this.state.interviewQuestion ? this.state.interviewQuestion.map((question,idx) => {
                   return <InterviewItem data={question}/>

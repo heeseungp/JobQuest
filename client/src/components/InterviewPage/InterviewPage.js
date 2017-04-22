@@ -69,9 +69,7 @@ export default class InterviewPage extends Component {
     color() {
         var colorType;
         switch(this.state.thisQuestion.topic) {
-        case 'Software Engineering':
-            colorType = blue300;
-            break;
+
         case 'Algorithm':
             colorType = pink300;
             break;
@@ -80,6 +78,9 @@ export default class InterviewPage extends Component {
             break;
         case 'Shell':
             colorType = yellow300;
+            break;
+        case 'Software Engineering':
+            colorType = blue300;
             break;
         case 'System Design':
             colorType = orange300;

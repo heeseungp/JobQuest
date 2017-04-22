@@ -56,6 +56,15 @@ class InterviewPage extends Component {
         this.deleteInterview = this.deleteInterview.bind(this);
     }
 
+    interceptError(err){
+      Response.setError(err);
+      //Force rerendering components
+      //Apparently one forceUpdate is not enough to show the dialog on the first call
+      //This is a dirty hack to get it to work the first time
+      this.forceUpdate();
+      this.forceUpdate();
+  }
+
     componentDidMount() {
         const url = '/interviewQuestions/' + this.props.params.id + '/show';
         axios.get(url)
@@ -140,7 +149,7 @@ class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
-            Response.setError(err);
+            this.interceptError(err);
         });
     }
 
@@ -157,7 +166,7 @@ class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
-            Response.setError(err);
+            this.interceptError(err);
         });
 
     }
@@ -184,8 +193,8 @@ class InterviewPage extends Component {
         this.setState({interview: updated});
         })
         .catch((err) => {
-        console.log(err);
-        Response.setError(err);
+            console.log(err);
+            this.interceptError(err);
         });
     }
 

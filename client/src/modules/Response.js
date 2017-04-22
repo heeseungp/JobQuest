@@ -13,7 +13,7 @@ class Response {
      */
     static setError(error) {
         console.log('Intercepted an error');
-        this.ErrorTitle = error.response.status + " " + error.response.statusText + " Error";
+        this.ErrorTitle = error.response.status + " " + error.response.statusText;
         this.ErrorMsg = JSON.stringify(error.response.data);
     }
 
@@ -32,7 +32,6 @@ class Response {
      */
     static isErrorSet() {
         console.log('Error ',this.ErrorTitle,this.ErrorMsg);
-        console.log((this.ErrorTitle !== undefined) && (this.ErrorMsg !== undefined));
         return (this.ErrorTitle !== undefined) && (this.ErrorMsg !== undefined);
     }
 

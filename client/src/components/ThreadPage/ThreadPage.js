@@ -159,7 +159,7 @@ const ThreadPage = React.createClass({
       <Card style={style}>
         {this.state.threadData ? 
           <div>
-             <AlertDialog errorMsg={Response.getError()} open={Response.isErrorSet()} />
+            <AlertDialog errorMsg={Response.getError()} open={Response.isErrorSet()} />
             <ThreadPageItem data={this.state.threadData}
                             onUpvote={this.upvoteThread} 
                             onDownvote={this.downvoteThread} 

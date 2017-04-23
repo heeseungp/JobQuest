@@ -9,7 +9,7 @@ import Paper from 'material-ui/Paper';
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import update from 'immutability-helper';
-import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300, indigo900, grey900} from 'material-ui/styles/colors';
+import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300, indigo900, grey900, green500} from 'material-ui/styles/colors';
 
 
 export default class InterviewItemContainer extends Component {
@@ -17,9 +17,11 @@ export default class InterviewItemContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      interviewQuestion: []
+      interviewQuestion: [],
+      constInterviewQuestion: []
     };
 
+    this.handleTopicAll = this.handleTopicAll.bind(this);
     this.handleTopicAlgorithm = this.handleTopicAlgorithm.bind(this);
     this.handleTopicDatabase = this.handleTopicDatabase.bind(this);
     this.handleTopicShell = this.handleTopicShell.bind(this);
@@ -33,37 +35,72 @@ export default class InterviewItemContainer extends Component {
     axios.get(url)
       .then(res => {
         this.setState({interviewQuestion: res.data.reverse()});
+        this.setState({constInterviewQuestion: res.data.reverse()});
       });
   }
 
+  handleTopicAll() {
+    this.setState({interviewQuestion: this.state.constInterviewQuestion});
+  }
+
   handleTopicAlgorithm() {
-    function isAlgorithm(value) {
-      return value == "Algorithm";
+    let algorithmList = [];
+    for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
+      if(this.state.constInterviewQuestion[i].topic == "Algorithm") {
+        algorithmList.push(this.state.constInterviewQuestion[i]);
+      }
     }
-
-    // let filtered = this.state.interviewQuestion.topic.filter(isAlgorithm);
-    // console.log(filtered);
-
+    this.setState({interviewQuestion: algorithmList});
   }
 
   handleTopicDatabase() {
-
+    let databaseList = [];
+    for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
+      if(this.state.constInterviewQuestion[i].topic == "Database") {
+        databaseList.push(this.state.constInterviewQuestion[i]);
+      }
+    }
+    this.setState({interviewQuestion: databaseList});
   }
 
   handleTopicShell() {
-
+    let shellList = [];
+    for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
+      if(this.state.constInterviewQuestion[i].topic == "Shell") {
+        shellList.push(this.state.constInterviewQuestion[i]);
+      }
+    }
+    this.setState({interviewQuestion: shellList});
   }
 
   handleTopicSoftwareEngineering() {
-
+    let softwareengineeringList = [];
+    for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
+      if(this.state.constInterviewQuestion[i].topic == "Software Engineering") {
+        softwareengineeringList.push(this.state.constInterviewQuestion[i]);
+      }
+    }
+    this.setState({interviewQuestion: softwareengineeringList});
   }
 
   handleTopicSystemDesign() {
-
+    let systemdesignList = [];
+    for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
+      if(this.state.constInterviewQuestion[i].topic == "System Design") {
+        systemdesignList.push(this.state.constInterviewQuestion[i]);
+      }
+    }
+    this.setState({interviewQuestion: systemdesignList});
   }
 
   handleTopicMiscellaneous() {
-
+    let miscellaneousList = [];
+    for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
+      if(this.state.constInterviewQuestion[i].topic == "Miscellaneous") {
+        miscellaneousList.push(this.state.constInterviewQuestion[i]);
+      }
+    }
+    this.setState({interviewQuestion: miscellaneousList});
   }
 
 
@@ -117,32 +154,44 @@ export default class InterviewItemContainer extends Component {
     }
 
     const styleChip = {
+      all: {
+        backgroundColor: green500,
+        width: '130px'
+      },
+
       algorithm: {
-        backgroundColor: pink300
+        backgroundColor: pink300,
+        width: '130px'
       },
 
       database: {
-        backgroundColor: purple300
+        backgroundColor: purple300,
+        width: '130px'
       },
 
       shell: {
-        backgroundColor: yellow300      
-
+        backgroundColor: yellow300,
+        width: '130px'      
       },
 
       softwareengineering: {
-        backgroundColor: blue300
-
+        backgroundColor: blue300,
+        width: '130px'
       },
 
       systemdesign: {
-        backgroundColor: orange300
-
+        backgroundColor: orange300,
+        width: '130px'
       },
 
       miscellaneous: {
-        backgroundColor: grey300
+        backgroundColor: grey300,
+        width: '130px'
+      },
 
+      labelStyle: {
+        marginRight: 'auto',
+        marginLeft: 'auto'
       }
     }
 
@@ -155,23 +204,26 @@ export default class InterviewItemContainer extends Component {
             <Card zDepth={2} style={styleCard.left}>
               <CardTitle title="Technical Interview Preparation Questions" titleStyle={styleFont.left} style={styleCard.title} />
               <div style={styleFilter} id="filter">
+                <div  className="filter_gap">
+                  <Chip style={styleChip.all} onTouchTap={this.handleTopicAll} labelColor={grey900} labelStyle={styleChip.labelStyle}>All</Chip>
+                </div>
                 <div className="filter_gap">
-                  <Chip style={styleChip.algorithm} onTouchTap={this.handleTopicAlgorithm} labelColor={grey900}>Algorithm</Chip>
+                  <Chip style={styleChip.algorithm} onTouchTap={this.handleTopicAlgorithm} labelColor={grey900} labelStyle={styleChip.labelStyle}>Algorithm</Chip>
                 </div>
                 <div className="filter_gap">        
-                  <Chip style={styleChip.database} onTouchTap={this.handleTopicDatabase} labelColor={grey900}>Database</Chip>
+                  <Chip style={styleChip.database} onTouchTap={this.handleTopicDatabase} labelColor={grey900} labelStyle={styleChip.labelStyle}>Database</Chip>
                 </div>
                 <div className="filter_gap">
-                  <Chip style={styleChip.shell} onTouchTap={this.handleTopicShell} labelColor={grey900}>Shell</Chip>
+                  <Chip style={styleChip.shell} onTouchTap={this.handleTopicShell} labelColor={grey900} labelStyle={styleChip.labelStyle}>Shell</Chip>
                 </div>
                 <div className="filter_gap">
-                  <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900}>Software Engineering</Chip>
+                  <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900} labelStyle={styleChip.labelStyle}>Software Eng.</Chip>
                 </div>
                 <div className="filter_gap">
-                  <Chip style={styleChip.systemdesign} onTouchTap={this.handleTopicSystemDesign} labelColor={grey900}>System Design</Chip>
+                  <Chip style={styleChip.systemdesign} onTouchTap={this.handleTopicSystemDesign} labelColor={grey900} labelStyle={styleChip.labelStyle}>System Design</Chip>
                 </div>
                 <div className="filter_gap">  
-                  <Chip style={styleChip.miscellaneous} onTouchTap={this.handleTopicMiscellaneous} labelColor={grey900}>Miscellaneous</Chip>
+                  <Chip style={styleChip.miscellaneous} onTouchTap={this.handleTopicMiscellaneous} labelColor={grey900} labelStyle={styleChip.labelStyle}>Miscellaneous</Chip>
                 </div>
                 </div>              
               <CardText style={styleFont.description}>

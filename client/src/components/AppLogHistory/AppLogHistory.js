@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import UserProfile from '../UserProfile/UserProfile';
+import AppChart from '../AppChart/AppChart';
 /*Need to clean this code before April begins */
 class AppLogTable extends Component{
     constructor(props){
@@ -106,7 +107,8 @@ class AppLogTable extends Component{
                     company:'',
                     role:'',
                     status:''
-                })
+                });
+                AppChart.update();
             })
             .catch(err => {console.log(err);});
             event.preventDefault();
@@ -127,7 +129,8 @@ class AppLogTable extends Component{
                     company:'',
                     role:'',
                     status:''
-               })
+               });
+               AppChart.update();
             })
             .catch(err => {console.log(err);});
             event.preventDefault();
@@ -180,8 +183,8 @@ class AppLogTable extends Component{
                         onChange={this.handleStatus} 
                         style={{width:80,margin:10}}/>
                     <br />
-                    <RaisedButton label="Submit" type="submit" />
-                    <RaisedButton label="Delete" onClick={this.handleDelete} />
+                    <RaisedButton label="Submit" type="submit"/>
+                    <RaisedButton label="Delete" onClick={this.handleDelete}/>
                     <RaisedButton label="Modify" onClick={this.handleModify}/>
                 </form>
                </CardText>

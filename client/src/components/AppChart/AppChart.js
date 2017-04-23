@@ -12,6 +12,25 @@ class AppChart extends Component{
         }
     }
 
+    update(){
+        const url='/applications/';
+        axios.get(url)
+        .then(res => {
+            var object ={
+                applied:0,
+                interview:0,
+                phone:0,
+                accepted:0,
+                rejected:0
+            }
+            for(let i=0; i< res.data.length;i++){  
+                object[res.data[i].status.toLowerCase()]++;
+             }
+            this.setState({applications: res.data, stats:object});
+            this.forceUpdate();
+        });
+    };
+
     componentDidMount(){
         const url='/applications/';
         axios.get(url)
@@ -28,8 +47,8 @@ class AppChart extends Component{
              }
             this.setState({applications: res.data, stats:object});
 
-        });
-    }
+        });  
+    };
     render(){
        //create an object to add count the number of status it has
        console.log(this.state.stats);

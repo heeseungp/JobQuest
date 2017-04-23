@@ -203,29 +203,31 @@ export default class InterviewItemContainer extends Component {
           <GridTile cols={8} rows={'auto'}>
             <Card zDepth={2} style={styleCard.left}>
               <CardTitle title="Technical Interview Preparation Questions" titleStyle={styleFont.left} style={styleCard.title} />
-              <div style={styleFilter} id="filter">
-                <div  className="filter_gap">
-                  <Chip style={styleChip.all} onTouchTap={this.handleTopicAll} labelColor={grey900} labelStyle={styleChip.labelStyle}>All</Chip>
+              <div id="filter">
+                <div style={styleFilter}>
+                  <div  className="filter_gap">
+                    <Chip style={styleChip.all} onTouchTap={this.handleTopicAll} labelColor={grey900} labelStyle={styleChip.labelStyle}>All</Chip>
+                  </div>
+                  <div className="filter_gap">
+                    <Chip style={styleChip.algorithm} onTouchTap={this.handleTopicAlgorithm} labelColor={grey900} labelStyle={styleChip.labelStyle}>Algorithm</Chip>
+                  </div>
+                  <div className="filter_gap">        
+                    <Chip style={styleChip.database} onTouchTap={this.handleTopicDatabase} labelColor={grey900} labelStyle={styleChip.labelStyle}>Database</Chip>
+                  </div>
+                  <div className="filter_gap">
+                    <Chip style={styleChip.shell} onTouchTap={this.handleTopicShell} labelColor={grey900} labelStyle={styleChip.labelStyle}>Shell</Chip>
+                  </div>
+                  <div className="filter_gap">
+                    <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900} labelStyle={styleChip.labelStyle}>Software Eng.</Chip>
+                  </div>
+                  <div className="filter_gap">
+                    <Chip style={styleChip.systemdesign} onTouchTap={this.handleTopicSystemDesign} labelColor={grey900} labelStyle={styleChip.labelStyle}>System Design</Chip>
+                  </div>
+                  <div className="filter_gap">  
+                    <Chip style={styleChip.miscellaneous} onTouchTap={this.handleTopicMiscellaneous} labelColor={grey900} labelStyle={styleChip.labelStyle}>Miscellaneous</Chip>
+                  </div>
                 </div>
-                <div className="filter_gap">
-                  <Chip style={styleChip.algorithm} onTouchTap={this.handleTopicAlgorithm} labelColor={grey900} labelStyle={styleChip.labelStyle}>Algorithm</Chip>
-                </div>
-                <div className="filter_gap">        
-                  <Chip style={styleChip.database} onTouchTap={this.handleTopicDatabase} labelColor={grey900} labelStyle={styleChip.labelStyle}>Database</Chip>
-                </div>
-                <div className="filter_gap">
-                  <Chip style={styleChip.shell} onTouchTap={this.handleTopicShell} labelColor={grey900} labelStyle={styleChip.labelStyle}>Shell</Chip>
-                </div>
-                <div className="filter_gap">
-                  <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900} labelStyle={styleChip.labelStyle}>Software Eng.</Chip>
-                </div>
-                <div className="filter_gap">
-                  <Chip style={styleChip.systemdesign} onTouchTap={this.handleTopicSystemDesign} labelColor={grey900} labelStyle={styleChip.labelStyle}>System Design</Chip>
-                </div>
-                <div className="filter_gap">  
-                  <Chip style={styleChip.miscellaneous} onTouchTap={this.handleTopicMiscellaneous} labelColor={grey900} labelStyle={styleChip.labelStyle}>Miscellaneous</Chip>
-                </div>
-                </div>              
+              </div>              
               <CardText style={styleFont.description}>
                 {this.state.interviewQuestion ? this.state.interviewQuestion.map((question,idx) => {
                   return <InterviewItem data={question}/>
@@ -249,6 +251,22 @@ export default class InterviewItemContainer extends Component {
                 <br />
                 </CardText>
             </Card>
+
+            <Card zDepth={2} style={styleCard.right}>
+              <CardText style={styleFont.contributor}>
+                <h2>Top Contributors</h2>
+                <h3>1. Joseph Park</h3>
+                <h3>2. Joseph Park</h3>
+                <h3>3. Joseph Park</h3>
+                <br />
+                <h2>Recent Contributors</h2>
+                <h3>1. Joseph Park</h3>
+                <h3>2. Joseph Park</h3>
+                <h3>3. Joseph Park</h3>
+                <br />
+                </CardText>
+            </Card>
+          
           </GridTile>
         </GridList>
       </div>

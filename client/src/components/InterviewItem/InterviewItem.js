@@ -58,12 +58,16 @@ export default class InterviewItem extends Component {
 
     const styles = {
       chip: {
-        margin: 4
+        width: '130px'
       },
       wrapper: {
         display: 'flex',
         flexWrap: 'wrap',
       },
+      labelStyle: {
+        marginRight: 'auto',
+        marginLeft: 'auto'
+      }
     };
 
   
@@ -79,7 +83,7 @@ export default class InterviewItem extends Component {
               </div>
               
               <div className="interviewTopic">
-                <Chip backgroundColor={this.color()} style={styles.chip} labelColor={grey900}>
+                <Chip backgroundColor={this.color()} style={styles.chip} labelColor={grey900} labelStyle={styles.labelStyle}>
                   {this.props.data.topic}
                 </Chip>
               </div>

@@ -10,6 +10,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import React, {Component,PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper'; 
+import Moment from 'react-moment';
 
 //need to fix the rendering of editing and deleting comments.
 
@@ -135,7 +136,7 @@ export default class AnswerList extends Component {
             <div>   
                 {this.props.answer ?
                 <Card>
-                    <CardTitle title={this.state.originalAnswerData.author} subtitle= {this.state.originalAnswerData.created_at.slice(0,10)} />
+                    <CardTitle title={this.state.originalAnswerData.author} subtitle={<Moment>{this.state.originalAnswerData.created_at}</Moment>} />
                     <CardText>
                         {this.state.originalAnswerData.answerText}
                     </CardText>

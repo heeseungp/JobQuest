@@ -18,6 +18,9 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 import {purple500, grey50,blue300, pink300, purple300, yellow300, orange300, grey300,indigo900} from 'material-ui/styles/colors';
+import Response from '../../modules/Response';
+import AlertDialog from '../AlertDialog/AlertDialog';
+import Moment from 'react-moment';
 
 
 export default class InterviewPage extends Component {
@@ -57,6 +60,15 @@ export default class InterviewPage extends Component {
         this.deleteInterview = this.deleteInterview.bind(this);
     }
 
+    interceptError(err){
+      Response.setError(err);
+      //Force rerendering components
+      //Apparently one forceUpdate is not enough to show the dialog on the first call
+      //This is a dirty hack to get it to work the first time
+      this.forceUpdate();
+      this.forceUpdate();
+  }
+
     componentDidMount() {
         const url = '/interviewQuestions/' + this.props.params.id + '/show';
         axios.get(url)
@@ -91,12 +103,6 @@ export default class InterviewPage extends Component {
         }
         return colorType;
     }
-
-    subtitle(){
-        var temp = 'submitted at ' + this.state.thisQuestion.created_at + ' by ' + this.state.thisQuestion.author;
-        return temp;
-    }
-
     
     //for current interview thread
 
@@ -151,6 +157,7 @@ export default class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            this.interceptError(err);
         });
     }
 
@@ -167,6 +174,7 @@ export default class InterviewPage extends Component {
         })
         .catch(err => {
             console.log(err);
+            this.interceptError(err);
         });
 
     }
@@ -213,6 +221,7 @@ export default class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            this.interceptError(err);
         });
     }
 
@@ -339,6 +348,7 @@ export default class InterviewPage extends Component {
         return(
 
             <div className="container">
+                <AlertDialog errorMsg={Response.getError()} isOpen={Response.isErrorSet()} />
                 <Paper>
                     <div className="titlee">
                         {this.state.thisQuestion.title}   
@@ -378,7 +388,7 @@ export default class InterviewPage extends Component {
 
 
                     <div className="info">
-                        {this.subtitle()}                
+                        submitted at <Moment>{this.state.thisQuestion.created_at}</Moment> by {this.state.thisQuestion.author}
                     </div>
 
                     <div className="topic">

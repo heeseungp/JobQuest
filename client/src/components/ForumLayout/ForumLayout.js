@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 import ThreadForm from '../ThreadForm/ThreadForm';
 import FutureEvents from '../Events/FutureEvents';
+import Calendar from '../Calendar/Calendar';
 import {GridList, GridTile} from 'material-ui/GridList';
 
 import './ForumLayout.css';
@@ -35,7 +36,7 @@ const ForumLayout = React.createClass({
 
           {/*right column*/}
           <GridTile cols={4} rows={'auto'} >
-            <div id="calendar"></div>
+            <Calendar />
             <FutureEvents />
           </GridTile>
         </GridList>

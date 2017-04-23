@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Table, TableBody,TableRow, TableHeader, TableHeaderColumn} from 'material-ui/Table';
 import {Card,CardHeader,CardText} from 'material-ui/Card';
+import {GridList,GridTile} from 'material-ui/GridList';
+import {VictoryPie, VictoryTheme} from 'victory';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
@@ -23,7 +25,8 @@ class AppLogTable extends Component{
             role:'',
             status:'',
             //state for edit 
-            edit:false
+            edit:false,
+            stats:{}
         };
        this.handleRowSelection=this.handleRowSelection.bind(this); 
        this.handleDelete=this.handleDelete.bind(this);
@@ -45,8 +48,9 @@ class AppLogTable extends Component{
     //state defined to handle edit  
     handleModify(){
         //PROTOTYPING 
-        console.log(this.selected);
-        if(this.state.selected !== ''){
+        console.log(this.state.selectId);
+        if(this.state.selectId){
+            console.log('edit is true now');
             this.setState({
                 edit:true,
                  company:this.state.selectAll.company,
@@ -73,7 +77,17 @@ class AppLogTable extends Component{
         const url='/applications/';
         axios.get(url)
         .then(res => {
-            this.setState({applications: res.data});
+            var object ={
+                applied:0,
+                interview:0,
+                phone:0,
+                accepted:0,
+                rejected:0
+            }
+            for(let i=0; i< res.data.length;i++){  
+                object[res.data[i].status.toLowerCase()]++;
+             }
+            this.setState({applications: res.data, stats:object});
         });
     }
 
@@ -81,15 +95,20 @@ class AppLogTable extends Component{
     //function for DELETE request
     handleDelete(){
         var idx = -1;
-        for(let i=0; i < this.state.applications; i++){
-            if(this.state.applications[i]._id === this.state.selectId){idx=i;}
+        var object =this.state.stats;
+        for(let i=0; i < this.state.applications.length; i++){
+            if(this.state.applications[i]._id === this.state.selectId){
+                idx=i;
+                object[this.state.applications[idx].status]--;
+                console.log(this.state.applications[idx].status);
+            }
         }
         var copy = this.state.applications.slice();
         copy.splice(idx,1);
         const url='/applications/' + this.state.selectId + '/remove';
         axios.delete(url)
         .then(res => {
-            this.setState({applications: copy, selectId: ''})
+            this.setState({applications: copy, selectId: '',stats:object})
         });
     }
 
@@ -97,6 +116,8 @@ class AppLogTable extends Component{
     handleSubmit(event){
         var data = {company:this.state.company,role:this.state.role,status:this.state.status};
         var copy = this.state.applications.slice();
+        var object = this.state.stats;
+        object[this.state.status]++;
         //if edit is false, it will create a new submission else it will edit and submit
         if(!this.state.edit){
             axios.post('/applications/create',data)
@@ -106,9 +127,9 @@ class AppLogTable extends Component{
                     applications: copy,
                     company:'',
                     role:'',
-                    status:''
+                    status:'',
+                    stats:object
                 });
-                AppChart.update();
             })
             .catch(err => {console.log(err);});
             event.preventDefault();
@@ -119,18 +140,21 @@ class AppLogTable extends Component{
               var idx = -1;
               for(let i=0; i < this.state.applications.length; i++){
                   console.log(this.state.applications[i]);
-                if(this.state.applications[i]._id === this.state.selectId){idx=i;}
+                if(this.state.applications[i]._id === this.state.selectId){
+                    idx=i;
+                    object[this.state.applications[i].status]--;
+                }
               }
               copy.splice(idx,1);
               this.setState({
-                    selected:'',
+                    selected:undefined,
                     edit:false,
                     applications: copy,
                     company:'',
                     role:'',
-                    status:''
+                    status:'',
+                    stats:object
                });
-               AppChart.update();
             })
             .catch(err => {console.log(err);});
             event.preventDefault();
@@ -141,54 +165,76 @@ class AppLogTable extends Component{
 
     render(){
         return(
-         <Card>
-             <CardHeader title="Application History" style={{textAlign:'center'}} />
-             <CardText>
-                <Table 
-                    onRowSelection={this.handleRowSelection}
-                    multiSelectable={this.state.multiSelectable}>
-                    <TableHeader displaySelectAll={this.state.displaySelectAll} adjustForCheckbox={this.state.adjustForCheckbox}>
-                        <TableRow>
-                            <TableHeaderColumn>Date</TableHeaderColumn>
-                            <TableHeaderColumn>Company</TableHeaderColumn>
-                            <TableHeaderColumn>Role</TableHeaderColumn>
-                            <TableHeaderColumn>Status</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                        <TableBody>
-                        {this.state.applications ?  this.state.applications.map((application, idx) => {
-                                return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
-                                                    company={application.company}
-                                                    role={application.role}
-                                                    status={application.status}
-                                                    />
-                            })
-                                : null}
-                    </TableBody>
-                </Table>
-                <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
-                    <TextField 
-                        hintText="Company"
-                        value={this.state.company} 
-                        onChange={this.handleCompany} 
-                        style={{width:80,margin:10}}/>
-                    <TextField 
-                        hintText="Role" 
-                        value={this.state.role} 
-                        onChange={this.handleRole} 
-                        style={{width:80,margin:10}}/>
-                    <TextField 
-                        hintText="Status" 
-                        value={this.state.status} 
-                        onChange={this.handleStatus} 
-                        style={{width:80,margin:10}}/>
-                    <br />
-                    <RaisedButton label="Submit" type="submit"/>
-                    <RaisedButton label="Delete" onClick={this.handleDelete}/>
-                    <RaisedButton label="Modify" onClick={this.handleModify}/>
-                </form>
-               </CardText>
-            </Card>        
+        <GridList cellHeight={'auto'}>
+            <GridTile>
+                <Card>
+                    <CardHeader title="Application History" style={{textAlign:'center'}} />
+                    <CardText>
+                        <Table 
+                            onRowSelection={this.handleRowSelection}
+                            multiSelectable={this.state.multiSelectable}>
+                            <TableHeader displaySelectAll={this.state.displaySelectAll} adjustForCheckbox={this.state.adjustForCheckbox}>
+                                <TableRow>
+                                    <TableHeaderColumn>Date</TableHeaderColumn>
+                                    <TableHeaderColumn>Company</TableHeaderColumn>
+                                    <TableHeaderColumn>Role</TableHeaderColumn>
+                                    <TableHeaderColumn>Status</TableHeaderColumn>
+                                </TableRow>
+                            </TableHeader>
+                                <TableBody>
+                                {this.state.applications ?  this.state.applications.map((application, idx) => {
+                                        return <UserProfile key={idx} created_at={application.created_at.slice(0,10)}
+                                                            company={application.company}
+                                                            role={application.role}
+                                                            status={application.status}
+                                                            />
+                                    })
+                                        : null}
+                            </TableBody>
+                        </Table>
+                        <form onSubmit={this.handleSubmit} style={{textAlign:'center'}}>
+                            <TextField 
+                                hintText="Company"
+                                value={this.state.company} 
+                                onChange={this.handleCompany} 
+                                style={{width:80,margin:10}}/>
+                            <TextField 
+                                hintText="Role" 
+                                value={this.state.role} 
+                                onChange={this.handleRole} 
+                                style={{width:80,margin:10}}/>
+                            <TextField 
+                                hintText="Status" 
+                                value={this.state.status} 
+                                onChange={this.handleStatus} 
+                                style={{width:80,margin:10}}/>
+                            <br />
+                            <RaisedButton label="Submit" type="submit"/>
+                            <RaisedButton label="Delete" onClick={this.handleDelete}/>
+                            <RaisedButton label="Modify" onClick={this.handleModify}/>
+                        </form>
+                    </CardText>
+                    </Card>
+                </GridTile>
+                <GridTile>
+                    <Card>
+                        <CardHeader title="Application Chart" style={{textAlign:'center'}} />
+                        <CardText>
+                            <VictoryPie 
+                                data={[
+                                    {x:'applied', y:this.state.stats.applied},
+                                    {x:'phone', y:this.state.stats.phone},
+                                    {x:'accepted', y:this.state.stats.accepted},
+                                    {x:'rejected', y:this.state.stats.rejected}
+                                ]}
+                                width={400}
+                                height={300}
+                                theme={VictoryTheme.material}
+                            />
+                        </CardText>
+                    </Card>
+            </GridTile>  
+        </GridList>      
         );
     }
 }

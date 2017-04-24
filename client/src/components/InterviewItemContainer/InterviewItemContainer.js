@@ -18,9 +18,11 @@ export default class InterviewItemContainer extends Component {
     super(props);
     this.state = {
       interviewQuestion: [],
-      constInterviewQuestion: []
+      constInterviewQuestion: [],
+      usersRanking: []
     };
 
+    this.handleUsersRanking = this.handleUsersRanking.bind(this);
     this.handleTopicAll = this.handleTopicAll.bind(this);
     this.handleTopicAlgorithm = this.handleTopicAlgorithm.bind(this);
     this.handleTopicDatabase = this.handleTopicDatabase.bind(this);
@@ -36,17 +38,50 @@ export default class InterviewItemContainer extends Component {
       .then(res => {
         this.setState({interviewQuestion: res.data.reverse()});
         this.setState({constInterviewQuestion: res.data.reverse()});
+        this.setState({usersRanking :this.handleUsersRanking()});
       });
+  }
+
+  handleUsersRanking() {
+    // 1. create a hashmap that will have the name of author as the key and the number of times the author appears as the values
+    let HashMap = require('hashmap');
+    let map = new HashMap();
+
+    let temp = [];
+
+    // 2. iterate through the interview questions and check how many times author's had posted
+    for(let i=0; i<this.state.constInterviewQuestion.length; i++){
+      if(map.has(this.state.constInterviewQuestion[i].author)){
+        map.set(this.state.constInterviewQuestion[i].author, map.get(this.state.constInterviewQuestion[i].author) + 1);
+      }
+      else {
+        map.set(this.state.constInterviewQuestion[i].author, 1);
+      }
+    }
+
+    // 3. find the biggest value in the hashmap, store it inside the usersRanking then remove. Repeat 2 more times.
+    for(let j=0; j<2; j++) {
+      if(map.count() < 1) {
+        break;
+      }
+      else {
+        temp.push((map.search(Math.max.apply(Math,map.values()))));
+        map.remove((map.search(Math.max.apply(Math,map.values()))));
+      }
+    }
+    return temp;
   }
 
   handleTopicAll() {
     this.setState({interviewQuestion: this.state.constInterviewQuestion});
+
+    console.log(typeof this.state.usersRanking);
   }
 
   handleTopicAlgorithm() {
     let algorithmList = [];
     for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
-      if(this.state.constInterviewQuestion[i].topic == "Algorithm") {
+      if(this.state.constInterviewQuestion[i].topic === "Algorithm") {
         algorithmList.push(this.state.constInterviewQuestion[i]);
       }
     }
@@ -56,7 +91,7 @@ export default class InterviewItemContainer extends Component {
   handleTopicDatabase() {
     let databaseList = [];
     for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
-      if(this.state.constInterviewQuestion[i].topic == "Database") {
+      if(this.state.constInterviewQuestion[i].topic === "Database") {
         databaseList.push(this.state.constInterviewQuestion[i]);
       }
     }
@@ -66,7 +101,7 @@ export default class InterviewItemContainer extends Component {
   handleTopicShell() {
     let shellList = [];
     for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
-      if(this.state.constInterviewQuestion[i].topic == "Shell") {
+      if(this.state.constInterviewQuestion[i].topic === "Shell") {
         shellList.push(this.state.constInterviewQuestion[i]);
       }
     }
@@ -76,7 +111,7 @@ export default class InterviewItemContainer extends Component {
   handleTopicSoftwareEngineering() {
     let softwareengineeringList = [];
     for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
-      if(this.state.constInterviewQuestion[i].topic == "Software Engineering") {
+      if(this.state.constInterviewQuestion[i].topic === "Software Engineering") {
         softwareengineeringList.push(this.state.constInterviewQuestion[i]);
       }
     }
@@ -86,7 +121,7 @@ export default class InterviewItemContainer extends Component {
   handleTopicSystemDesign() {
     let systemdesignList = [];
     for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
-      if(this.state.constInterviewQuestion[i].topic == "System Design") {
+      if(this.state.constInterviewQuestion[i].topic === "System Design") {
         systemdesignList.push(this.state.constInterviewQuestion[i]);
       }
     }
@@ -96,7 +131,7 @@ export default class InterviewItemContainer extends Component {
   handleTopicMiscellaneous() {
     let miscellaneousList = [];
     for(let i=0;i<this.state.constInterviewQuestion.length;i++) {
-      if(this.state.constInterviewQuestion[i].topic == "Miscellaneous") {
+      if(this.state.constInterviewQuestion[i].topic === "Miscellaneous") {
         miscellaneousList.push(this.state.constInterviewQuestion[i]);
       }
     }
@@ -254,16 +289,12 @@ export default class InterviewItemContainer extends Component {
 
             <Card zDepth={2} style={styleCard.right}>
               <CardText style={styleFont.contributor}>
-                <h2>Top Contributors</h2>
-                <h3>1. Joseph Park</h3>
-                <h3>2. Joseph Park</h3>
-                <h3>3. Joseph Park</h3>
-                <br />
-                <h2>Recent Contributors</h2>
-                <h3>1. Joseph Park</h3>
-                <h3>2. Joseph Park</h3>
-                <h3>3. Joseph Park</h3>
-                <br />
+                  
+                  <h2>Top 3 Contributors</h2>
+                  {this.state.usersRanking[0] ? <h3>1. {this.state.usersRanking[0]} </h3> : <h3>1. No one yet</h3>}
+                  {this.state.usersRanking[1] ? <h3>2. {this.state.usersRanking[1]} </h3> : <h3>2. No one yet</h3>}
+                  {this.state.usersRanking[2] ? <h3>3. {this.state.usersRanking[2]} </h3> : <h3>3. No one yet</h3>}
+    
                 </CardText>
             </Card>
           

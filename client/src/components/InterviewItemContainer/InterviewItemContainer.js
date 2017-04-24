@@ -39,6 +39,7 @@ export default class InterviewItemContainer extends Component {
         this.setState({interviewQuestion: res.data.reverse()});
         this.setState({constInterviewQuestion: res.data.reverse()});
         this.setState({usersRanking :this.handleUsersRanking()});
+        console.log(this.state.usersRanking);
       });
   }
 
@@ -60,7 +61,7 @@ export default class InterviewItemContainer extends Component {
     }
 
     // 3. find the biggest value in the hashmap, store it inside the usersRanking then remove. Repeat 2 more times.
-    for(let j=0; j<2; j++) {
+    for(let j=0; j<3; j++) {
       if(map.count() < 1) {
         break;
       }
@@ -299,7 +300,7 @@ export default class InterviewItemContainer extends Component {
                     </div>
                       {this.state.usersRanking[0] ? <h2>1. {this.state.usersRanking[0]} </h2> : <h2>1. -</h2>}
                       {this.state.usersRanking[1] ? <h2>2. {this.state.usersRanking[1]} </h2> : <h2>2. -</h2>}
-                      {this.state.usersRanking[2] ? <h2>2. {this.state.usersRanking[2]} </h2> : <h2>2. -</h2>}
+                      {this.state.usersRanking[2] ? <h2>3. {this.state.usersRanking[2]} </h2> : <h2>3. -</h2>}
                   </div>
                 </CardText>
             </Card>

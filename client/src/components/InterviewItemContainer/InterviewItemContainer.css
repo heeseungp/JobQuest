@@ -9,3 +9,17 @@
 .filter_gap {
     margin-right: 10px;
 }
+
+.contributor {
+    margin: auto;
+    text-align: center;
+}
+
+.contributorHeader {
+    display: inline-flex;
+}
+
+#top3label {
+    padding-left: 15px;
+    padding-right: 15px;
+}

@@ -265,7 +265,7 @@ export default class InterviewItemContainer extends Component {
               </div>              
               <CardText style={styleFont.description}>
                 {this.state.interviewQuestion ? this.state.interviewQuestion.map((question,idx) => {
-                  return <InterviewItem data={question}/>
+                  return <InterviewItem key={idx} data={question}/>
                 }) : null}
               </CardText>
             </Card>
@@ -289,12 +289,18 @@ export default class InterviewItemContainer extends Component {
 
             <Card zDepth={2} style={styleCard.right}>
               <CardText style={styleFont.contributor}>
-                  
-                  <h2>Top 3 Contributors</h2>
-                  {this.state.usersRanking[0] ? <h3>1. {this.state.usersRanking[0]} </h3> : <h3>1. No one yet</h3>}
-                  {this.state.usersRanking[1] ? <h3>2. {this.state.usersRanking[1]} </h3> : <h3>2. No one yet</h3>}
-                  {this.state.usersRanking[2] ? <h3>3. {this.state.usersRanking[2]} </h3> : <h3>3. No one yet</h3>}
-    
+                  <div className="contributor">
+                    <div className="contributorHeader">
+                      <i className="fa fa-trophy fa-4x" aria-hidden="true"></i>
+                      <div id="top3label">
+                        <h1>Top 3 Contributors</h1>
+                      </div>
+                      <i className="fa fa-trophy fa-4x" aria-hidden="true"></i>
+                    </div>
+                      {this.state.usersRanking[0] ? <h2>1. {this.state.usersRanking[0]} </h2> : <h2>1. -</h2>}
+                      {this.state.usersRanking[1] ? <h2>2. {this.state.usersRanking[1]} </h2> : <h2>2. -</h2>}
+                      {this.state.usersRanking[2] ? <h2>2. {this.state.usersRanking[2]} </h2> : <h2>2. -</h2>}
+                  </div>
                 </CardText>
             </Card>
           

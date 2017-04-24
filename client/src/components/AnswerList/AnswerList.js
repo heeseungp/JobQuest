@@ -187,7 +187,6 @@ export default class AnswerList extends Component {
 
 AnswerList.propTypes = {
     answer: React.PropTypes.object.isRequired,
-    router: React.PropTypes.object.isRequired,
     editAnswer: React.PropTypes.func.isRequired,
     deleteAnswer: React.PropTypes.func.isRequired
 };

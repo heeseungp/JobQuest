@@ -7,21 +7,23 @@ import Auth from '../../modules/Auth';
 import axios from 'axios';
 import Response from '../../modules/Response';
 import AlertDialog from '../AlertDialog/AlertDialog';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 
 
 const ThreadListPage = React.createClass({
 
   getInitialState(){
     return {
-      threads: undefined
+      threads: undefined,
+      sortvalue: 'votes'
     }
   },
 
   interceptError(err){
       Response.setError(err);
       //Force rerendering components
-      //Apparently one forceUpdate is not enough to show the dialog on the first call
-      //This is a dirty hack to get it to work the first time
       this.forceUpdate();
       this.forceUpdate();
   },
@@ -77,14 +79,39 @@ const ThreadListPage = React.createClass({
       });
   },
 
+handleChange(event, index, value){
+  console.log(value);
+  this.setState({sortvalue:value});
+},
+
   render: function(){
+
+    const style = {
+      height: 60,
+      width:180,
+      margin: 20,
+      content: {
+        textAlign:'center',
+        padding: 3,
+      },
+    };
 
     return (
         <div>
           <AlertDialog errorMsg={Response.getError()} open={Response.isErrorSet()} />
+
+          <Paper style={style} zDepth={1}>
+          <DropDownMenu style={{display:'inline-block'}} value={this.state.sortvalue} onChange={this.handleChange}>
+            <MenuItem value={'votes'} primaryText="Sort By Votes" />
+            <MenuItem value={'created_at'} primaryText="Sort By Date" />
+            <MenuItem value={'comments'} primaryText="Sort By # Comments" />
+            <MenuItem value={'title'} primaryText="Sort By Title" />
+        </DropDownMenu>
+        </Paper>
           <ThreadItemContainer threads={this.state.threads}
                               onUpvote={this.upvoteThread}
-                              onDownvote={this.downvoteThread} />
+                              onDownvote={this.downvoteThread}
+                              sortvalue={this.state.sortvalue} />
         </div>
     );
   }

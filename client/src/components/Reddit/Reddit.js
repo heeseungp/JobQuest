@@ -48,8 +48,8 @@ class Reddit extends Component {
         {this.state.redditposts ? 
           this.state.redditposts.map((redditpost, idx) => {
             return (
-              <div className="post">
-                <a href={redditpost.link} className="link" key={idx} title={redditpost.title} target="_blank">
+              <div key={idx} className="post">
+                <a href={redditpost.link} className="link" title={redditpost.title} target="_blank">
                   <p className="truncate">{redditpost.title}</p>
                 </a>
                 <div className="info">

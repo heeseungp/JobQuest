@@ -62,9 +62,6 @@ export default class InterviewPage extends Component {
 
     interceptError(err){
       Response.setError(err);
-      //Force rerendering components
-      //Apparently one forceUpdate is not enough to show the dialog on the first call
-      //This is a dirty hack to get it to work the first time
       this.forceUpdate();
       this.forceUpdate();
   }
@@ -193,6 +190,7 @@ export default class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            this.interceptError(err);
         });
     }
 
@@ -208,6 +206,7 @@ export default class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            this.interceptError(err);
         });
     }
 
@@ -347,7 +346,6 @@ export default class InterviewPage extends Component {
         return(
 
             <div className="container">
-                <AlertDialog errorMsg={Response.getError()} isOpen={Response.isErrorSet()} />
                 <Paper>
                     <div>
                         <div className="titlee">
@@ -364,6 +362,9 @@ export default class InterviewPage extends Component {
                             </IconMenu>
                         </div>                 
                     </div>
+
+                    <AlertDialog errorMsg={Response.getError()} open={Response.isErrorSet()} />
+
                     <div>
                         <Dialog
                             title="Edit your Interview Question"

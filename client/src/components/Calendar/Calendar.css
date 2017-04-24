@@ -1,1 +1,112 @@
 
+.calendarContainer {
+  padding: 20px;
+  color: #000;
+  /*width: 1;*/
+  text-align: center;
+  background-color: #FFF;
+}
+
+.fullCalendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dayContainer {
+  overflow: hidden;
+}
+
+.day {
+  cursor: pointer;
+  float: left;
+  height: 34px;
+  width: 34px;
+  color: #000;
+  padding-top: 6px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#actualDate {
+  width: 40%;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.arrow {
+  border: none;
+  background: none;
+  line-height: 3em;
+  cursor: pointer;
+  color: #000;
+  font-size: 1em;
+  font-weight: 700;
+}
+.prev {
+  transform: rotate(180deg);
+}
+.arrow:focus {
+  outline: none !important;
+}
+
+.today {
+  background-color: #4FC3F7;
+  color: #fff;
+  font-weight: 700;
+}
+
+.note {
+  cursor: pointer;
+  background-color: #F7CA18;
+  color: #000000;
+  font-weight: 700;
+}
+
+.clear {
+  clear: both;
+}
+
+.daysWeek {
+  cursor: default;
+  height: 34px;
+  width: 34px;
+  font-weight: 700;
+  color: black;
+  text-transform: uppercase;
+}
+
+.todoDay {
+  min-height: 150px;
+  padding: 20px;
+  font-size: 2em;
+  background-color: #811eb2;
+  color: #FFFFFF;
+  text-align:center;
+}
+
+.todoDay p {
+  color: #FFFFFF;
+  font-size: 24px;
+  padding-bottom: 5px;
+  
+}
+
+#todayNote {
+  font-size: 15px;
+  white-space: pre-line;
+}
+
+.filled-in + label {
+  color: #fff;
+}
+
+.scrollbar p {
+  margin: 0;
+}
+
+.scrollbar p label {
+  color: black;
+  font-size: 20px;
+}
+

@@ -3,6 +3,7 @@
     font-size: 2vw;
     font-weight: bold; 
     color: purple;
+    display: inline-block;
 }
 
 .topic {
@@ -40,5 +41,8 @@
 }
 
 .menu {
- display: inline-block;
+    display: inline-block;
+    width: 0;
+    position: initial;
+    float: right;
 }

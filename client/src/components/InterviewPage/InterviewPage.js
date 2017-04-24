@@ -153,7 +153,6 @@ export default class InterviewPage extends Component {
         .then((res) => {
             console.log('sucess, edited', res);
             this.setState({thisQuestion: res.data});
-            this.props.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
         })
         .catch((err) => {
             console.log(err);
@@ -350,8 +349,10 @@ export default class InterviewPage extends Component {
             <div className="container">
                 <AlertDialog errorMsg={Response.getError()} isOpen={Response.isErrorSet()} />
                 <Paper>
-                    <div className="titlee">
-                        {this.state.thisQuestion.title}   
+                    <div>
+                        <div className="titlee">
+                            {this.state.thisQuestion.title}
+                        </div>   
                         <div className="menu">
                             <IconMenu
                                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -363,7 +364,6 @@ export default class InterviewPage extends Component {
                             </IconMenu>
                         </div>                 
                     </div>
-
                     <div>
                         <Dialog
                             title="Edit your Interview Question"

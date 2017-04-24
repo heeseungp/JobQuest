@@ -191,37 +191,37 @@ export default class InterviewItemContainer extends Component {
     const styleChip = {
       all: {
         backgroundColor: green500,
-        width: '130px'
+        width: '160px'
       },
 
       algorithm: {
         backgroundColor: pink300,
-        width: '130px'
+        width: '160px'
       },
 
       database: {
         backgroundColor: purple300,
-        width: '130px'
+        width: '160px'
       },
 
       shell: {
         backgroundColor: yellow300,
-        width: '130px'      
+        width: '160px'      
       },
 
       softwareengineering: {
         backgroundColor: blue300,
-        width: '130px'
+        width: '160px'
       },
 
       systemdesign: {
         backgroundColor: orange300,
-        width: '130px'
+        width: '160px'
       },
 
       miscellaneous: {
         backgroundColor: grey300,
-        width: '130px'
+        width: '160px'
       },
 
       labelStyle: {
@@ -253,7 +253,7 @@ export default class InterviewItemContainer extends Component {
                     <Chip style={styleChip.shell} onTouchTap={this.handleTopicShell} labelColor={grey900} labelStyle={styleChip.labelStyle}>Shell</Chip>
                   </div>
                   <div className="filter_gap">
-                    <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900} labelStyle={styleChip.labelStyle}>Software Eng.</Chip>
+                    <Chip style={styleChip.softwareengineering} onTouchTap={this.handleTopicSoftwareEngineering} labelColor={grey900} labelStyle={styleChip.labelStyle}>Software Engineering</Chip>
                   </div>
                   <div className="filter_gap">
                     <Chip style={styleChip.systemdesign} onTouchTap={this.handleTopicSystemDesign} labelColor={grey900} labelStyle={styleChip.labelStyle}>System Design</Chip>

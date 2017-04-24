@@ -58,7 +58,7 @@ export default class InterviewItem extends Component {
 
     const styles = {
       chip: {
-        width: '130px'
+        width: '160px'
       },
       wrapper: {
         display: 'flex',

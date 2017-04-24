@@ -14,6 +14,7 @@ export default {
     borderColor: Colors.grey300,
     pickerHeaderColor: Colors.cyan500,
     shadowColor: Colors.fullBlack,
+    fontFamily:'<Sans-serif></Sans-serif>',
   },
   appBar: {
     height: 50,

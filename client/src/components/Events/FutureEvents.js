@@ -28,7 +28,6 @@ class FutureEvents extends Component{
       },
       title: {
         textAlign: 'center',
-        fontFamily: 'Luciana Console',
         fontSize: 30,
         fontWeight: 'bold',
         padding: 10,

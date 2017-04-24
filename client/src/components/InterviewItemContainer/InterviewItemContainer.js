@@ -180,6 +180,7 @@ export default class InterviewItemContainer extends Component {
 
     const styleLabel = {
       fontSize: '25px', 
+      rows: 'auto',
       fontFamily:'<Sans-serif></Sans-serif>',
       color: grey50
     }
@@ -275,7 +276,7 @@ export default class InterviewItemContainer extends Component {
           <GridTile cols={4} rows={'auto'}>
             <Card zDepth={2} style={styleCard.right}>
               <Link to='/postNewInterview'>
-                <RaisedButton backgroundColor={purple500} labelStyle={styleLabel} label="Submit a New Question" fullWidth={true}/>
+                <RaisedButton backgroundColor={purple500} labelStyle={styleLabel} label="Submit a New Question" fullWidth={true} />
               </Link>
               <CardText 
                 style={styleFont.description}>

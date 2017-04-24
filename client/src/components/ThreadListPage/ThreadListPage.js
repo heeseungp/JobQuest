@@ -88,12 +88,8 @@ handleChange(event, index, value){
 
     const style = {
       height: 60,
-      width:180,
+      width:220,
       margin: 20,
-      content: {
-        textAlign:'center',
-        padding: 3,
-      },
     };
 
     return (

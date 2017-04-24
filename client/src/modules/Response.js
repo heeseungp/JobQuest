@@ -12,7 +12,6 @@ class Response {
      * @param {object} error
      */
     static setError(error) {
-        console.log('Intercepted an error');
         this.ErrorTitle = error.response.status + " " + error.response.statusText;
         this.ErrorMsg = JSON.stringify(error.response.data);
     }
@@ -22,7 +21,6 @@ class Response {
      *
      */
     static getError() {
-        console.log('Got the error info');
        return {title: this.ErrorTitle, text: this.ErrorMsg};
     }
 
@@ -31,7 +29,9 @@ class Response {
      *
      */
     static isErrorSet() {
-        console.log('Error ',this.ErrorTitle,this.ErrorMsg);
+        if((this.ErrorTitle !== undefined) && (this.ErrorMsg !== undefined)){
+            console.log('Error: ',this.ErrorTitle,this.ErrorMsg);
+        }
         return (this.ErrorTitle !== undefined) && (this.ErrorMsg !== undefined);
     }
 

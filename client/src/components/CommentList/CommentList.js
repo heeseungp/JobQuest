@@ -12,8 +12,8 @@ class CommentList extends Component {
     return (
       <div>
           { this.props.comments ? 
-            this.props.comments.map((comment) => (
-              <Paper> 
+            this.props.comments.map((comment, idx) => (
+              <Paper key={idx}> 
                 <div style={{float:'right'}}>
                   <EditDialog commentId={comment._id} comment={comment.text} onEdit={this.props.onEdit} />
                   <DeleteDialog commentId={comment._id} onDelete={this.props.onDelete} />

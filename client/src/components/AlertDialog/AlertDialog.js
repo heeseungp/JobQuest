@@ -23,16 +23,14 @@ export default class AlertDialog extends React.Component {
   };
 
     shouldComponentUpdate(nextProps){
+    //console.log(nextProps);
     if(nextProps.open === true){
-    this.setState({ openstate: nextProps.open});
-    //console.log('this',this.props);
-    //console.log('nextprops',nextProps);
-    //console.log('nextstate',nextState);
-    return true;
-  }
-  else{
-    return false;
-  }
+      this.setState({ openstate: true});
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   render() {

@@ -109,6 +109,7 @@ class InterviewForm extends Component {
                   <MenuItem value={'Shell'} primaryText="Shell" />
                   <MenuItem value={'Software Engineering'} primaryText="Software Engineering" />
                   <MenuItem value={'System Design'} primaryText="System Design" />
+                  <MenuItem value={'Miscellaneous'} primaryText="Miscellaneous" />
                 </DropDownMenu>
               </div>
 

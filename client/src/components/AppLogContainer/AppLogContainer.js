@@ -7,15 +7,8 @@ import AppChart from '../AppChart/AppChart';
 class AppLogContainer extends Component{
 
     render(){
-       return(
-        <GridList cellHeight={'auto'}>
-           <GridTile> 
+       return(    
                <AppLogTable />
-           </GridTile>
-           <GridTile>
-               <AppChart />
-            </GridTile>
-        </GridList>
         );
     }   
 }

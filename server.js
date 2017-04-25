@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 // passport middleware
 app.use(passport.initialize());
 
+// for deployment
+app.use(express.static('client/build'));
+
 // load passport strategies
 var localSignupStrategy = require('./app/passport/local-signup');
 var localLoginStrategy = require('./app/passport/local-login');

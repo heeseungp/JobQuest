@@ -136,21 +136,24 @@ export default class AnswerList extends Component {
             <div>   
                 {this.props.answer ?
                 <Card>
-                    <CardTitle title={this.state.originalAnswerData.author} subtitle={<Moment>{this.state.originalAnswerData.created_at}</Moment>} />
+                    <div>
+                        <div className="author">
+                            <CardTitle title={this.state.originalAnswerData.author} subtitle={<Moment>{this.state.originalAnswerData.created_at}</Moment>} />
+                        </div>
+                        <div className="menu">
+                            <IconMenu
+                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                >
+                                <MenuItem onClick={this.handleEditInterviewOpen} primaryText="Edit" />
+                                <MenuItem onClick={this.handleDeleteInterviewOpen} primaryText="Delete" />
+                            </IconMenu>
+                        </div>    
+                    </div>
                     <CardText>
                         {this.state.originalAnswerData.answerText}
                     </CardText>
-
-                    <div className="menu">
-                        <IconMenu
-                            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                            >
-                            <MenuItem onClick={this.handleEditInterviewOpen} primaryText="Edit" />
-                            <MenuItem onClick={this.handleDeleteInterviewOpen} primaryText="Delete" />
-                        </IconMenu>
-                    </div>
 
                     <div>
                         <Dialog
@@ -184,7 +187,6 @@ export default class AnswerList extends Component {
 
 AnswerList.propTypes = {
     answer: React.PropTypes.object.isRequired,
-    router: React.PropTypes.object.isRequired,
     editAnswer: React.PropTypes.func.isRequired,
     deleteAnswer: React.PropTypes.func.isRequired
 };

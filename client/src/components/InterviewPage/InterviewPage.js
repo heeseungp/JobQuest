@@ -62,9 +62,6 @@ export default class InterviewPage extends Component {
 
     interceptError(err){
       Response.setError(err);
-      //Force rerendering components
-      //Apparently one forceUpdate is not enough to show the dialog on the first call
-      //This is a dirty hack to get it to work the first time
       this.forceUpdate();
       this.forceUpdate();
   }
@@ -81,9 +78,7 @@ export default class InterviewPage extends Component {
     color() {
         var colorType;
         switch(this.state.thisQuestion.topic) {
-        case 'Software Engineering':
-            colorType = blue300;
-            break;
+
         case 'Algorithm':
             colorType = pink300;
             break;
@@ -92,6 +87,9 @@ export default class InterviewPage extends Component {
             break;
         case 'Shell':
             colorType = yellow300;
+            break;
+        case 'Software Engineering':
+            colorType = blue300;
             break;
         case 'System Design':
             colorType = orange300;
@@ -152,7 +150,6 @@ export default class InterviewPage extends Component {
         .then((res) => {
             console.log('sucess, edited', res);
             this.setState({thisQuestion: res.data});
-            this.props.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
         })
         .catch((err) => {
             console.log(err);
@@ -193,6 +190,7 @@ export default class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            this.interceptError(err);
         });
     }
 
@@ -208,6 +206,7 @@ export default class InterviewPage extends Component {
         })
         .catch((err) => {
             console.log(err);
+            this.interceptError(err);
         });
     }
 
@@ -347,10 +346,11 @@ export default class InterviewPage extends Component {
         return(
 
             <div className="container">
-                <AlertDialog errorMsg={Response.getError()} isOpen={Response.isErrorSet()} />
                 <Paper>
-                    <div className="titlee">
-                        {this.state.thisQuestion.title}   
+                    <div>
+                        <div className="titlee">
+                            {this.state.thisQuestion.title}
+                        </div>   
                         <div className="menu">
                             <IconMenu
                                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -362,6 +362,8 @@ export default class InterviewPage extends Component {
                             </IconMenu>
                         </div>                 
                     </div>
+
+                    <AlertDialog errorMsg={Response.getError()} open={Response.isErrorSet()} />
 
                     <div>
                         <Dialog

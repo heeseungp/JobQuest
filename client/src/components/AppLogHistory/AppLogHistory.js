@@ -164,6 +164,7 @@ class AppLogTable extends Component{
 
 
     render(){
+        //added 
         var piechart = [];
         if(this.state.stats.applied){
             piechart.push({x:'applied', y:this.state.stats.applied});

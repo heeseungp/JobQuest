@@ -5,6 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import UserProfile from '../UserProfile/UserProfile';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 /*Need to clean this code before April begins */
 class AppLogTable extends Component{
     constructor(props){
@@ -20,7 +23,7 @@ class AppLogTable extends Component{
             //states are for post
             company:'',
             role:'',
-            status:'',
+            status:'applied',
             //state for edit 
             edit:false
         };
@@ -39,7 +42,7 @@ class AppLogTable extends Component{
     //states that are defined to set up post http request
     handleCompany(event){this.setState({company:event.target.value});}
     handleRole(event){this.setState({role:event.target.value});}
-    handleStatus(event){this.setState({status:event.target.value});}
+    handleStatus(event, index, value){this.setState({status:value});}
    
     //state defined to handle edit  
     handleModify(){
@@ -105,7 +108,7 @@ class AppLogTable extends Component{
                     applications: copy,
                     company:'',
                     role:'',
-                    status:''
+                    status:'applied'
                 })
             })
             .catch(err => {console.log(err);});
@@ -126,7 +129,7 @@ class AppLogTable extends Component{
                     applications: copy,
                     company:'',
                     role:'',
-                    status:''
+                    status:'applied'
                })
             })
             .catch(err => {console.log(err);});
@@ -174,11 +177,13 @@ class AppLogTable extends Component{
                         value={this.state.role} 
                         onChange={this.handleRole} 
                         style={{width:80,margin:10}}/>
-                    <TextField 
-                        hintText="Status" 
-                        value={this.state.status} 
-                        onChange={this.handleStatus} 
-                        style={{width:80,margin:10}}/>
+                    <DropDownMenu style={{display:'inline-block'}} value={this.state.status} onChange={this.handleStatus}>
+                        <MenuItem value={'applied'} primaryText="Applied" />
+                        <MenuItem value={'interview'} primaryText="Interview" />
+                        <MenuItem value={'phone'} primaryText="Phone" />
+                        <MenuItem value={'accepted'} primaryText="Accepted" />
+                        <MenuItem value={'rejected'} primaryText="Rejected" />
+                    </DropDownMenu>
                     <br />
                     <RaisedButton label="Submit" type="submit" />
                     <RaisedButton label="Delete" onClick={this.handleDelete} />

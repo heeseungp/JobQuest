@@ -8,10 +8,10 @@ const AboutPage = () => (
     <CardTitle title="About JobQuest" className="title"/>
     <div>
       <p>
-      	JobQuest is a web app designed to help users keep track of their job application history, as well as share that history with others.
+      	JobQuest is a web app designed to help users with their job search by keeping track of their job application history, providing a forum to discuss computer science career topics, and post/answer interview questions.
       </p>
       <p>
-      	This site was created during the CUNY Codes program in the Spring of 2017.
+      	This site was created during the CUNY Codes program in the Spring of 2017 by Kenichi Yamamoto, Enmanuel Almanzar, Joseph Park, Yosef Yudborovsky, Daniel Chia.
       </p>
     </div>
   </Card>

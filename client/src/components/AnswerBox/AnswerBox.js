@@ -1,8 +1,9 @@
+import './AnswerBox.css';
 import React, { Component } from 'react';
 import CommentList from '../CommentList/CommentList';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import './AnswerBox.css';
+import {purple400} from 'material-ui/styles/colors';
 
 export default class AnswerBox extends Component {
 
@@ -27,6 +28,11 @@ export default class AnswerBox extends Component {
   }
 
   render() {
+
+    const styleButton = {
+      width: '500px'
+    }
+    
     return (
       <div>
         <div className="additional">
@@ -38,7 +44,7 @@ export default class AnswerBox extends Component {
         </div>
 
         <div className="answerButton">
-          <RaisedButton label="Submit" onClick={this.handleClick} />
+          <RaisedButton labelColor={purple400} style={styleButton} label="Submit" onClick={this.handleClick} />
         </div>
       </div>
     );

@@ -10,7 +10,29 @@ class AppChart extends Component{
             applications:[],
             stats:{}
         }
+        this.update=function(){
+            console.log('checking');
+        }
     }
+
+    // update(){
+    //     const url='/applications/';
+    //     axios.get(url)
+    //     .then(res => {
+    //         var object ={
+    //             applied:0,
+    //             interview:0,
+    //             phone:0,
+    //             accepted:0,
+    //             rejected:0
+    //         }
+    //         for(let i=0; i< res.data.length;i++){  
+    //             object[res.data[i].status.toLowerCase()]++;
+    //          }
+    //         this.setState({applications: res.data, stats:object});
+    //         this.forceUpdate();
+    //     });
+    // };
 
     componentDidMount(){
         const url='/applications/';
@@ -24,12 +46,13 @@ class AppChart extends Component{
                 rejected:0
             }
             for(let i=0; i< res.data.length;i++){  
+                console.log('app item', res.data[i]);
                 object[res.data[i].status.toLowerCase()]++;
              }
             this.setState({applications: res.data, stats:object});
 
-        });
-    }
+        });  
+    };
     render(){
        //create an object to add count the number of status it has
        console.log(this.state.stats);
@@ -42,7 +65,8 @@ class AppChart extends Component{
                             {x:'applied', y:this.state.stats.applied},
                             {x:'phone', y:this.state.stats.phone},
                             {x:'accepted', y:this.state.stats.accepted},
-                            {x:'rejected', y:this.state.stats.rejected}
+                            {x:'rejected', y:this.state.stats.rejected},
+                            {x:'interview', y:this.state.stats.interview}
                         ]}
                         width={400}
                         height={300}

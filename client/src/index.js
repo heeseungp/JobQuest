@@ -12,7 +12,7 @@ import Auth from './modules/Auth';
 
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
-console.log = function() {};
+//console.log = function() {};
 
 ReactDOM.render((
   <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>

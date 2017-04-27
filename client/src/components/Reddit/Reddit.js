@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 import update from 'immutability-helper';
 import './Reddit.css';
+import Moment from 'react-moment';
 
 class Reddit extends Component {
   // has to be switched back to a class Component
@@ -36,7 +37,7 @@ class Reddit extends Component {
 
     //wish there was a way to make these auto-wrap around the contents...
     const style = {
-      width: 580,
+      width: '33%',
       margin: 20,
       padding: 10
     };
@@ -54,7 +55,7 @@ class Reddit extends Component {
                 </a>
                 <div className="info">
                   <span>Votes: {redditpost.votes} | </span>
-                  <span>Posted: {redditpost.created_at.substring(0,10)}</span>
+                  <span>Posted: {<Moment>{redditpost.created_at}</Moment>}</span>
                 </div>
               </div>
             ); 

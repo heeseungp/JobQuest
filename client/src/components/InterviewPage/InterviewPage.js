@@ -27,7 +27,7 @@ export default class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            thisQuestion: {},
+            thisQuestion: {value:''},
 
             editopen: false,
             deleteopen: false,
@@ -78,9 +78,7 @@ export default class InterviewPage extends Component {
     color() {
         var colorType;
         switch(this.state.thisQuestion.topic) {
-        case 'Software Engineering':
-            colorType = blue300;
-            break;
+
         case 'Algorithm':
             colorType = pink300;
             break;
@@ -89,6 +87,9 @@ export default class InterviewPage extends Component {
             break;
         case 'Shell':
             colorType = yellow300;
+            break;
+        case 'Software Engineering':
+            colorType = blue300;
             break;
         case 'System Design':
             colorType = orange300;
@@ -120,7 +121,7 @@ export default class InterviewPage extends Component {
 
     handleEditInterviewOpen () {
         this.setState({editopen: true});
-        this.setState({value: this.state.thisQuestion.value});
+        this.setState({value: this.state.thisQuestion.topic});
         this.setState({title: this.state.thisQuestion.title});
         this.setState({question: this.state.thisQuestion.question});
         this.setState({originalAnswer: this.state.thisQuestion.originalAnswer});
@@ -149,7 +150,6 @@ export default class InterviewPage extends Component {
         .then((res) => {
             console.log('sucess, edited', res);
             this.setState({thisQuestion: res.data});
-            this.props.router.replace('/interviewQuestions/' + this.props.params.id + '/show');
         })
         .catch((err) => {
             console.log(err);
@@ -277,7 +277,7 @@ export default class InterviewPage extends Component {
 
         const actions = [
             //title, topic, question, answer
-                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
+                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false}>
                   <MenuItem value={'Algorithm'} primaryText="Algorithm" />
                   <MenuItem value={'Database'} primaryText="Database" />
                   <MenuItem value={'Shell'} primaryText="Shell" />
@@ -347,8 +347,10 @@ export default class InterviewPage extends Component {
 
             <div className="container">
                 <Paper>
-                    <div className="titlee">
-                        {this.state.thisQuestion.title}   
+                    <div>
+                        <div className="titlee">
+                            {this.state.thisQuestion.title}
+                        </div>   
                         <div className="menu">
                             <IconMenu
                                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}

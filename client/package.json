@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "hashmap": "^2.1.0",
     "immutability-helper": "^2.1.2",
     "marked": "^0.3.6",
     "material-ui": "^0.16.5",

@@ -14,7 +14,7 @@ const HomePage = () => (
     <div className="features">
       <figure className="homepageImg">
         <div className="testing">
-          <img src="backgrounds/jobquest_logo.png" />
+          <img src="backgrounds/jq-homepage.png" />
         </div>
       </figure>
     </div>

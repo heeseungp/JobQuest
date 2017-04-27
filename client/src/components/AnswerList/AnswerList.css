@@ -2,3 +2,11 @@
     margin-left:500px;
     padding: 500px;
 }
+
+.author {
+    display: inline-block;
+}
+
+.menu {
+    position: initial;
+}

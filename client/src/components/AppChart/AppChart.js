@@ -46,6 +46,7 @@ class AppChart extends Component{
                 rejected:0
             }
             for(let i=0; i< res.data.length;i++){  
+                console.log('app item', res.data[i]);
                 object[res.data[i].status.toLowerCase()]++;
              }
             this.setState({applications: res.data, stats:object});
@@ -64,7 +65,8 @@ class AppChart extends Component{
                             {x:'applied', y:this.state.stats.applied},
                             {x:'phone', y:this.state.stats.phone},
                             {x:'accepted', y:this.state.stats.accepted},
-                            {x:'rejected', y:this.state.stats.rejected}
+                            {x:'rejected', y:this.state.stats.rejected},
+                            {x:'interview', y:this.state.stats.interview}
                         ]}
                         width={400}
                         height={300}

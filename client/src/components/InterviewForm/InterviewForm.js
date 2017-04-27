@@ -14,7 +14,7 @@ class InterviewForm extends Component {
   constructor(props){
     super(props);
 
-    this.state = {value: '', title: '', question:'', originalAnswer:'', errorText: ''};
+    this.state = {value: 'Algorithm', title: '', question:'', originalAnswer:'', errorText: ''};
     this.handleAnswer = this.handleAnswer.bind(this);
     // this.handleTopic = this.handleTopic.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
@@ -103,7 +103,7 @@ class InterviewForm extends Component {
             <form onSubmit={this.handleSubmit}>
 
             <div id="topic">
-                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
+                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false}>
                   <MenuItem value={'Algorithm'} primaryText="Algorithm" />
                   <MenuItem value={'Database'} primaryText="Database" />
                   <MenuItem value={'Shell'} primaryText="Shell" />

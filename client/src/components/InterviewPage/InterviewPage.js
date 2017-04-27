@@ -27,7 +27,7 @@ export default class InterviewPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            thisQuestion: {},
+            thisQuestion: {value:''},
 
             editopen: false,
             deleteopen: false,
@@ -121,7 +121,7 @@ export default class InterviewPage extends Component {
 
     handleEditInterviewOpen () {
         this.setState({editopen: true});
-        this.setState({value: this.state.thisQuestion.value});
+        this.setState({value: this.state.thisQuestion.topic});
         this.setState({title: this.state.thisQuestion.title});
         this.setState({question: this.state.thisQuestion.question});
         this.setState({originalAnswer: this.state.thisQuestion.originalAnswer});
@@ -277,7 +277,7 @@ export default class InterviewPage extends Component {
 
         const actions = [
             //title, topic, question, answer
-                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false} openImmediately={true}>
+                <DropDownMenu style={styleCustomWidth} value={this.state.value} onChange={this.handleTopic} autoWidth={false}>
                   <MenuItem value={'Algorithm'} primaryText="Algorithm" />
                   <MenuItem value={'Database'} primaryText="Database" />
                   <MenuItem value={'Shell'} primaryText="Shell" />

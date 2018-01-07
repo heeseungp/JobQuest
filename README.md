@@ -1,4 +1,9 @@
 # JobQuest
+JobQuest is a web-based social platform that provides centralized solutions for job seekers.
+
+Centralized solutions include interactive forum, job application log, interview preparation, and a resouce page.
+
+Link to the video (live demo from CUNYCodes night): https://www.youtube.com/watch?v=uNeC0QaZ4Vs
 
 ## RESTful API Reference
 
